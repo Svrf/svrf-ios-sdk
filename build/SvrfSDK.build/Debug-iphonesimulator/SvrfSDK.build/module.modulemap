@@ -1,0 +1,11 @@
+framework module SvrfSDK {
+  umbrella header "SvrfSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module SvrfSDK.Swift {
+    header "SvrfSDK-Swift.h"
+    requires objc
+}

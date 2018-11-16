@@ -8,12 +8,12 @@
 
 import XCTest
 import SVRFClientSwift
-@testable import SvrfSDK
+//@testable import SvrfSDK
 
 fileprivate var token: String? = nil
 
 class SvrfSDKTests: XCTestCase {
-
+    
     private let correctApiKey = "f6de923045ee225bbaa237c973228e5a"
     private let incorrectApiKey = "incorrectApiKey"
     private let requestTimeOut: Double = 30
@@ -513,5 +513,5 @@ class SvrfSDKTests: XCTestCase {
         }
         waitForExpectations(timeout: requestTimeOut, handler: nil)
     }
-
+    
 }

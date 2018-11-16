@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FCA2F2E52F14C699FA1712BFAD9B5F7"
+               BlueprintIdentifier = "AD29CC4F16462C121F9EFBD3D65065F3"
                BlueprintName = "SVRFClientSwift"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "SVRFClientSwift.framework">

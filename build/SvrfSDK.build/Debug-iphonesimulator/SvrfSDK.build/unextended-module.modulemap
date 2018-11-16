@@ -1,0 +1,10 @@
+framework module SvrfSDK {
+  umbrella header "SvrfSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module SvrfSDK.__Swift {
+    exclude header "SvrfSDK-Swift.h"
+}
