@@ -12,6 +12,11 @@ import SvrfGLTFSceneKit
 import SceneKit
 import ARKit
 
+private enum ChildNode: String {
+    case Head = "Head"
+    case Occluder = "Occluder"
+}
+
 public class SvrfSDK: NSObject {
     
     private static let svrfApiKeyKey = "SVRF_API_KEY"
@@ -173,6 +178,30 @@ public class SvrfSDK: NSObject {
                 node.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
             }
         }
+    }
+    
+    public static func getHead(with node: SCNNode, device: MTLDevice) -> SCNNode {
+        
+        let head = SCNNode()
+        
+        if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
+            
+            head.addChildNode(occluderNode)
+            
+            let faceGeometry = ARSCNFaceGeometry(device: device)
+            head.geometry = faceGeometry
+            head.geometry?.firstMaterial?.colorBufferWriteMask = []
+            head.renderingOrder = -1
+        }
+        
+        if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
+            
+            head.addChildNode(headNode)
+        }
+        
+        head.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+        
+        return head
     }
     
     //MARK: private functions
