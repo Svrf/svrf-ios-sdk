@@ -185,7 +185,6 @@ public class SvrfSDK: NSObject {
         let head = SCNNode()
         
         if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
-            
             head.addChildNode(occluderNode)
             
             let faceGeometry = ARSCNFaceGeometry(device: device)
@@ -195,7 +194,6 @@ public class SvrfSDK: NSObject {
         }
         
         if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
-            
             head.addChildNode(headNode)
         }
         
