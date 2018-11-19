@@ -179,31 +179,34 @@ public class SvrfSDK: NSObject {
             }
         }
     }
-    
-    public static func getFaceFilter(with device: MTLDevice, glbModelUrl: URL) -> SCNNode {
+
+    public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
         
         let faceFilter = SCNNode()
-        let modelSource = GLTFSceneSource(url: glbModelUrl)
         
-        do {
-            let node = try modelSource.scene().rootNode
+        if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
+            let modelSource = GLTFSceneSource(url: glbUrl)
             
-            if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
-                faceFilter.addChildNode(occluderNode)
+            do {
+                let node = try modelSource.scene().rootNode
                 
-                let faceGeometry = ARSCNFaceGeometry(device: device)
-                faceFilter.geometry = faceGeometry
-                faceFilter.geometry?.firstMaterial?.colorBufferWriteMask = []
-                faceFilter.renderingOrder = -1
+                if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
+                    faceFilter.addChildNode(occluderNode)
+                    
+                    let faceGeometry = ARSCNFaceGeometry(device: device)
+                    faceFilter.geometry = faceGeometry
+                    faceFilter.geometry?.firstMaterial?.colorBufferWriteMask = []
+                    faceFilter.renderingOrder = -1
+                }
+                
+                if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
+                    faceFilter.addChildNode(headNode)
+                }
+                
+                faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+            } catch {
+                print(SvrfError.CreateScene)
             }
-            
-            if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
-                faceFilter.addChildNode(headNode)
-            }
-            
-            faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
-        } catch {
-            print(SvrfError.CreateScene)
         }
         
         return faceFilter
