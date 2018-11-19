@@ -18,4 +18,5 @@ public enum SvrfError: String {
     case MediaResponse = "SVRF: Media response error"
     case GetScene = "SVRF: Get scene error"
     case GetNode = "SVRF: Get node error"
+    case CreateScene = "SVRF: Create scene error"
 }
