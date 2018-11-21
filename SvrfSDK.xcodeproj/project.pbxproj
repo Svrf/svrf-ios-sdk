@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */; };
+		D174B987E603B4A2A48A75A8 /* Pods_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */; };
 		EC1EF171219A1189006F12B0 /* SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1EF167219A1189006F12B0 /* SvrfSDK.framework */; };
 		EC1EF176219A1189006F12B0 /* SvrfSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF175219A1189006F12B0 /* SvrfSDKTests.swift */; };
 		EC1EF178219A1189006F12B0 /* SvrfSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1EF16A219A1189006F12B0 /* SvrfSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
+		6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1EF167219A1189006F12B0 /* SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1EF16A219A1189006F12B0 /* SvrfSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SvrfSDK.h; sourceTree = "<group>"; };
 		EC1EF16B219A1189006F12B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,18 +73,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1EF171219A1189006F12B0 /* SvrfSDK.framework in Frameworks */,
+				D174B987E603B4A2A48A75A8 /* Pods_SvrfSDKTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2606348796305ED96EEC46CB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */,
+				002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */,
+				6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */,
+				A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A01ADA0DC9745D33B7FBDF35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */,
+				C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EC1EF15D219A1189006F12B0 = {
 			isa = PBXGroup;
 			children = (
 				EC1EF169219A1189006F12B0 /* SvrfSDK */,
 				EC1EF174219A1189006F12B0 /* SvrfSDKTests */,
 				EC1EF168219A1189006F12B0 /* Products */,
+				2606348796305ED96EEC46CB /* Pods */,
+				A01ADA0DC9745D33B7FBDF35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,6 +167,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC1EF17B219A1189006F12B0 /* Build configuration list for PBXNativeTarget "SvrfSDK" */;
 			buildPhases = (
+				064A9B2A429A6AE7B4A04C4C /* [CP] Check Pods Manifest.lock */,
 				EC1EF162219A1189006F12B0 /* Headers */,
 				EC1EF163219A1189006F12B0 /* Sources */,
 				EC1EF164219A1189006F12B0 /* Frameworks */,
@@ -153,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC1EF17E219A1189006F12B0 /* Build configuration list for PBXNativeTarget "SvrfSDKTests" */;
 			buildPhases = (
+				E524FF7C5767E1DB2AE53EBA /* [CP] Check Pods Manifest.lock */,
 				EC1EF16C219A1189006F12B0 /* Sources */,
 				EC1EF16D219A1189006F12B0 /* Frameworks */,
 				EC1EF16E219A1189006F12B0 /* Resources */,
+				888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +261,76 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		064A9B2A429A6AE7B4A04C4C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SvrfSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SVRFClientSwift/SVRFClientSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVRFClientSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SvrfGLTFSceneKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E524FF7C5767E1DB2AE53EBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SvrfSDKTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EC1EF187219A15AD006F12B0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -399,8 +504,8 @@
 		};
 		EC1EF17C219A1189006F12B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -431,8 +536,8 @@
 		};
 		EC1EF17D219A1189006F12B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -462,8 +567,8 @@
 		};
 		EC1EF17F219A1189006F12B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
@@ -481,8 +586,8 @@
 		};
 		EC1EF180219A1189006F12B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
