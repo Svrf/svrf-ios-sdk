@@ -29,6 +29,7 @@
 		EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */; };
 		EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */; };
 		EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CC219AAD23003C1108 /* SvrfError.swift */; };
+		EC9168DE21A5E1F000E306F3 /* SvrfJWTDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfSDK.swift; sourceTree = "<group>"; };
 		EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfSuccess.swift; sourceTree = "<group>"; };
 		EC75A3CC219AAD23003C1108 /* SvrfError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfError.swift; sourceTree = "<group>"; };
+		EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfJWTDecoder.swift; sourceTree = "<group>"; };
 		F1B7201A78F438EF5B3A9997 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 		EC75A3CF219AAEF6003C1108 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
@@ -360,6 +363,7 @@
 				EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */,
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
+				EC9168DE21A5E1F000E306F3 /* SvrfJWTDecoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
