@@ -12,6 +12,8 @@ import SvrfGLTFSceneKit
 import SceneKit
 import ARKit
 
+public typealias SvrfMedia = Media
+
 private enum ChildNode: String {
     case Head = "Head"
     case Occluder = "Occluder"
