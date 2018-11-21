@@ -13,6 +13,13 @@ import Analytics
 import SceneKit
 import ARKit
 
+public typealias SvrfMedia = Media
+
+private enum ChildNode: String {
+    case Head = "Head"
+    case Occluder = "Occluder"
+}
+
 public class SvrfSDK: NSObject {
     
     private static let svrfApiKeyKey = "SVRF_API_KEY"
@@ -174,6 +181,38 @@ public class SvrfSDK: NSObject {
                 node.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
             }
         }
+    }
+
+    public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
+        
+        let faceFilter = SCNNode()
+        
+        if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
+            let modelSource = GLTFSceneSource(url: glbUrl)
+            
+            do {
+                let node = try modelSource.scene().rootNode
+                
+                if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
+                    faceFilter.addChildNode(occluderNode)
+                    
+                    let faceGeometry = ARSCNFaceGeometry(device: device)
+                    faceFilter.geometry = faceGeometry
+                    faceFilter.geometry?.firstMaterial?.colorBufferWriteMask = []
+                    faceFilter.renderingOrder = -1
+                }
+                
+                if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
+                    faceFilter.addChildNode(headNode)
+                }
+                
+                faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+            } catch {
+                print(SvrfError.CreateScene)
+            }
+        }
+        
+        return faceFilter
     }
     
     //MARK: private functions

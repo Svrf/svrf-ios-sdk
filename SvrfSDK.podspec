@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
           #7.
           s.platform            = :ios, "11.0"
           #8.
-          s.source              = { :git => "https://github.com/AndreiEvstratenko/SvrfSDK.git", :tag => "1.0.0" }
+          s.source              = { :git => "https://github.com/SVRF/svrf-ios-sdk.git", :tag => "1.0.0" }
           #9.
           s.source_files     = "SvrfSDK/Source/*"
 	  #10
