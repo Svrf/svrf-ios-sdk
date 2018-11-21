@@ -506,7 +506,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4893786C8040449B8F01020 /* Pods-SvrfSDK.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -539,7 +538,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1B7201A78F438EF5B3A9997 /* Pods-SvrfSDK.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -571,7 +569,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0257B67F2EFB976F29D4FB51 /* Pods-SvrfSDKTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
@@ -591,7 +588,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EBC34918FBFC62D335C4D19E /* Pods-SvrfSDKTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
