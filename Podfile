@@ -6,6 +6,7 @@ target 'SvrfSDK' do
   use_frameworks!
   pod 'SVRFClientSwift'
   pod 'SvrfGLTFSceneKit'
+  pod 'Analytics', '~> 3.0'
 
   # Pods for SvrfSDK
 

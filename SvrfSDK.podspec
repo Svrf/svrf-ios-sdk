@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
 	  #10
           s.dependency       'SVRFClientSwift'
 	  s.dependency       'SvrfGLTFSceneKit'
+	  s.dependency       'Analytics', '~> 3.0'
           #11
           s.swift_version = "4.0" 
     end

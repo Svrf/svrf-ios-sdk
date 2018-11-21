@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14F30F0FAA02C5078A658CD1E4109254"
+               BlueprintIdentifier = "1142F23EF1B7B06E196F8FC54856EF7D"
                BlueprintName = "SvrfGLTFSceneKit"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "SvrfGLTFSceneKit.framework">

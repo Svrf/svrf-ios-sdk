@@ -144,11 +144,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVRFClientSwift/SVRFClientSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVRFClientSwift/SVRFClientSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework"
 fi

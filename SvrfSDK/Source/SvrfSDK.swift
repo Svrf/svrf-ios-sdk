@@ -9,6 +9,7 @@
 import Foundation
 import SVRFClientSwift
 import SvrfGLTFSceneKit
+import Analytics
 import SceneKit
 import ARKit
 
@@ -219,4 +220,12 @@ public class SvrfSDK: NSObject {
         return Date().addingTimeInterval(timeInterval)
     }
     
+    private static func setupAnalytics() {
+        
+        let configuration = SEGAnalyticsConfiguration(writeKey: "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA")
+        configuration.trackApplicationLifecycleEvents = true
+        configuration.recordScreenViews = true
+        
+        SEGAnalytics.setup(with: configuration)
+    }
 }
