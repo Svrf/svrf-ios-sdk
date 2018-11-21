@@ -26,6 +26,7 @@ public class SvrfSDK: NSObject {
     private static let svrfXAppTokenKey = "x-app-token"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
     private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
+    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
     
     private static let dispatchGroup = DispatchGroup()
     
@@ -33,6 +34,8 @@ public class SvrfSDK: NSObject {
     public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.enter()
+        
+        setupAnalytics()
         
         if !needUpdateToken() {
             if let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey) {
@@ -182,7 +185,7 @@ public class SvrfSDK: NSObject {
             }
         }
     }
-
+    
     public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
         
         let faceFilter = SCNNode()
@@ -207,6 +210,8 @@ public class SvrfSDK: NSObject {
                 }
                 
                 faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+                
+                SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
                 print(SvrfError.CreateScene)
             }
@@ -261,10 +266,19 @@ public class SvrfSDK: NSObject {
     
     private static func setupAnalytics() {
         
-        let configuration = SEGAnalyticsConfiguration(writeKey: "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA")
+        let configuration = SEGAnalyticsConfiguration(writeKey: svrfAnalyticsKey)
         configuration.trackApplicationLifecycleEvents = true
-        configuration.recordScreenViews = true
+        configuration.recordScreenViews = false
         
         SEGAnalytics.setup(with: configuration)
+        
+        if let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey) {
+            
+            let body = SvrfJWTDecoder.decode(jwtToken: authToken)
+            if let appId = body["appId"] as? String {
+                SEGAnalytics.shared().identify(appId)
+            }
+            
+        }
     }
 }
