@@ -1,6 +1,0 @@
-framework module SvrfGLTFSceneKit {
-  umbrella header "SvrfGLTFSceneKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

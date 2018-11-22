@@ -21,15 +21,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		87E7C7007C84C823215E9326 /* Pods_SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B275B86AD784173E2DB418B6 /* Pods_SvrfSDK.framework */; };
-		D8E48DC6DCD3AA1A86D1653C /* Pods_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7D0B6519FF796CAC7A54DD /* Pods_SvrfSDKTests.framework */; };
+		9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */; };
+		D174B987E603B4A2A48A75A8 /* Pods_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */; };
 		EC1EF171219A1189006F12B0 /* SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1EF167219A1189006F12B0 /* SvrfSDK.framework */; };
 		EC1EF176219A1189006F12B0 /* SvrfSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF175219A1189006F12B0 /* SvrfSDKTests.swift */; };
 		EC1EF178219A1189006F12B0 /* SvrfSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1EF16A219A1189006F12B0 /* SvrfSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */; };
 		EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */; };
 		EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CC219AAD23003C1108 /* SvrfError.swift */; };
-		EC9168DE21A5E1F000E306F3 /* SvrfJWTDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,11 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0257B67F2EFB976F29D4FB51 /* Pods-SvrfSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0B7D0B6519FF796CAC7A54DD /* Pods_SvrfSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B275B86AD784173E2DB418B6 /* Pods_SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4893786C8040449B8F01020 /* Pods-SvrfSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		EBC34918FBFC62D335C4D19E /* Pods-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
+		6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1EF167219A1189006F12B0 /* SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1EF16A219A1189006F12B0 /* SvrfSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SvrfSDK.h; sourceTree = "<group>"; };
 		EC1EF16B219A1189006F12B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,8 +57,6 @@
 		EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfSDK.swift; sourceTree = "<group>"; };
 		EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfSuccess.swift; sourceTree = "<group>"; };
 		EC75A3CC219AAD23003C1108 /* SvrfError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfError.swift; sourceTree = "<group>"; };
-		EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfJWTDecoder.swift; sourceTree = "<group>"; };
-		F1B7201A78F438EF5B3A9997 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87E7C7007C84C823215E9326 /* Pods_SvrfSDK.framework in Frameworks */,
+				9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,22 +73,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1EF171219A1189006F12B0 /* SvrfSDK.framework in Frameworks */,
-				D8E48DC6DCD3AA1A86D1653C /* Pods_SvrfSDKTests.framework in Frameworks */,
+				D174B987E603B4A2A48A75A8 /* Pods_SvrfSDKTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9CA3A8A58793C6EFC68B84E9 /* Pods */ = {
+		2606348796305ED96EEC46CB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E4893786C8040449B8F01020 /* Pods-SvrfSDK.debug.xcconfig */,
-				F1B7201A78F438EF5B3A9997 /* Pods-SvrfSDK.release.xcconfig */,
-				0257B67F2EFB976F29D4FB51 /* Pods-SvrfSDKTests.debug.xcconfig */,
-				EBC34918FBFC62D335C4D19E /* Pods-SvrfSDKTests.release.xcconfig */,
+				B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */,
+				002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */,
+				6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */,
+				A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A01ADA0DC9745D33B7FBDF35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */,
+				C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EC1EF15D219A1189006F12B0 = {
@@ -99,8 +106,8 @@
 				EC1EF169219A1189006F12B0 /* SvrfSDK */,
 				EC1EF174219A1189006F12B0 /* SvrfSDKTests */,
 				EC1EF168219A1189006F12B0 /* Products */,
-				EC1EF1A9219A170B006F12B0 /* Frameworks */,
-				9CA3A8A58793C6EFC68B84E9 /* Pods */,
+				2606348796305ED96EEC46CB /* Pods */,
+				A01ADA0DC9745D33B7FBDF35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,19 +139,9 @@
 			path = SvrfSDKTests;
 			sourceTree = "<group>";
 		};
-		EC1EF1A9219A170B006F12B0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B275B86AD784173E2DB418B6 /* Pods_SvrfSDK.framework */,
-				0B7D0B6519FF796CAC7A54DD /* Pods_SvrfSDKTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		EC75A3CF219AAEF6003C1108 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				EC9168DD21A5E1F000E306F3 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
@@ -170,7 +167,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC1EF17B219A1189006F12B0 /* Build configuration list for PBXNativeTarget "SvrfSDK" */;
 			buildPhases = (
-				470232C550E56323E33D4B2F /* [CP] Check Pods Manifest.lock */,
+				064A9B2A429A6AE7B4A04C4C /* [CP] Check Pods Manifest.lock */,
 				EC1EF162219A1189006F12B0 /* Headers */,
 				EC1EF163219A1189006F12B0 /* Sources */,
 				EC1EF164219A1189006F12B0 /* Frameworks */,
@@ -189,11 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC1EF17E219A1189006F12B0 /* Build configuration list for PBXNativeTarget "SvrfSDKTests" */;
 			buildPhases = (
-				9DE83D4598D27C0D32AB756C /* [CP] Check Pods Manifest.lock */,
+				E524FF7C5767E1DB2AE53EBA /* [CP] Check Pods Manifest.lock */,
 				EC1EF16C219A1189006F12B0 /* Sources */,
 				EC1EF16D219A1189006F12B0 /* Frameworks */,
 				EC1EF16E219A1189006F12B0 /* Resources */,
-				736507AE7AF9168B7E6B65E7 /* [CP] Embed Pods Frameworks */,
+				888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -264,7 +261,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		470232C550E56323E33D4B2F /* [CP] Check Pods Manifest.lock */ = {
+		064A9B2A429A6AE7B4A04C4C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -286,7 +283,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		736507AE7AF9168B7E6B65E7 /* [CP] Embed Pods Frameworks */ = {
+		888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,7 +293,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/SVRFClientSwift/SVRFClientSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework",
 			);
@@ -305,7 +301,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVRFClientSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SvrfGLTFSceneKit.framework",
 			);
@@ -314,7 +309,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9DE83D4598D27C0D32AB756C /* [CP] Check Pods Manifest.lock */ = {
+		E524FF7C5767E1DB2AE53EBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,7 +358,6 @@
 				EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */,
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
-				EC9168DE21A5E1F000E306F3 /* SvrfJWTDecoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +504,7 @@
 		};
 		EC1EF17C219A1189006F12B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4893786C8040449B8F01020 /* Pods-SvrfSDK.debug.xcconfig */;
+			baseConfigurationReference = B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -542,7 +536,7 @@
 		};
 		EC1EF17D219A1189006F12B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1B7201A78F438EF5B3A9997 /* Pods-SvrfSDK.release.xcconfig */;
+			baseConfigurationReference = 002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -573,7 +567,7 @@
 		};
 		EC1EF17F219A1189006F12B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0257B67F2EFB976F29D4FB51 /* Pods-SvrfSDKTests.debug.xcconfig */;
+			baseConfigurationReference = 6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;
@@ -592,7 +586,7 @@
 		};
 		EC1EF180219A1189006F12B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBC34918FBFC62D335C4D19E /* Pods-SvrfSDKTests.release.xcconfig */;
+			baseConfigurationReference = A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V88MRDGKUF;

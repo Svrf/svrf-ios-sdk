@@ -1,6 +1,0 @@
-framework module SVRFClientSwift {
-  umbrella header "SVRFClientSwift-umbrella.h"
-
-  export *
-  module * { export * }
-}
