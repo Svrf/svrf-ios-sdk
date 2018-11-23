@@ -1,7 +1,0 @@
-version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
-options: "a2a42b3d24d77b0fcafe26140dca70cb"
-build_time: [1542110550, 923669000]
-inputs:
-  "/Users/andreyevstratenko/Desktop/SVRFTests/SvrfSDK/Source/SvrfSuccess.swift": !dirty [1542110308, 0]
-  "/Users/andreyevstratenko/Desktop/SVRFTests/SvrfSDK/Source/SvrfSDK.swift": !dirty [1542110308, 0]
-  "/Users/andreyevstratenko/Desktop/SVRFTests/SvrfSDK/Source/SvrfError.swift": !dirty [1542110308, 0]
