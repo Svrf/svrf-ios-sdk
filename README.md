@@ -118,9 +118,9 @@ return *[Media]?*
 
 return *[Media]?*
 
-### getMedia
+### Media by ID Endpoint
 
-TODO: Add Description
+Fetch media by its ID.
 
 ```swift
 // Add example
