@@ -75,9 +75,9 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 
 ```swift
 SvrfSDK.authenticate(onSuccess: {
-
+    // Do what you want when success
 }) { error in
-
+    // Do what you want with the error
 }
 ```
 
@@ -87,9 +87,9 @@ SvrfSDK.authenticate(onSuccess: {
 
 ```swift
 SvrfSDK.search(query: "five eyes", type: [._3d], stereoscopicType: nil, category: nil, size: 10, pageNum: nil, onSuccess: { mediaArray in
-            
+    // Do what you want with the mediaArray        
 }) { error in
-            
+    // Do what you want with the error         
 }
 ```
 
@@ -110,9 +110,9 @@ return *[Media]?*
 
 ```swift
 SvrfSDK.getTrending(type: [._3d], stereoscopicType: nil, category: nil, size: 10, nextPageCursor: nil, onSuccess: { mediaArray in
-            
+    // Do what you want with the mediaArray        
 }) { error in
-            
+    // Do what you want with the error            
 }
 ```
 
@@ -132,9 +132,9 @@ Fetch media by its ID.
 
 ```swift
 SvrfSDK.getMedia(id: "549837", onSuccess: { media in
-            
+    // Do what you want with the media            
 }) { error in
-            
+    // Do what you want with the error            
 }
 ```
 
@@ -146,17 +146,18 @@ return *Media?*
 
 ### getNodeFromMedia
 
-TODO: Add Description
+Provides app to fetch SCNNode from media
 
 ```swift
-SvrfSDK.getNodeFromMedia(media: media)
+let scnNode = SvrfSDK.getNodeFromMedia(media: media)
+// Do what you want with the scnNode
 ```
 
 return *SCNNode?*
 
 ### getFaceFilter
 
-TODO: Add Description
+Provides app to fetch face filter from media
 
 ```swift
 SvrfSDK.getFaceFilter(with: mtlDevice, media: media)
@@ -171,7 +172,7 @@ return *SCNNode?*
 
 ### setBlendshapes
 
-TODO: Add Description
+Provides app to set blend shapes for SCNNode
 
 ```swift
 SvrfSDK.setBlendshapes(blendShapes: blendshapes, for: scnNode)
