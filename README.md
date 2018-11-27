@@ -70,7 +70,7 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 
 ### Authentication
 
-1) Add your API key to the `.plist` file for *"SVRF_API_KEY"* key.
+1) Add your API key to the `Info.plist` file for *"SVRF_API_KEY"* key.
 2) Add the following code into `didFinishLaunchingWithOptions` function in *AppDelegate*:
 
 ```swift
