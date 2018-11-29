@@ -98,7 +98,7 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
         let alertController = UIAlertController(title: "Empty Array", message: "No results found...", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alertController, animated: true)
-}
+    }
 }) { error in
     // Do what you want with the error
 }
@@ -217,9 +217,9 @@ Set blend shapes for node gotten from the media
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     if let scnNode = SvrfSDK.getNodeFromMedia(media: media) {
-    SvrfSDK.setBlendshapes(blendShapes: self.blendshapes, for: scnNode)
+        SvrfSDK.setBlendshapes(blendShapes: self.blendshapes, for: scnNode)
+    }    
     // Do what you want with the node with blend shapes
-}
 }) { error in
     // Do what you want with the error
 }
