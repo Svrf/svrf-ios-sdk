@@ -85,11 +85,22 @@ SvrfSDK.authenticate(onSuccess: {
 
 [The SVRF Search Endpoint][Docs Search] brings the power of immersive search found on [SVRF.com][SVRF] to your app or project. Our search engine enables your users to instantly find the immersive experience they're seeking. Content is sorted by the SVRF rating system, ensuring that the highest quality content and most relevant search results are returned first.
 
+Search "Five Eyes" face filter. Search limited by "_3d" type and "Face Filters" category
+
 ```swift
-SvrfSDK.search(query: "five eyes", type: [._3d], stereoscopicType: nil, category: nil, size: 10, pageNum: nil, onSuccess: { mediaArray in
-    // Do what you want with the mediaArray        
+SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category: "Face Filters", size: nil, pageNum: nil, onSuccess: { mediaArray in
+
+    if !mediaArray.isEmpty {
+        //Do what you want with the media array
+        self.searchCollectionView.setupWith(mediaArray: mediaArray)
+        self.searchCollectionView.reloadData()
+    } else {
+        let alertController = UIAlertController(title: "Empty Array", message: "No results found...", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true)
+}
 }) { error in
-    // Do what you want with the error         
+    // Do what you want with the error
 }
 ```
 
@@ -108,11 +119,22 @@ return *[Media]?*
 
 [The SVRF Trending Endpoint][Docs Trending] provides your app or project with the hottest immersive content - curated by real humans. The experiences returned mirror the [SVRF homepage][SVRF], from timely cultural content to trending pop-culture references. The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
 
+Search the hottest immersive content curated by real humans limited by "video" type
+
 ```swift
-SvrfSDK.getTrending(type: [._3d], stereoscopicType: nil, category: nil, size: 10, nextPageCursor: nil, onSuccess: { mediaArray in
-    // Do what you want with the mediaArray        
+SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil, onSuccess: { mediaArray in
+
+    if !mediaArray.isEmpty {
+        //Do what you want with the media array
+        self.searchCollectionView.setupWith(mediaArray: mediaArray)
+        self.searchCollectionView.reloadData()
+    } else {
+        let alertController = UIAlertController(title: "Empty Array", message: "No results found...", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true)
+    }
 }) { error in
-    // Do what you want with the error            
+    // Do what you want with the error
 }
 ```
 
@@ -130,11 +152,14 @@ return *[Media]?*
 
 Fetch media by its ID.
 
+Search the media by "547963" identifier
+
 ```swift
-SvrfSDK.getMedia(id: "549837", onSuccess: { media in
-    // Do what you want with the media            
+SvrfSDK.getMedia(id: "547963", onSuccess: { media in
+    //Do what you want with the media
+    self.mediaTitleLabel.text = media.title ?? "unknown"
 }) { error in
-    // Do what you want with the error            
+    // Do what you want with the error
 }
 ```
 
@@ -148,9 +173,15 @@ return *Media?*
 
 Provides app to fetch SCNNode from media
 
+Get node from the media gotten from the api
+
 ```swift
-let scnNode = SvrfSDK.getNodeFromMedia(media: media)
-// Do what you want with the scnNode
+SvrfSDK.getMedia(id: "547963", onSuccess: { media in
+    let scnNode = SvrfSDK.getNodeFromMedia(media: media)
+    // Do what you want with the node
+}) { error in
+    // Do what you want with the error
+}
 ```
 
 return *SCNNode?*
@@ -159,8 +190,15 @@ return *SCNNode?*
 
 Provides app to fetch face filter from media
 
+Get face filter from the media gotten from the api
+
 ```swift
-SvrfSDK.getFaceFilter(with: mtlDevice, media: media)
+SvrfSDK.getMedia(id: "547963", onSuccess: { media in
+    let faceFilter = SvrfSDK.getFaceFilter(with: self.mtlDevice, media: media)
+    // Do what tou want with the face filter
+}) { error in
+    // Do what you want with the error
+}
 ```
 
 | Parameter                     | Type                                            |
@@ -174,8 +212,17 @@ return *SCNNode?*
 
 Provides app to set blend shapes for SCNNode
 
+Set blend shapes for node gotten from the media
+
 ```swift
-SvrfSDK.setBlendshapes(blendShapes: blendshapes, for: scnNode)
+SvrfSDK.getMedia(id: "547963", onSuccess: { media in
+    if let scnNode = SvrfSDK.getNodeFromMedia(media: media) {
+    SvrfSDK.setBlendshapes(blendShapes: self.blendshapes, for: scnNode)
+    // Do what you want with the node with blend shapes
+}
+}) { error in
+    // Do what you want with the error
+}
 ```
 
 | Parameter                     | Type                                            |
