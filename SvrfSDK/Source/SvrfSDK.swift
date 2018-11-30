@@ -175,7 +175,7 @@ public class SvrfSDK: NSObject {
         return nil
     }
     
-    public static func setBlendshapes(blendShapes: [ARFaceAnchor.BlendShapeLocation : NSNumber], for node: SCNNode) {
+    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation : NSNumber], for node: SCNNode) {
         
         node.enumerateHierarchy { (childNode, _) in
             
