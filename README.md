@@ -66,9 +66,7 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 
 [ARKitFaceFilterDemo][Demo] - An example of the **SvrfSDK** in Swift.
 
-## How to use
-
-### Authentication
+## Authentication
 
 1) Add your API key to the `Info.plist` file for *"SVRF_API_KEY"* key.
 2) Add the following code into `didFinishLaunchingWithOptions` function in *AppDelegate*:
@@ -81,17 +79,31 @@ SvrfSDK.authenticate(onSuccess: {
 }
 ```
 
-### Search Endpoint
+## Endpoints
+
+#### Search Endpoint
 
 [The SVRF Search Endpoint][Docs Search] brings the power of immersive search found on [SVRF.com][SVRF] to your app or project. Our search engine enables your users to instantly find the immersive experience they're seeking. Content is sorted by the SVRF rating system, ensuring that the highest quality content and most relevant search results are returned first.
 
-Search "Five Eyes" face filter. Search limited by "_3d" type and "Face Filters" category
+| Parameter                     | Type                                            |
+| :---                          | :---                                            |
+| query                         | *String*                                        |
+| type                          | *[MediaType]?*                                  |
+| category                      | *String?*                                       |
+| pageNum                       | *Int?*                                          |
+| size                          | *Int?*                                          |
+| stereoscopicType              | *String?*                                       |
+
+**Returns:** *[Media]?*
+
+##### Example
+
+Search "Five Eyes" face filter; limited by "_3d" *type* and "Face Filters" *category*.
 
 ```swift
 SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category: "Face Filters", size: nil, pageNum: nil, onSuccess: { mediaArray in
-
     if !mediaArray.isEmpty {
-        //Do what you want with the media array
+        // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
         self.searchCollectionView.reloadData()
     } else {
@@ -104,22 +116,23 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
 }
 ```
 
-| Parameter                     | Type                                            |
-| :---                          | :---                                            |
-| query                         | *String*                                        |
-| type                          | *[MediaType]?*                                  |
-| category                      | *String?*                                       |
-| pageNum                       | *Int?*                                          |
-| size                          | *Int?*                                          |
-| stereoscopicType              | *String?*                                       |
-
-return *[Media]?*
-
 ### Trending Endpoint
 
 [The SVRF Trending Endpoint][Docs Trending] provides your app or project with the hottest immersive content - curated by real humans. The experiences returned mirror the [SVRF homepage][SVRF], from timely cultural content to trending pop-culture references. The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
 
-Search the hottest immersive content curated by real humans limited by "video" type
+| Parameter                     | Type                                            |
+| :---                          | :---                                            |
+| type                          | *[MediaType]?*                                  |
+| category                      | *String?*                                       |
+| nextPageCursor                | *String?*                                       |
+| size                          | *Int?*                                          |
+| stereoscopicType              | *String?*                                       |
+
+**Returns:** *[Media]?*
+
+#### Example
+
+Get trending *Media*; limited by "video" *type*.
 
 ```swift
 SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil, onSuccess: { mediaArray in
@@ -138,21 +151,19 @@ SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: 
 }
 ```
 
-| Parameter                     | Type                                            |
-| :---                          | :---                                            |
-| type                          | *[MediaType]?*                                  |
-| category                      | *String?*                                       |
-| nextPageCursor                | *String?*                                       |
-| size                          | *Int?*                                          |
-| stereoscopicType              | *String?*                                       |
-
-return *[Media]?*
-
 ### Media by ID Endpoint
 
-Fetch media by its ID.
+Fetch *Media* by ID.
 
-Search the media by "547963" identifier
+| Parameter                     | Type                                            |
+| :---                          | :---                                            |
+| id                            | *String*                                        |
+
+**Returns:** *Media?*
+
+#### Example
+
+Get *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
@@ -163,74 +174,87 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
 }
 ```
 
-| Parameter                     | Type                                            |
-| :---                          | :---                                            |
-| id                            | *String*                                        |
-
-return *Media?*
+## Utilities
 
 ### getNodeFromMedia
 
-Provides app to fetch SCNNode from media
+For Media with 3D Fetches from *Media*.
 
-Get node from the media gotten from the api
+| Parameter                     | Type                                            |
+| :---                          | :---                                            |
+| media                         | *Media*                                         |
+
+**Returns:** *SCNNode?*
+
+#### Example
+
+Get *SCNNode* from *Media*.
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     let scnNode = SvrfSDK.getNodeFromMedia(media: media)
-    // Do what you want with the node
+    // Do what you want with the SCNNode
 }) { error in
     // Do what you want with the error
 }
 ```
-
-return *SCNNode?*
 
 ### getFaceFilter
 
-Provides app to fetch face filter from media
-
-Get face filter from the media gotten from the api
-
-```swift
-SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    let faceFilter = SvrfSDK.getFaceFilter(with: self.mtlDevice, media: media)
-    // Do what tou want with the face filter
-}) { error in
-    // Do what you want with the error
-}
-```
+The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream then directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | device                        | *MTLDevice*                                     |
 | media                         | *Media*                                         |
 
-return *SCNNode?*
+**Returns:** *SCNNode?*
 
-### setBlendshapes
+#### Example
 
-Provides app to set blend shapes for SCNNode
-
-Set blend shapes for node gotten from the media
+Get a face filter *SCNNode* from *Media*.
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    if let scnNode = SvrfSDK.getNodeFromMedia(media: media) {
-        SvrfSDK.setBlendshapes(blendShapes: self.blendshapes, for: scnNode)
-    }    
-    // Do what you want with the node with blend shapes
+    let faceFilter = SvrfSDK.getFaceFilter(with: self.mtlDevice, media: media)
+    // Do what you want with the face filter
 }) { error in
     // Do what you want with the error
 }
 ```
+
+### setBlendShapes
+
+Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that are activated by your user's facial expressions.
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | blendShapes                   | *[ARFaceAnchor.BlendShapeLocation : NSNumber]*  |
 | node                          | *SCNNode*                                       |
 
-return *SCNNode*
+#### Example
+
+Map blend shapes to a *SCNNode*'s morpher.
+
+```swift
+class FaceFilter: SCNNode, VirtualFaceContent {
+
+    var blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber] = [:] {
+        didSet {
+            self.enumerateHierarchy({ (node, _) in
+                if (node.morpher?.targets != nil) {
+                    SvrfSDK.setBlendShapes(blendShapes: blendShapes, for: node)
+                }
+            })
+        }
+    }
+
+    func update(withFaceAnchor faceAnchor: ARFaceAnchor, andMTLDevice device: MTLDevice ) {
+        self.device = device
+        blendShapes = faceAnchor.blendShapes
+    }
+}
+```
 
 ## Attribution
 
@@ -246,7 +270,7 @@ As per section 5 A of the [terms of service][TOS], __we require all apps that us
 
 ## Rate Limits
 
-The SVRF API has a generous rate limit to ensure the best experience for your users. We rate limit by IP address with a maximum of 100 requests per second. If you exceed the rate limit, requests from the requesting IP address will be blocked for 60 seconds.
+The SVRF API has a generous rate limit to ensure the best experience for your users. We rate limit by IP address with a maximum of 100 requests per 10 seconds. If you exceed the rate limit, requests from the requesting IP address will be blocked for 60 seconds.
 
 [CocoaPods]: https://www.cocoapods.org/
 [CocoaPods Install]: https://guides.cocoapods.org/using/getting-started.html#getting-started
