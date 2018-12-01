@@ -37,7 +37,7 @@ The process may take a long time, please wait. For further installation instruct
 
 Add the SvrfSDK entry to your Podfile:
 
-```swift
+```ruby
 target :YourTargetName do
   pod 'SvrfSDK'
 end
