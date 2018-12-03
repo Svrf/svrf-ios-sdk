@@ -249,6 +249,7 @@ class FaceFilter: SCNNode, VirtualFaceContent {
         }
     }
 
+    // VirtualFaceContent protocol's function.
     func update(withFaceAnchor faceAnchor: ARFaceAnchor, andMTLDevice device: MTLDevice ) {
         self.device = device
         blendShapes = faceAnchor.blendShapes
