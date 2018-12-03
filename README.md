@@ -81,7 +81,7 @@ SvrfSDK.authenticate(onSuccess: {
 
 ## Endpoints
 
-#### Search Endpoint
+### Search Endpoint
 
 [The SVRF Search Endpoint][Docs Search] brings the power of immersive search found on [SVRF.com][SVRF] to your app or project. Our search engine enables your users to instantly find the immersive experience they're seeking. Content is sorted by the SVRF rating system, ensuring that the highest quality content and most relevant search results are returned first.
 
@@ -96,7 +96,7 @@ SvrfSDK.authenticate(onSuccess: {
 
 **Returns:** *[Media]?*
 
-##### Example
+#### Example
 
 Search "Five Eyes" face filter; limited by "_3d" *type* and "Face Filters" *category*.
 
