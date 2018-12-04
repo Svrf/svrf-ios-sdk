@@ -19,6 +19,14 @@ See our [terms of service][TOS] for restrictions on using the SVRF API, librarie
 
 If you have questions or need support, please [create a ticket][Support] in the `svrf-api` GitHub repository.
 
+## Attribution
+
+SVRF requires developers to provide attribution. Please read our [documentation][Docs Attribution] and [terms of service][TOS] to learn about attribution requirements.
+
+## Rate Limits
+
+The SVRF API has a generous rate limit. Please read our [documentation][Docs Rate Limits] to learn about API rate limits.
+
 ## Installation
 
 ### CocoaPods
@@ -256,18 +264,6 @@ class FaceFilter: SCNNode, VirtualFaceContent {
     }
 }
 ```
-
-## Attribution
-
-SVRF requires developers to provide attribution. Please read our [documentation][Docs Attribution] and [terms of service][TOS] to learn about attribution requirements.
-
-## Rate Limits
-
-The SVRF API has a generous rate limit. Please read our [documentation][Docs Rate Limits] to learn about API rate limits.
-
-## Terms of Service and Privacy
-
-Please review the SVRF [Terms of Service][TOS] and [Privacy Policy][Privacy Policy].
 
 [CocoaPods]: https://www.cocoapods.org/
 [CocoaPods Install]: https://guides.cocoapods.org/using/getting-started.html#getting-started
