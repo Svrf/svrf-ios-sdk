@@ -112,7 +112,7 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
         self.present(alertController, animated: true)
     }
 }) { error in
-    // Do what you want with the error
+    Print(error)
 }
 ```
 
@@ -136,9 +136,8 @@ Get trending *Media*; limited by "video" *type*.
 
 ```swift
 SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil, onSuccess: { mediaArray in
-
     if !mediaArray.isEmpty {
-        //Do what you want with the media array
+        // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
         self.searchCollectionView.reloadData()
     } else {
@@ -147,7 +146,7 @@ SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: 
         self.present(alertController, animated: true)
     }
 }) { error in
-    // Do what you want with the error
+    Print(error)
 }
 ```
 
@@ -167,10 +166,10 @@ Get *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    //Do what you want with the media
+    //Do what you want with the Media
     self.mediaTitleLabel.text = media.title ?? "unknown"
 }) { error in
-    // Do what you want with the error
+    print(error)
 }
 ```
 
@@ -178,7 +177,7 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
 
 ### getNodeFromMedia
 
-For Media with 3D Fetches from *Media*.
+Generates a *SCNNode* for a *Media* with a *type* "3d". This method can used to generate the whole 3D model, but is not recommended for face filters. **Face filters should be retrieved using the [`getFaceFilter`](#getFaceFilter) method.**
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
@@ -188,14 +187,14 @@ For Media with 3D Fetches from *Media*.
 
 #### Example
 
-Get *SCNNode* from *Media*.
+Get *SCNNode* from *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     let scnNode = SvrfSDK.getNodeFromMedia(media: media)
     // Do what you want with the SCNNode
 }) { error in
-    // Do what you want with the error
+    print(error)
 }
 ```
 
@@ -212,14 +211,14 @@ The SVRF API allows you to access all of SVRF's ARKit compatible face filters an
 
 #### Example
 
-Get a face filter *SCNNode* from *Media*.
+Get a face filter *SCNNode* for *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     let faceFilter = SvrfSDK.getFaceFilter(with: self.mtlDevice, media: media)
     // Do what you want with the face filter
 }) { error in
-    // Do what you want with the error
+    print(error)
 }
 ```
 
@@ -241,6 +240,7 @@ class FaceFilter: SCNNode, VirtualFaceContent {
 
     var blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber] = [:] {
         didSet {
+            // Enumerate through all child nodes to find all morpher targets
             self.enumerateHierarchy({ (node, _) in
                 if (node.morpher?.targets != nil) {
                     SvrfSDK.setBlendShapes(blendShapes: blendShapes, for: node)
@@ -249,7 +249,7 @@ class FaceFilter: SCNNode, VirtualFaceContent {
         }
     }
 
-    // VirtualFaceContent protocol's function.
+    // VirtualFaceContent protocol's function
     func update(withFaceAnchor faceAnchor: ARFaceAnchor, andMTLDevice device: MTLDevice ) {
         self.device = device
         blendShapes = faceAnchor.blendShapes
@@ -259,26 +259,25 @@ class FaceFilter: SCNNode, VirtualFaceContent {
 
 ## Attribution
 
-### Authors and Site Credit
-
-At SVRF, we believe in giving credit where credit is due. Do your best to provide attribution to the `authors` and `site` where the content originated. We suggest using the format: __by {authors} via {site}__
-
-If possible, please provide a way for users to discover and visit the page the content originally came from (`url`).
-
-### Powered By SVRF
-
-As per section 5 A of the [terms of service][TOS], __we require all apps that use the SVRF API to conspicuously display "Powered By SVRF" attribution marks where the API is utilized.__
+SVRF requires developers to provide attribution. Please read our [documentation][Docs Attribution] and [terms of service][TOS] to learn about attribution requirements.
 
 ## Rate Limits
 
-The SVRF API has a generous rate limit to ensure the best experience for your users. We rate limit by IP address with a maximum of 100 requests per 10 seconds. If you exceed the rate limit, requests from the requesting IP address will be blocked for 60 seconds.
+The SVRF API has a generous rate limit. Please read our [documentation][Docs Rate Limits] to learn about API rate limits.
+
+## Terms of Service and Privacy
+
+Please review the SVRF [Terms of Service][TOS] and [Privacy Policy][Privacy Policy].
 
 [CocoaPods]: https://www.cocoapods.org/
 [CocoaPods Install]: https://guides.cocoapods.org/using/getting-started.html#getting-started
 [Demo]: https://www.github.com/SVRF/svrf-api/tree/master/examples/ARKitFaceFilterDemo
+[Docs Attribution]: https://developers.svrf.com/docs#section/Attribution
+[Docs Rate Limits]: https://developers.svrf.com/docs#section/Rate-Limits
 [Docs Search]: https://developers.svrf.com/#tag/Media/paths/~1vr~1search?q={q}/get
 [Docs Trending]: https://developers.svrf.com/#tag/Media/paths/~1vr~1trending/get
 [Pod]: https://cocoapods.org/pods/SvrfSDK
+[Privacy Policy]: https://www.svrf.com/privacy
 [Support]: https://github.com/SVRF/svrf-api/issues/new/choose 
 [SVRF]: https://www.svrf.com
 [SVRF Dev]: https://developers.svrf.com
