@@ -208,14 +208,14 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
 
 ### getFaceFilter
 
-The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream then directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
+The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime. You can then attach the face filter to a *SCNScene*
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | device                        | *MTLDevice*                                     |
 | media                         | *Media*                                         |
 
-**Returns:** *SCNNode?*
+**Returns:** *SCNNode*
 
 #### Example
 
