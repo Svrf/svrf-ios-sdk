@@ -31,32 +31,28 @@ public class SvrfSDK: NSObject {
     private static let dispatchGroup = DispatchGroup()
     
     //MARK: public functions
-    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping () -> Void) {
         
         dispatchGroup.enter()
         
         setupAnalytics()
         
         if !needUpdateToken() {
-            if let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey) {
-                SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
-                print(SvrfSuccess.Auth.rawValue)
-                success()
-                dispatchGroup.leave()
-                
-                return
-            }
-            
-            failure(SvrfError.AuthResponse)
+            let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey)!
+            SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
+            print(SvrfSuccess.Auth.rawValue)
+            success()
             dispatchGroup.leave()
+            
+            return
         } else if let path = Bundle.main.path(forResource: "Info", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path), let apiKey = dict[svrfApiKeyKey] as? String {
             
             let body = Body(apiKey: apiKey)
             AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
                 
                 if error != nil {
-                    print(SvrfError.AuthResponse.rawValue)
-                    failure(SvrfError.AuthResponse)
+                    print("\(SvrfError.Auth.Response.rawValue) \(error?.localizedDescription ?? "")")
+                    failure()
                     dispatchGroup.leave()
                     
                     return
@@ -73,15 +69,17 @@ public class SvrfSDK: NSObject {
                     dispatchGroup.leave()
                     
                     return
+                } else {
+                    print(SvrfError.Auth.ResponseNoToken.rawValue)
+                    failure()
+                    dispatchGroup.leave()
+                    
+                    return
                 }
-                
-                print(SvrfError.AuthResponse.rawValue)
-                failure(SvrfError.AuthResponse)
-                dispatchGroup.leave()
             }
         } else {
-            print(SvrfError.ApiKey.rawValue)
-            failure(SvrfError.ApiKey)
+            print(SvrfError.Auth.ApiKey.rawValue)
+            failure()
             dispatchGroup.leave()
         }
     }
@@ -93,22 +91,22 @@ public class SvrfSDK: NSObject {
                               size: Int?,
                               pageNum: Int?,
                               onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                              onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+                              onFailure failure: @escaping () -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.search(q: query, type: type, stereoscopicType: stereoscopicType, category: category, size: size, pageNum: pageNum) { (searchMediaResponse, error) in
                 
-                if let _ = error {
-                    print(SvrfError.SearchResponse.rawValue)
-                    failure(SvrfError.SearchResponse)
+                if let error = error {
+                    print("\(SvrfError.Search.Response.rawValue) \(error.localizedDescription)")
+                    failure()
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
                         print(SvrfSuccess.Search.rawValue)
                         success(mediaArray)
                     } else {
-                        print(SvrfError.SearchResponse.rawValue)
-                        failure(SvrfError.SearchResponse)
+                        print(SvrfError.Search.ResponseNoMediaArray.rawValue)
+                        failure()
                     }
                 }
             }
@@ -121,44 +119,44 @@ public class SvrfSDK: NSObject {
                                    size: Int?,
                                    nextPageCursor: String?,
                                    onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                                   onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+                                   onFailure failure: @escaping () -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getTrending(type: type, stereoscopicType: stereoscopicType, category: category, size: size, nextPageCursor: nextPageCursor, completion: { (trendingResponse, error) in
                 
-                if let _ = error {
-                    print(SvrfError.TrendingResponse.rawValue)
-                    failure(SvrfError.TrendingResponse)
+                if let error = error {
+                    print("\(SvrfError.Trending.Response.rawValue) \(error.localizedDescription)")
+                    failure()
                 } else {
                     if let mediaArray = trendingResponse?.media {
                         print(SvrfSuccess.GetTrending.rawValue)
                         success(mediaArray)
                     } else {
-                        print(SvrfError.TrendingResponse.rawValue)
-                        failure(SvrfError.TrendingResponse)
+                        print(SvrfError.Trending.ResponseNoMediaArray.rawValue)
+                        failure()
                     }
                 }
             })
         }
     }
     
-    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping () -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getById(id: id, completion: { (singleMediaResponse, error) in
                 
-                if let _ = error {
-                    print(SvrfError.MediaResponse.rawValue)
-                    failure(SvrfError.MediaResponse)
+                if let error = error {
+                    print("\(SvrfError.Media.Response.rawValue) \(error.localizedDescription)")
+                    failure()
                 } else {
                     if let media = singleMediaResponse?.media {
                         print(SvrfSuccess.GetMedia.rawValue)
                         success(media)
                     } else {
-                        print(SvrfError.MediaResponse.rawValue)
-                        failure(SvrfError.MediaResponse)
+                        print(SvrfError.Media.ResponseNoMedia.rawValue)
+                        failure()
                     }
                 }
             })
@@ -218,7 +216,7 @@ public class SvrfSDK: NSObject {
                 
                 SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
-                print(SvrfError.CreateScene)
+                print(SvrfError.GetFaceFilter.GetScene.rawValue)
             }
         }
         
@@ -237,19 +235,17 @@ public class SvrfSDK: NSObject {
                     let scene = try modelSource.scene()
                     return scene
                 } catch {
-                    print(SvrfError.GetScene.rawValue)
+                    
                 }
             }
         }
-        
-        print(SvrfError.GetScene.rawValue)
         
         return nil
     }
     
     private static func needUpdateToken() -> Bool {
         
-        if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date {
+        if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date, let _ = UserDefaults.standard.string(forKey: svrfAuthTokenKey) {
             
             let twoDays = 172800
             if Int(Date().timeIntervalSince(tokenExpirationDate)) < twoDays {
