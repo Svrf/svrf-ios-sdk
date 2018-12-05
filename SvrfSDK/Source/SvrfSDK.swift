@@ -167,11 +167,16 @@ public class SvrfSDK: NSObject {
     
     public static func getNodeFromMedia(media: Media) -> SCNNode? {
         
-        if let scene = getSceneFromMedia(media: media) {
-            return scene.rootNode
+        if media.type == ._3d {
+            if let scene = getSceneFromMedia(media: media) {
+                return scene.rootNode
+            }
+            
+            print(SvrfError.GetNode.GetScene.rawValue)
+        } else {
+            print(SvrfError.GetNode.IncorrectMediaType.rawValue)
         }
         
-        print(SvrfError.GetNode.rawValue)
         return nil
     }
     

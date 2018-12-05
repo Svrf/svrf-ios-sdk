@@ -17,6 +17,10 @@ public enum SvrfError: String {
     case TrendingResponse = "SVRF: Trending response error"
     case MediaResponse = "SVRF: Media response error"
     case GetScene = "SVRF: Get scene error"
-    case GetNode = "SVRF: Get node error"
     case CreateScene = "SVRF: Create scene error"
+    
+    enum GetNode: String {
+        case IncorrectMediaType = "Svrf: Incorrect media type. Media type should be equal _3d"
+        case GetScene = "Svrf: Can't get scene from media. Scene is equal nil"
+    }
 }
