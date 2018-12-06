@@ -181,7 +181,7 @@ public class SvrfSDK: NSObject {
             
             for (blendShape, weight) in blendShapes {
                 let targetName = blendShape.rawValue
-                node.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
+                childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
             }
         }
     }
@@ -198,11 +198,7 @@ public class SvrfSDK: NSObject {
                 
                 if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
                     faceFilter.addChildNode(occluderNode)
-                    
-                    let faceGeometry = ARSCNFaceGeometry(device: device)
-                    faceFilter.geometry = faceGeometry
-                    faceFilter.geometry?.firstMaterial?.colorBufferWriteMask = []
-                    faceFilter.renderingOrder = -1
+                    setOccluderNode(node: occluderNode)
                 }
                 
                 if let headNode = node.childNode(withName: ChildNode.Head.rawValue, recursively: true) {
@@ -214,6 +210,7 @@ public class SvrfSDK: NSObject {
                 SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
                 print(SvrfError.CreateScene)
+                print(error.localizedDescription)
             }
         }
         
@@ -280,5 +277,22 @@ public class SvrfSDK: NSObject {
             }
             
         }
+    }
+    
+    /**
+     Sets a node named *Occluder* to have all of its children set as an occluder.
+     - parameters:
+        - node: A *SCNNode* likely named *Occluder* with a child node named *Occluder*, also.
+     */
+    private static func setOccluderNode(node: SCNNode) {
+        // Find a child that should be occluded, also named Occluder
+        if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
+            // Any child of this node should be occluded
+            occluderNode.enumerateHierarchy { (childNode, _) in
+                childNode.geometry?.firstMaterial?.colorBufferWriteMask = []
+                childNode.renderingOrder = -1
+            }
+        }
+        
     }
 }
