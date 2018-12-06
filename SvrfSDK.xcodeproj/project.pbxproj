@@ -27,7 +27,6 @@
 		EC1EF176219A1189006F12B0 /* SvrfSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF175219A1189006F12B0 /* SvrfSDKTests.swift */; };
 		EC1EF178219A1189006F12B0 /* SvrfSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1EF16A219A1189006F12B0 /* SvrfSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */; };
-		EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */; };
 		EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CC219AAD23003C1108 /* SvrfError.swift */; };
 		ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */; };
 /* End PBXBuildFile section */
@@ -56,7 +55,6 @@
 		EC1EF175219A1189006F12B0 /* SvrfSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfSDKTests.swift; sourceTree = "<group>"; };
 		EC1EF177219A1189006F12B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfSDK.swift; sourceTree = "<group>"; };
-		EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfSuccess.swift; sourceTree = "<group>"; };
 		EC75A3CC219AAD23003C1108 /* SvrfError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfError.swift; sourceTree = "<group>"; };
 		ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfJWTDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +144,6 @@
 			children = (
 				ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
-				EC75A3CB219AAD23003C1108 /* SvrfSuccess.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
 			);
 			path = Source;
@@ -360,7 +357,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC75A3CD219AAD23003C1108 /* SvrfSuccess.swift in Sources */,
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
 				ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */,

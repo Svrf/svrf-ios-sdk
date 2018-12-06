@@ -8,7 +8,12 @@
 
 import Foundation
 
-public enum SvrfError {
+public struct SvrfError {
+    let title: String
+    let description: String?
+}
+
+public enum SvrfErrorTitle {
     
     enum Auth: String {
         case GetTokenFromUserDefaults = "Svrf: There is no token."

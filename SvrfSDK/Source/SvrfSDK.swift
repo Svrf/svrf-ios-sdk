@@ -31,7 +31,7 @@ public class SvrfSDK: NSObject {
     private static let dispatchGroup = DispatchGroup()
     
     //MARK: public functions
-    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping () -> Void) {
+    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.enter()
         
@@ -40,7 +40,6 @@ public class SvrfSDK: NSObject {
         if !needUpdateToken() {
             let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey)!
             SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
-            print(SvrfSuccess.Auth.rawValue)
             success()
             dispatchGroup.leave()
             
@@ -51,8 +50,7 @@ public class SvrfSDK: NSObject {
             AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
                 
                 if error != nil {
-                    print("\(SvrfError.Auth.Response.rawValue) \(error?.localizedDescription ?? "")")
-                    failure()
+                    failure(SvrfError(title: SvrfErrorTitle.Auth.Response.rawValue, description: error?.localizedDescription))
                     dispatchGroup.leave()
                     
                     return
@@ -64,22 +62,19 @@ public class SvrfSDK: NSObject {
                     
                     SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
                     
-                    print(SvrfSuccess.Auth.rawValue)
                     success()
                     dispatchGroup.leave()
                     
                     return
                 } else {
-                    print(SvrfError.Auth.ResponseNoToken.rawValue)
-                    failure()
+                    failure(SvrfError(title: SvrfErrorTitle.Auth.ResponseNoToken.rawValue, description: nil))
                     dispatchGroup.leave()
                     
                     return
                 }
             }
         } else {
-            print(SvrfError.Auth.ApiKey.rawValue)
-            failure()
+            failure(SvrfError(title: SvrfErrorTitle.Auth.ApiKey.rawValue, description: nil))
             dispatchGroup.leave()
         }
     }
@@ -91,22 +86,19 @@ public class SvrfSDK: NSObject {
                               size: Int?,
                               pageNum: Int?,
                               onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                              onFailure failure: @escaping () -> Void) {
+                              onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.search(q: query, type: type, stereoscopicType: stereoscopicType, category: category, size: size, pageNum: pageNum) { (searchMediaResponse, error) in
                 
                 if let error = error {
-                    print("\(SvrfError.Search.Response.rawValue) \(error.localizedDescription)")
-                    failure()
+                    failure(SvrfError(title: SvrfErrorTitle.Search.Response.rawValue, description: error.localizedDescription))
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
-                        print(SvrfSuccess.Search.rawValue)
                         success(mediaArray)
                     } else {
-                        print(SvrfError.Search.ResponseNoMediaArray.rawValue)
-                        failure()
+                        failure(SvrfError(title: SvrfErrorTitle.Search.ResponseNoMediaArray.rawValue, description: nil))
                     }
                 }
             }
@@ -119,44 +111,38 @@ public class SvrfSDK: NSObject {
                                    size: Int?,
                                    nextPageCursor: String?,
                                    onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                                   onFailure failure: @escaping () -> Void) {
+                                   onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getTrending(type: type, stereoscopicType: stereoscopicType, category: category, size: size, nextPageCursor: nextPageCursor, completion: { (trendingResponse, error) in
                 
                 if let error = error {
-                    print("\(SvrfError.Trending.Response.rawValue) \(error.localizedDescription)")
-                    failure()
+                    failure(SvrfError(title: SvrfErrorTitle.Trending.Response.rawValue, description: error.localizedDescription))
                 } else {
                     if let mediaArray = trendingResponse?.media {
-                        print(SvrfSuccess.GetTrending.rawValue)
                         success(mediaArray)
                     } else {
-                        print(SvrfError.Trending.ResponseNoMediaArray.rawValue)
-                        failure()
+                        failure(SvrfError(title: SvrfErrorTitle.Trending.ResponseNoMediaArray.rawValue, description: ""))
                     }
                 }
             })
         }
     }
     
-    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping () -> Void) {
+    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getById(id: id, completion: { (singleMediaResponse, error) in
                 
                 if let error = error {
-                    print("\(SvrfError.Media.Response.rawValue) \(error.localizedDescription)")
-                    failure()
+                    failure(SvrfError(title: SvrfErrorTitle.Media.Response.rawValue, description: error.localizedDescription))
                 } else {
                     if let media = singleMediaResponse?.media {
-                        print(SvrfSuccess.GetMedia.rawValue)
                         success(media)
                     } else {
-                        print(SvrfError.Media.ResponseNoMedia.rawValue)
-                        failure()
+                        failure(SvrfError(title: SvrfErrorTitle.Media.Response.rawValue, description: nil))
                     }
                 }
             })
