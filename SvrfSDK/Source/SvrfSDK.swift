@@ -259,12 +259,10 @@ public class SvrfSDK: NSObject {
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
      - parameters:
-       - with: The device to fetch the face geometry from.
        - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
      - returns: SCNNode
      */
-    public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
-        
+    public static func getFaceFilter(media: Media) -> SCNNode {
         let faceFilter = SCNNode()
         
         if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
@@ -287,7 +285,6 @@ public class SvrfSDK: NSObject {
                 SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
                 print(SvrfError.CreateScene)
-                print(error.localizedDescription)
             }
         }
         
