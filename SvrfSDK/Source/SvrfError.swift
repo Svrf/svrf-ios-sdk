@@ -39,10 +39,15 @@ public enum SvrfErrorTitle {
     
     enum GetNode: String {
         case IncorrectMediaType = "Svrf: GetNode. Incorrect media type. Media type should be equal _3d."
-        case GetScene = "Svrf: GetNode. Can't get scene from the medi.a"
+        case GetScene = "Svrf: GetNode. Can't get scene from the media"
     }
     
     enum GetFaceFilter: String {
         case GetScene = "Svrf: GetFaceFilter. Can't get scene from the media."
+    }
+    
+    enum GetSceneFromMedia: String {
+        case GetScene = "Svrf: GetSceneFromMedia. Can't get scene from the media."
+        case NoGlbURL = "Svrf: GetSceneFromMedia. No glb url in the media"
     }
 }

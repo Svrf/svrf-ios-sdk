@@ -149,19 +149,17 @@ public class SvrfSDK: NSObject {
         }
     }
     
-    public static func getNodeFromMedia(media: Media) -> SCNNode? {
+    public static func getNodeFromMedia(media: Media, onSuccess success: @escaping (_ node: SCNNode) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         if media.type == ._3d {
             if let scene = getSceneFromMedia(media: media) {
-                return scene.rootNode
+                success(scene.rootNode)
             }
             
-            print(SvrfError.GetNode.GetScene.rawValue)
+            failure(SvrfError(title: SvrfErrorTitle.GetNode.GetScene.rawValue, description: nil))
         } else {
-            print(SvrfError.GetNode.IncorrectMediaType.rawValue)
+            failure(SvrfError(title: SvrfErrorTitle.GetNode.IncorrectMediaType.rawValue, description: nil))
         }
-        
-        return nil
     }
     
     public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation : NSNumber], for node: SCNNode) {
@@ -174,15 +172,14 @@ public class SvrfSDK: NSObject {
             }
         }
     }
-    
-    public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
-        
-        let faceFilter = SCNNode()
+
+    public static func getFaceFilter(with device: MTLDevice, media: Media, onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
             let modelSource = GLTFSceneSource(url: glbUrl)
             
             do {
+                let faceFilter = SCNNode()
                 let node = try modelSource.scene().rootNode
                 
                 if let occluderNode = node.childNode(withName: ChildNode.Occluder.rawValue, recursively: true) {
@@ -200,13 +197,13 @@ public class SvrfSDK: NSObject {
                 
                 faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
                 
+                success(faceFilter)
+                
                 SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
-                print(SvrfError.GetFaceFilter.GetScene.rawValue)
+                failure(SvrfError(title: SvrfErrorTitle.GetFaceFilter.GetScene.rawValue, description: error.localizedDescription))
             }
         }
-        
-        return faceFilter
     }
     
     //MARK: private functions
