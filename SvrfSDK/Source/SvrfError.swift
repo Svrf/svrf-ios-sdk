@@ -9,8 +9,8 @@
 import Foundation
 
 public struct SvrfError {
-    let title: String
-    let description: String?
+    public let title: String
+    public let description: String?
 }
 
 public enum SvrfErrorTitle {
