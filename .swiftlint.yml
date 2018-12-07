@@ -1,0 +1,5 @@
+excluded:
+- Carthage
+- Pods
+
+warning_threshold: 15
