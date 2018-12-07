@@ -39,7 +39,7 @@ public class SvrfSDK: NSObject {
      - onFailure: Failure closure.
      - error: Error message.
      */
-    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func authenticate(onSuccess success: (() -> Void)? = nil, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
         
         dispatchGroup.enter()
         
@@ -48,7 +48,11 @@ public class SvrfSDK: NSObject {
         if !needUpdateToken() {
             let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey)!
             SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
-            success()
+            
+            if let success = success {
+                success()
+            }
+            
             dispatchGroup.leave()
             
             return
@@ -58,7 +62,10 @@ public class SvrfSDK: NSObject {
             AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
                 
                 if error != nil {
-                    failure(SvrfError(title: SvrfErrorTitle.Auth.Response.rawValue, description: error?.localizedDescription))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.Auth.Response.rawValue, description: error?.localizedDescription))
+                    }
+                    
                     dispatchGroup.leave()
                     
                     return
@@ -70,19 +77,28 @@ public class SvrfSDK: NSObject {
                     
                     SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
                     
-                    success()
+                    if let success = success {
+                        success()
+                    }
+                    
                     dispatchGroup.leave()
                     
                     return
                 } else {
-                    failure(SvrfError(title: SvrfErrorTitle.Auth.ResponseNoToken.rawValue, description: nil))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.Auth.ResponseNoToken.rawValue, description: nil))
+                    }
+                    
                     dispatchGroup.leave()
                     
                     return
                 }
             }
         } else {
-            failure(SvrfError(title: SvrfErrorTitle.Auth.ApiKey.rawValue, description: nil))
+            if let failure = failure {
+                failure(SvrfError(title: SvrfErrorTitle.Auth.ApiKey.rawValue, description: nil))
+            }
+            
             dispatchGroup.leave()
         }
     }
@@ -109,18 +125,20 @@ public class SvrfSDK: NSObject {
                               size: Int?,
                               pageNum: Int?,
                               onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                              onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+                              onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.search(q: query, type: type, stereoscopicType: stereoscopicType, category: category, size: size, pageNum: pageNum) { (searchMediaResponse, error) in
                 
                 if let error = error {
-                    failure(SvrfError(title: SvrfErrorTitle.Search.Response.rawValue, description: error.localizedDescription))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.Search.Response.rawValue, description: error.localizedDescription))
+                    }
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
                         success(mediaArray)
-                    } else {
+                    } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.Search.ResponseNoMediaArray.rawValue, description: nil))
                     }
                 }
@@ -148,18 +166,20 @@ public class SvrfSDK: NSObject {
                                    size: Int?,
                                    nextPageCursor: String?,
                                    onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
-                                   onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+                                   onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getTrending(type: type, stereoscopicType: stereoscopicType, category: category, size: size, nextPageCursor: nextPageCursor, completion: { (trendingResponse, error) in
                 
                 if let error = error {
-                    failure(SvrfError(title: SvrfErrorTitle.Trending.Response.rawValue, description: error.localizedDescription))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.Trending.Response.rawValue, description: error.localizedDescription))
+                    }
                 } else {
                     if let mediaArray = trendingResponse?.media {
                         success(mediaArray)
-                    } else {
+                    } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.Trending.ResponseNoMediaArray.rawValue, description: ""))
                     }
                 }
@@ -177,18 +197,20 @@ public class SvrfSDK: NSObject {
      - onFailure: Error closure.
      - error: Error message.
      */
-    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
         
         dispatchGroup.notify(queue: .main) {
             
             MediaAPI.getById(id: id, completion: { (singleMediaResponse, error) in
                 
                 if let error = error {
-                    failure(SvrfError(title: SvrfErrorTitle.Media.Response.rawValue, description: error.localizedDescription))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.Media.Response.rawValue, description: error.localizedDescription))
+                    }
                 } else {
                     if let media = singleMediaResponse?.media {
                         success(media)
-                    } else {
+                    } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.Media.Response.rawValue, description: nil))
                     }
                 }
@@ -204,15 +226,15 @@ public class SvrfSDK: NSObject {
      - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
      - returns: SCNNode?
      */
-    public static func getNodeFromMedia(media: Media, onSuccess success: @escaping (_ node: SCNNode) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func getNodeFromMedia(media: Media, onSuccess success: @escaping (_ node: SCNNode) -> Void, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
         
         if media.type == ._3d {
             if let scene = getSceneFromMedia(media: media) {
                 success(scene.rootNode)
+            } else if let failure = failure {
+                failure(SvrfError(title: SvrfErrorTitle.GetNode.GetScene.rawValue, description: nil))
             }
-            
-            failure(SvrfError(title: SvrfErrorTitle.GetNode.GetScene.rawValue, description: nil))
-        } else {
+        } else if let failure = failure {
             failure(SvrfError(title: SvrfErrorTitle.GetNode.IncorrectMediaType.rawValue, description: nil))
         }
     }
@@ -244,7 +266,7 @@ public class SvrfSDK: NSObject {
      - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
      - returns: SCNNode
      */
-    public static func getFaceFilter(with device: MTLDevice, media: Media, onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func getFaceFilter(with device: MTLDevice, media: Media, onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
             
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
                 let modelSource = GLTFSceneSource(url: glbUrl)
@@ -268,7 +290,9 @@ public class SvrfSDK: NSObject {
                     
                     SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
                 } catch {
-                    failure(SvrfError(title: SvrfErrorTitle.GetFaceFilter.GetScene.rawValue, description: error.localizedDescription))
+                    if let failure = failure {
+                        failure(SvrfError(title: SvrfErrorTitle.GetFaceFilter.GetScene.rawValue, description: error.localizedDescription))
+                    }
                 }
             }
         }
