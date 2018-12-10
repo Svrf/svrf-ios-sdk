@@ -116,7 +116,7 @@ public class SvrfSDK: NSObject {
      - onSuccess: Success closure.
      - mediaArray: An array of *Media* from the Svrf API.
      - onFailure: Error closure.
-     - error: Error message.
+     - error: A *SvrfError*.
      */
     public static func search(query: String,
                               type: [MediaType]?,
