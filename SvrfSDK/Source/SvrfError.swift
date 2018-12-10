@@ -23,5 +23,5 @@ public enum SvrfErrorTitle: String {
     case Response = "Server response error."
     case ResponseNoMediaArray = "There is no mediaArray in the server response."
     case GetScene = "Can't get scene from the media."
-    case IncorrectMediaType = "Incorrect media type. Media type should be equal _3d."
+    case IncorrectMediaType = "Media type should equal _3d."
 }
