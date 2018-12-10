@@ -80,11 +80,7 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 2) Add the following code into `didFinishLaunchingWithOptions` function in *AppDelegate*:
 
 ```swift
-SvrfSDK.authenticate(onSuccess: {
-    // Do what you want when success
-}) { error in
-    // Do what you want with the error
-}
+SvrfSDK.authenticate()
 ```
 
 ## Endpoints
@@ -101,6 +97,8 @@ SvrfSDK.authenticate(onSuccess: {
 | pageNum                       | *Int?*                                          |
 | size                          | *Int?*                                          |
 | stereoscopicType              | *String?*                                       |
+| onSuccess                       | *(_ mediaArray: [Media]) -> Void*               |
+| onFailure                       | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *[Media]?*
 
@@ -120,7 +118,7 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
         self.present(alertController, animated: true)
     }
 }) { error in
-    Print(error)
+    print("\(error.title). \(error.description ?? "")")
 }
 ```
 
@@ -135,6 +133,8 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
 | nextPageCursor                | *String?*                                       |
 | size                          | *Int?*                                          |
 | stereoscopicType              | *String?*                                       |
+| onSuccess                       | *(_ mediaArray: [Media]) -> Void*               |
+| onFailure                       | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *[Media]?*
 
@@ -154,7 +154,7 @@ SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: 
         self.present(alertController, animated: true)
     }
 }) { error in
-    Print(error)
+    print("\(error.title). \(error.description ?? "")")
 }
 ```
 
@@ -165,6 +165,8 @@ Fetch *Media* by ID.
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | id                            | *String*                                        |
+| onSuccess                     | *(_ media: Media) -> Void*                      |
+| onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *Media?*
 
@@ -177,7 +179,7 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     //Do what you want with the Media
     self.mediaTitleLabel.text = media.title ?? "unknown"
 }) { error in
-    print(error)
+    print("\(error.title). \(error.description ?? "")")
 }
 ```
 
@@ -190,6 +192,8 @@ Generates a *SCNNode* for a *Media* with a *type* "3d". This method can used to 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | media                         | *Media*                                         |
+| onSuccess                     | *(_ node: SCNNode) -> Void*                     |
+| onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *SCNNode?*
 
@@ -199,10 +203,13 @@ Get *SCNNode* from *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    let scnNode = SvrfSDK.getNodeFromMedia(media: media)
-    // Do what you want with the SCNNode
+    SvrfSDK.getNodeFromMedia(media: media, onSuccess: { node in
+        // Do what you want with the SCNNode
+    }, onFailure: { error in
+        print("\(error.title). \(error.description ?? "")")
+    })
 }) { error in
-    print(error)
+    print("\(error.title). \(error.description ?? "")")
 }
 ```
 
@@ -212,8 +219,9 @@ The SVRF API allows you to access all of SVRF's ARKit compatible face filters an
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
-| device                        | *MTLDevice*                                     |
 | media                         | *Media*                                         |
+| onSuccess                     | *(_ faceFilter: SCNNode) -> Void*               |
+| onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *SCNNode*
 
@@ -223,10 +231,13 @@ Get a face filter *SCNNode* for *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    let faceFilter = SvrfSDK.getFaceFilter(with: self.mtlDevice, media: media)
-    // Do what you want with the face filter
+    SvrfSDK.getFaceFilter(with: media, onSuccess: { faceFilter in
+        // Do what you want with the face filter
+    }, onFailure: { error in
+        print("\(error.title). \(error.description)")
+    })
 }) { error in
-    print(error)
+    print("\(error.title). \(error.description)")
 }
 ```
 
@@ -258,8 +269,7 @@ class FaceFilter: SCNNode, VirtualFaceContent {
     }
 
     // VirtualFaceContent protocol's function
-    func update(withFaceAnchor faceAnchor: ARFaceAnchor, andMTLDevice device: MTLDevice ) {
-        self.device = device
+    func update(withFaceAnchor faceAnchor: ARFaceAnchor) {
         blendShapes = faceAnchor.blendShapes
     }
 }
