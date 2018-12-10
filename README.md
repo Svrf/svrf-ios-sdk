@@ -76,15 +76,21 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 
 ## Authentication
 
-1) Add your API key to the `Info.plist` file for *"SVRF_API_KEY"* key.
-2) Add the following code into `didFinishLaunchingWithOptions` function in *AppDelegate*:
+Configure your `plist` with your **SVRF_API_KEY**.
+
+```plist
+<plist version="1.0">
+  <dict>
+    <key>SVRF_API_KEY</key>
+    <string>{your-api-key}</string>
+  </dict>
+</plist>
+```
+
+To authenticate the SvrfSDK, add the following to your `didFinishLaunchingWithOptions` function in *AppDelegate*:
 
 ```swift
-SvrfSDK.authenticate(onSuccess: {
-    // Do what you want when success
-}) { error in
-    // Do what you want with the error
-}
+SvrfSDK.authenticate()
 ```
 
 ## Endpoints
@@ -274,7 +280,7 @@ class FaceFilter: SCNNode, VirtualFaceContent {
 [Docs Trending]: https://developers.svrf.com/#tag/Media/paths/~1vr~1trending/get
 [Pod]: https://cocoapods.org/pods/SvrfSDK
 [Privacy Policy]: https://www.svrf.com/privacy
-[Support]: https://github.com/SVRF/svrf-api/issues/new/choose 
+[Support]: https://github.com/SVRF/svrf-api/issues/new/choose
 [SVRF]: https://www.svrf.com
 [SVRF Dev]: https://developers.svrf.com
 [SVRF User Settings]: https://www.svrf.com/user/settings
