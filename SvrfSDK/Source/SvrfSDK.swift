@@ -266,7 +266,7 @@ public class SvrfSDK: NSObject {
      - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
      - returns: SCNNode
      */
-    public static func getFaceFilter(with device: MTLDevice, media: Media, onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+    public static func getFaceFilter(with media: Media, onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void, onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
             
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
                 let modelSource = GLTFSceneSource(url: glbUrl)
