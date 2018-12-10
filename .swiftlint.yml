@@ -1,5 +1,10 @@
+warning_threshold: 15
+
 excluded:
 - Carthage
 - Pods
 
-warning_threshold: 15
+disabled_rules:
+  - function_parameter_count
+  - line_length
+  - variable_name

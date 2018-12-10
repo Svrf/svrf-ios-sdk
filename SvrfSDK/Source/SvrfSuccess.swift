@@ -9,9 +9,9 @@
 import Foundation
 
 public enum SvrfSuccess: String {
-    
-    case Auth = "SVRF: authentication success"
-    case Search = "SVRF: search success"
-    case GetTrending = "SVRF: get trending success"
-    case GetMedia = "SVRF: get media success"
+
+    case auth = "SVRF: authentication success"
+    case search = "SVRF: search success"
+    case getTrending = "SVRF: get trending success"
+    case getMedia = "SVRF: get media success"
 }
