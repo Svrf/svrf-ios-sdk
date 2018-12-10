@@ -8,3 +8,5 @@ disabled_rules:
   - function_parameter_count
   - line_length
   - variable_name
+  - type_body_length
+  - file_length
