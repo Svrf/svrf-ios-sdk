@@ -39,7 +39,8 @@ public class SvrfSDK: NSObject {
        - onFailure: Failure closure.
        - error: Error message.
     */
-    public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func authenticate(onSuccess success: @escaping () -> Void,
+                                    onFailure failure: @escaping (_ error: SvrfError) -> Void) {
 
         dispatchGroup.enter()
 
@@ -57,7 +58,9 @@ public class SvrfSDK: NSObject {
 
             failure(SvrfError.authResponse)
             dispatchGroup.leave()
-        } else if let path = Bundle.main.path(forResource: "Info", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path), let apiKey = dict[svrfApiKeyKey] as? String {
+        } else if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+            let dict = NSDictionary(contentsOfFile: path),
+            let apiKey = dict[svrfApiKeyKey] as? String {
 
             let body = Body(apiKey: apiKey)
             AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
@@ -72,7 +75,8 @@ public class SvrfSDK: NSObject {
 
                 if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
                     UserDefaults.standard.set(authToken, forKey: svrfAuthTokenKey)
-                    UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn), forKey: svrfAuthTokenExpireDateKey)
+                    UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
+                                              forKey: svrfAuthTokenExpireDateKey)
 
                     SVRFClientSwiftAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
@@ -95,7 +99,11 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     The Svrf Search Endpoint brings the power of immersive search found on [Svrf.com](https://www.svrf.com) to your app or project. Svrf's search engine enables your users to instantly find the immersive experience they're seeking. Content is sorted by the Svrf rating system, ensuring that the highest quality content and most prevalent search results are returned.
+     The Svrf Search Endpoint brings the power of immersive search found on [Svrf.com](https://www.svrf.com)
+     to your app or project.
+     Svrf's search engine enables your users to instantly find the immersive experience they're seeking.
+     Content is sorted by the Svrf rating system, ensuring that the highest quality content and most
+     prevalent search results are returned.
      
      - parameters:
        - query: Url-encoded search query.
@@ -120,7 +128,12 @@ public class SvrfSDK: NSObject {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.search(q: query, type: type, stereoscopicType: stereoscopicType, category: category, size: size, pageNum: pageNum) { (searchMediaResponse, error) in
+            MediaAPI.search(q: query,
+                            type: type,
+                            stereoscopicType: stereoscopicType,
+                            category: category,
+                            size: size,
+                            pageNum: pageNum) { (searchMediaResponse, error) in
 
                 if error != nil {
                     print(SvrfError.searchResponse.rawValue)
@@ -139,7 +152,10 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans. The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content to trending pop-culture references. The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
+     The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans.
+     The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content
+     to trending pop-culture references.
+     The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
      
      - parameters:
        - type: The type(s) of *Media* to be returned (comma separated).
@@ -162,7 +178,12 @@ public class SvrfSDK: NSObject {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.getTrending(type: type, stereoscopicType: stereoscopicType, category: category, size: size, nextPageCursor: nextPageCursor, completion: { (trendingResponse, error) in
+            MediaAPI.getTrending(type: type,
+                                 stereoscopicType: stereoscopicType,
+                                 category: category,
+                                 size: size,
+                                 nextPageCursor: nextPageCursor,
+                                 completion: { (trendingResponse, error) in
 
                 if error != nil {
                     print(SvrfError.trendingResponse.rawValue)
@@ -190,7 +211,9 @@ public class SvrfSDK: NSObject {
        - onFailure: Error closure.
        - error: Error message.
      */
-    public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
+    public static func getMedia(id: String,
+                                onSuccess success: @escaping (_ media: Media) -> Void,
+                                onFailure failure: @escaping (_ error: SvrfError) -> Void) {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -213,7 +236,8 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate the whole 3D model, but is not recommended for face filters.
+     Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
+     the whole 3D model, but is not recommended for face filters.
      
      - attention: Face filters should be retrieved using the `getFaceFilter` method.
      - parameters:
@@ -236,9 +260,13 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that are activated by your user's facial expressions.
+     Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that
+     are activated by your user's facial expressions.
      
-     - Attention: This method enumerates through the node's hierarchy. Any children nodes with morpher targets that follow the [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
+     - Attention: This method enumerates through the node's hierarchy.
+     Any children nodes with morpher targets that follow the
+     [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation)
+     will be affected.
      - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
      - parameters:
        - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
@@ -256,7 +284,8 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
+     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
+     Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
      - parameters:
        - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
@@ -282,7 +311,8 @@ public class SvrfSDK: NSObject {
 
                 faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
-                SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id": media.id ?? "unknown"])
+                SEGAnalytics.shared().track("Face Filter Node Requested",
+                                            properties: ["media_id": media.id ?? "unknown"])
             } catch {
                 print(SvrfError.createScene)
             }
