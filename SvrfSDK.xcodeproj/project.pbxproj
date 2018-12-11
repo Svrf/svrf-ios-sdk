@@ -297,7 +297,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
-				"${BUILT_PRODUCTS_DIR}/SVRFClientSwift/SVRFClientSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVRFClient/SVRFClient.framework",
 				"${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -306,7 +306,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVRFClientSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVRFClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SvrfGLTFSceneKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

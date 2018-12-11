@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
           #9.
           s.source_files     = "SvrfSDK/Source/*"
 	  #10
-          s.dependency       'SVRFClientSwift'
+          s.dependency       'SVRFClient'
 	  s.dependency       'SvrfGLTFSceneKit'
 	  s.dependency       'Analytics', '~> 3.0'
           #11
