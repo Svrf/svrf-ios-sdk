@@ -211,13 +211,13 @@ public class SvrfSDK: NSObject {
        - onFailure: Error closure.
        - error: Error message.
      */
-    public static func getMedia(id: String,
+    public static func getMedia(identifier: String,
                                 onSuccess success: @escaping (_ media: Media) -> Void,
                                 onFailure failure: @escaping (_ error: SvrfError) -> Void) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.getById(id: id, completion: { (singleMediaResponse, error) in
+            MediaAPI.getById(id: identifier, completion: { (singleMediaResponse, error) in
 
                 if error != nil {
                     print(SvrfError.mediaResponse.rawValue)
