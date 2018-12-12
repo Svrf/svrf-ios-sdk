@@ -102,13 +102,9 @@ SvrfSDK.authenticate()
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | query                         | *String*                                        |
-| type                          | *[MediaType]?*                                  |
-| category                      | *String?*                                       |
-| pageNum                       | *Int?*                                          |
-| size                          | *Int?*                                          |
-| stereoscopicType              | *String?*                                       |
-| onSuccess                       | *(_ mediaArray: [Media]) -> Void*               |
-| onFailure                       | *((_ error: SvrfError) -> Void)?*               |
+| searchOptions                 | *SearchOptions*                                 |
+| onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
+| onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *[Media]?*
 
@@ -117,7 +113,8 @@ SvrfSDK.authenticate()
 Search "Five Eyes" face filter; limited by "_3d" *type* and "Face Filters" *category*.
 
 ```swift
-SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category: "Face Filters", size: nil, pageNum: nil, onSuccess: { mediaArray in
+let searchOptions = SearchOptions(type: [._3d], stereoscopicType: nil, category: nil, size: nil, pageNum: nil)
+SvrfSDK.search(query: "Five Eyes", options: searchOptions, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
@@ -138,13 +135,9 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
-| type                          | *[MediaType]?*                                  |
-| category                      | *String?*                                       |
-| nextPageCursor                | *String?*                                       |
-| size                          | *Int?*                                          |
-| stereoscopicType              | *String?*                                       |
-| onSuccess                       | *(_ mediaArray: [Media]) -> Void*               |
-| onFailure                       | *((_ error: SvrfError) -> Void)?*               |
+| trendingOptions               | *TrendingOptions*                               |
+| onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
+| onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
 **Returns:** *[Media]?*
 
@@ -153,7 +146,8 @@ SvrfSDK.search(query: "Five Eyes", type: [._3d], stereoscopicType: nil, category
 Get trending *Media*; limited by "video" *type*.
 
 ```swift
-SvrfSDK.getTrending(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil, onSuccess: { mediaArray in
+let trendingOptions = TrendingOptions(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil)
+SvrfSDK.getTrending(options: trendingOptions, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
