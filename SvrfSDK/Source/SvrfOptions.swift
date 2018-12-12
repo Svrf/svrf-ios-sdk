@@ -10,7 +10,18 @@ import Foundation
 import SVRFClient
 
 public struct SearchOptions {
-    let query: String
+    public init(type: [MediaType]?,
+                stereoscopicType: String?,
+                category: String?,
+                size: Int?,
+                pageNum: Int?) {
+        self.type = type
+        self.stereoscopicType = stereoscopicType
+        self.category = category
+        self.size = size
+        self.pageNum = pageNum
+    }
+
     let type: [MediaType]?
     let stereoscopicType: String?
     let category: String?
@@ -19,6 +30,17 @@ public struct SearchOptions {
 }
 
 public struct TrendingOptions {
+    public init(type: [MediaType]?,
+                stereoscopicType: String?,
+                category: String?,
+                size: Int?,
+                nextPageCursor: String?) {
+        self.type = type
+        self.stereoscopicType = stereoscopicType
+        self.category = category
+        self.size = size
+        self.nextPageCursor = nextPageCursor
+    }
     let type: [MediaType]?
     let stereoscopicType: String?
     let category: String?

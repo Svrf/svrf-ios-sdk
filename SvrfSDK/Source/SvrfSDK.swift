@@ -127,13 +127,14 @@ public class SvrfSDK: NSObject {
      - onFailure: Error closure.
      - error: A *SvrfError*.
      */
-    public static func search(options: SearchOptions,
+    public static func search(query: String,
+                              options: SearchOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
                               onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.search(q: options.query,
+            MediaAPI.search(q: query,
                             type: options.type,
                             stereoscopicType: options.stereoscopicType,
                             category: options.category,
