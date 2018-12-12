@@ -17,7 +17,7 @@ public enum SvrfErrorTitle: String {
 
     enum Auth: String {
         case responseNoToken = "There is no token in the server response."
-        case apiKey = "There is no API key in the Info.plist file. Please, set your API key into Info.plist file for SVRF_API_KEY field."
+        case apiKey = "Missing API key. Add your API key to Info.plist for the field SVRF_API_KEY."
     }
 
     case response = "Server response error."
