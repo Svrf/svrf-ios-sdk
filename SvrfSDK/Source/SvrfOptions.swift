@@ -9,6 +9,14 @@
 import Foundation
 import SVRFClient
 
+/**
+ - parameters:
+ - type: The type(s) of *Media* to be returned (comma separated).
+ - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
+ - category: Search only for *Media* with a particular category.
+ - size: The number of results to return per-page, from 1 to 100.
+ - pageNum: Pagination control to fetch the next page of results, if applicable.
+ */
 public struct SearchOptions {
     public init(type: [MediaType]?,
                 stereoscopicType: String?,
@@ -29,6 +37,14 @@ public struct SearchOptions {
     let pageNum: Int?
 }
 
+/**
+ - parameters:
+ - type: The type(s) of *Media* to be returned (comma separated).
+ - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
+ - category: Search only for *Media* with a particular category.
+ - size: The number of results to return per-page, from 1 to 100.
+ - nextPageCursor: Pass this cursor ID to get the next page of results.
+ */
 public struct TrendingOptions {
     public init(type: [MediaType]?,
                 stereoscopicType: String?,

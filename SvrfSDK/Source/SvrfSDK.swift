@@ -114,14 +114,10 @@ public class SvrfSDK: NSObject {
      Svrf's search engine enables your users to instantly find the immersive experience they're seeking.
      Content is sorted by the Svrf rating system, ensuring that the highest quality content and most
      prevalent search results are returned.
-     
+
      - parameters:
      - query: Url-encoded search query.
-     - type: The type(s) of *Media* to be returned (comma separated).
-     - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
-     - category: Search only for *Media* with a particular category.
-     - size: The number of results to return per-page, from 1 to 100.
-     - pageNum: Pagination control to fetch the next page of results, if applicable.
+     - options: Structure with parameters of search
      - onSuccess: Success closure.
      - mediaArray: An array of *Media* from the Svrf API.
      - onFailure: Error closure.
@@ -164,11 +160,7 @@ public class SvrfSDK: NSObject {
      The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
      
      - parameters:
-     - type: The type(s) of *Media* to be returned (comma separated).
-     - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
-     - category: Search only for *Media* with a particular category.
-     - size: The number of results to return per-page, from 1 to 100.
-     - nextPageCursor: Pass this cursor ID to get the next page of results.
+     - options: Structure with parameters of trending
      - onSuccess: Success closure.
      - mediaArray: An array of *Media* from the Svrf API.
      - onFailure: Error closure.
