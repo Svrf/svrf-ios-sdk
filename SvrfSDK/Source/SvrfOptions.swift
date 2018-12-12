@@ -10,6 +10,7 @@ import Foundation
 import SVRFClient
 
 /**
+ Search endpoint parameters.
  - parameters:
  - type: The type(s) of *Media* to be returned (comma separated).
  - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
@@ -18,11 +19,11 @@ import SVRFClient
  - pageNum: Pagination control to fetch the next page of results, if applicable.
  */
 public struct SearchOptions {
-    public init(type: [MediaType]?,
-                stereoscopicType: String?,
-                category: String?,
-                size: Int?,
-                pageNum: Int?) {
+    public init(type: [MediaType]? = nil,
+                stereoscopicType: String? = nil,
+                category: String? = nil,
+                size: Int? = nil,
+                pageNum: Int? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
@@ -38,6 +39,7 @@ public struct SearchOptions {
 }
 
 /**
+ Trending endpoint parameters.
  - parameters:
  - type: The type(s) of *Media* to be returned (comma separated).
  - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
@@ -46,11 +48,11 @@ public struct SearchOptions {
  - nextPageCursor: Pass this cursor ID to get the next page of results.
  */
 public struct TrendingOptions {
-    public init(type: [MediaType]?,
-                stereoscopicType: String?,
-                category: String?,
-                size: Int?,
-                nextPageCursor: String?) {
+    public init(type: [MediaType]? = nil,
+                stereoscopicType: String? = nil,
+                category: String? = nil,
+                size: Int? = nil,
+                nextPageCursor: String? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
