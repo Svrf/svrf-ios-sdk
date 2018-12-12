@@ -127,23 +127,18 @@ public class SvrfSDK: NSObject {
      - onFailure: Error closure.
      - error: A *SvrfError*.
      */
-    public static func search(query: String,
-                              type: [MediaType]?,
-                              stereoscopicType: String?,
-                              category: String?,
-                              size: Int?,
-                              pageNum: Int?,
+    public static func search(options: SearchOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
                               onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.search(q: query,
-                            type: type,
-                            stereoscopicType: stereoscopicType,
-                            category: category,
-                            size: size,
-                            pageNum: pageNum) { (searchMediaResponse, error) in
+            MediaAPI.search(q: options.query,
+                            type: options.type,
+                            stereoscopicType: options.stereoscopicType,
+                            category: options.category,
+                            size: options.size,
+                            pageNum: options.pageNum) { (searchMediaResponse, error) in
 
                 if let error = error {
                     if let failure = failure {
@@ -178,21 +173,17 @@ public class SvrfSDK: NSObject {
      - onFailure: Error closure.
      - error: A *SvrfError*.
      */
-    public static func getTrending(type: [MediaType]?,
-                                   stereoscopicType: String?,
-                                   category: String?,
-                                   size: Int?,
-                                   nextPageCursor: String?,
+    public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
                                    onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.getTrending(type: type,
-                                 stereoscopicType: stereoscopicType,
-                                 category: category,
-                                 size: size,
-                                 nextPageCursor: nextPageCursor,
+            MediaAPI.getTrending(type: options?.type,
+                                 stereoscopicType: options?.stereoscopicType,
+                                 category: options?.category,
+                                 size: options?.size,
+                                 nextPageCursor: options?.nextPageCursor,
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
@@ -275,7 +266,8 @@ public class SvrfSDK: NSObject {
      
      - Attention: This method enumerates through the node's hierarchy.
      Any children nodes with morpher targets that follow the
-     [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
+     [ARKit blend shape naming conventions]:
+     (https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
      - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
      - parameters:
      - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.

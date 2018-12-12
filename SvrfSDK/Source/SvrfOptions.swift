@@ -7,3 +7,21 @@
 //
 
 import Foundation
+import SVRFClient
+
+public struct SearchOptions {
+    let query: String
+    let type: [MediaType]?
+    let stereoscopicType: String?
+    let category: String?
+    let size: Int?
+    let pageNum: Int?
+}
+
+public struct TrendingOptions {
+    let type: [MediaType]?
+    let stereoscopicType: String?
+    let category: String?
+    let size: Int?
+    let nextPageCursor: String?
+}

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import SVRFClientSwift
+import SVRFClient
 //@testable import SvrfSDK
 
 private var token: String?
@@ -52,7 +52,7 @@ class SvrfSDKTests: XCTestCase {
                        success: @escaping (_ response: SearchMediaResponse) -> Void,
                        failure: @escaping (_ error: Error) -> Void) {
         if token != nil {
-            SVRFClientSwiftAPI.customHeaders = ["x-app-token": token!]
+            SVRFClientAPI.customHeaders = ["x-app-token": token!]
         }
         MediaAPI.search(q: query,
                         type: type,
@@ -76,7 +76,7 @@ class SvrfSDKTests: XCTestCase {
                              success: @escaping (_ response: TrendingResponse) -> Void,
                              failure: @escaping (_ error: Error) -> Void) {
         if token != nil {
-            SVRFClientSwiftAPI.customHeaders = ["x-app-token": token!]
+            SVRFClientAPI.customHeaders = ["x-app-token": token!]
         }
         MediaAPI.getTrending(type: type,
                              stereoscopicType: stereoscopicType,
@@ -91,13 +91,13 @@ class SvrfSDKTests: XCTestCase {
         }
     }
 
-    private func getById(id: String,
+    private func getById(identifier: String,
                          success: @escaping (_ response: SingleMediaResponse) -> Void,
                          failure: @escaping (_ error: Error) -> Void) {
         if token != nil {
-            SVRFClientSwiftAPI.customHeaders = ["x-app-token": token!]
+            SVRFClientAPI.customHeaders = ["x-app-token": token!]
         }
-        MediaAPI.getById(id: id) { (singleMediaResponse, error) in
+        MediaAPI.getById(id: identifier) { (singleMediaResponse, error) in
             if error != nil {
                 failure(error!)
             } else {
@@ -681,15 +681,15 @@ class SvrfSDKTests: XCTestCase {
     // MARK: - Get media by id
     func testGetMediaById() {
         let promise = expectation(description: "Get media by id")
-        var id: String!
+        var identifier: String!
         getTrending(success: { [unowned self] (trendingResponse) in
-            id = trendingResponse.media![0].id!
-            self.getById(id: id, success: { _ in
+            identifier = trendingResponse.media![0].id!
+            self.getById(identifier: identifier, success: { _ in
                 promise.fulfill()
             }, failure: { _ in
                 XCTFail("""
                         Get media by id method finished with error.
-                        Please check get media by id method in client API with id = \(id ?? "").
+                        Please check get media by id method in client API with id = \(identifier ?? "").
                         """)
             })
         }, failure: { _ in
