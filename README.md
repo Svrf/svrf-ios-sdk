@@ -114,6 +114,7 @@ Search "Five Eyes" face filter; limited by "_3d" *type* and "Face Filters" *cate
 
 ```swift
 let searchOptions = SearchOptions(type: [._3d], stereoscopicType: nil, category: nil, size: nil, pageNum: nil)
+
 SvrfSDK.search(query: "Five Eyes", options: searchOptions, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
@@ -147,6 +148,7 @@ Get trending *Media*; limited by "video" *type*.
 
 ```swift
 let trendingOptions = TrendingOptions(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil)
+
 SvrfSDK.getTrending(options: trendingOptions, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
@@ -238,10 +240,10 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
     SvrfSDK.getFaceFilter(with: media, onSuccess: { faceFilter in
         // Do what you want with the face filter
     }, onFailure: { error in
-        print("\(error.title). \(error.description)")
+        print("\(error.title). \(error.description ?? "")")
     })
 }) { error in
-    print("\(error.title). \(error.description)")
+    print("\(error.title). \(error.description ?? "")")
 }
 ```
 
@@ -277,6 +279,15 @@ class FaceFilter: SCNNode, VirtualFaceContent {
         blendShapes = faceAnchor.blendShapes
     }
 }
+```
+
+## Errors
+
+Errors are returned in a custom `SvrfError`. It includes a `title` and `description` to provide you with detailed information for the error you are encountering.
+
+```swift
+print(svrfError.title)
+print(svrfError.description)
 ```
 
 [CocoaPods]: https://www.cocoapods.org/
