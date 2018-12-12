@@ -3,7 +3,7 @@
 //  SvrfSDK
 //
 //  Created by Andrei Evstratenko on 21/11/2018.
-//  Copyright © 2018 SVRF, Inc. All rights reserved.
+//  Copyright © 2018 Svrf, Inc. All rights reserved.
 //
 
 import Foundation

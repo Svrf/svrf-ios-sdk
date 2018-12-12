@@ -3,7 +3,7 @@
 //  SvrfSDKTests
 //
 //  Created by Andrei Evstratenko on 05/11/2018.
-//  Copyright © 2018 SVRF, Inc. All rights reserved.
+//  Copyright © 2018 Svrf, Inc. All rights reserved.
 //
 
 import XCTest
