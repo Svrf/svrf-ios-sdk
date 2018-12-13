@@ -132,8 +132,8 @@ public class SvrfSDK: NSObject {
 
             MediaAPI.search(q: query,
                             type: options.type,
-                            stereoscopicType: options.stereoscopicType,
-                            category: options.category,
+                            stereoscopicType: options.stereoscopicType?.rawValue,
+                            category: options.category?.rawValue,
                             size: options.size,
                             pageNum: options.pageNum) { (searchMediaResponse, error) in
 
@@ -173,8 +173,8 @@ public class SvrfSDK: NSObject {
         dispatchGroup.notify(queue: .main) {
 
             MediaAPI.getTrending(type: options?.type,
-                                 stereoscopicType: options?.stereoscopicType,
-                                 category: options?.category,
+                                 stereoscopicType: options?.stereoscopicType?.rawValue,
+                                 category: options?.category?.rawValue,
                                  size: options?.size,
                                  nextPageCursor: options?.nextPageCursor,
                                  completion: { (trendingResponse, error) in

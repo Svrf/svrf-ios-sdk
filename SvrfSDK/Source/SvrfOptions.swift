@@ -9,6 +9,16 @@
 import Foundation
 import SVRFClient
 
+public enum Category: String {
+    case faceFilters = "Face Filters"
+}
+
+public enum StereoscopicType: String {
+    case none = "none"
+    case topBottom = "top-bottom"
+    case leftRight = "left-right"
+}
+
 /**
  Search endpoint parameters.
  - parameters:
@@ -20,8 +30,8 @@ import SVRFClient
  */
 public struct SearchOptions {
     public init(type: [MediaType]? = nil,
-                stereoscopicType: String? = nil,
-                category: String? = nil,
+                stereoscopicType: StereoscopicType? = nil,
+                category: Category? = nil,
                 size: Int? = nil,
                 pageNum: Int? = nil) {
         self.type = type
@@ -32,8 +42,8 @@ public struct SearchOptions {
     }
 
     let type: [MediaType]?
-    let stereoscopicType: String?
-    let category: String?
+    let stereoscopicType: StereoscopicType?
+    let category: Category?
     let size: Int?
     let pageNum: Int?
 }
@@ -49,8 +59,8 @@ public struct SearchOptions {
  */
 public struct TrendingOptions {
     public init(type: [MediaType]? = nil,
-                stereoscopicType: String? = nil,
-                category: String? = nil,
+                stereoscopicType: StereoscopicType? = nil,
+                category: Category? = nil,
                 size: Int? = nil,
                 nextPageCursor: String? = nil) {
         self.type = type
@@ -60,8 +70,8 @@ public struct TrendingOptions {
         self.nextPageCursor = nextPageCursor
     }
     let type: [MediaType]?
-    let stereoscopicType: String?
-    let category: String?
+    let stereoscopicType: StereoscopicType?
+    let category: Category?
     let size: Int?
     let nextPageCursor: String?
 }
