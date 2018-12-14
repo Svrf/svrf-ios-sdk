@@ -404,19 +404,15 @@ public class SvrfSDK: NSObject {
         }
 
         /**
-         Sets a node named *Occluder* to have all of its children set as an occluder.
+         Sets a node to have all of its children set as an occluder.
          - parameters:
-         - node: A *SCNNode* likely named *Occluder* with a child node named *Occluder*, also.
+         - node: A *SCNNode* likely named *Occluder*.
          */
         private static func setOccluderNode(node: SCNNode) {
-            // Find a child that should be occluded, also named Occluder
-            if let occluderNode = node.childNode(withName: ChildNode.occluder.rawValue, recursively: true) {
-                // Any child of this node should be occluded
-                occluderNode.enumerateHierarchy { (childNode, _) in
-                    childNode.geometry?.firstMaterial?.colorBufferWriteMask = []
-                    childNode.renderingOrder = -1
-                }
+            // Any child of this node should be occluded
+            node.enumerateHierarchy { (childNode, _) in
+                childNode.geometry?.firstMaterial?.colorBufferWriteMask = []
+                childNode.renderingOrder = -1
             }
-
         }
 }
