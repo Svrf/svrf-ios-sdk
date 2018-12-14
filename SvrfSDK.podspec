@@ -4,11 +4,11 @@ Pod::Spec.new do |s|
           #2.
           s.version            = "1.0.0"
           #3.  
-          s.summary         = "SvrfSDK for requests"
+          s.summary         = "The SvrfSDK is a framework for easy integration of the SVRF API"
           #4.
           s.homepage        = "http://www.svrf.com"
           #5.
-          s.license              = ""
+          s.license              = "MIT"
           #6.
           s.author               = "SVRF"
           #7.
