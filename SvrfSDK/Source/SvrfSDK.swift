@@ -337,6 +337,10 @@ public class SvrfSDK: NSObject {
 
                     do {
                         let scene = try modelSource.scene()
+                        
+                        SEGAnalytics.shared().track("3D Node Requested",
+                                                    properties: ["media_id": media.id ?? "unknown"])
+                        
                         return scene
                     } catch {
 
