@@ -594,7 +594,7 @@
 			baseConfigurationReference = 6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V88MRDGKUF;
+				DEVELOPMENT_TEAM = X4KMHYAFYC;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -613,7 +613,7 @@
 			baseConfigurationReference = A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V88MRDGKUF;
+				DEVELOPMENT_TEAM = X4KMHYAFYC;
 				INFOPLIST_FILE = SvrfSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
