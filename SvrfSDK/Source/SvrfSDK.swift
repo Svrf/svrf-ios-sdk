@@ -358,22 +358,20 @@ public class SvrfSDK: NSObject {
          
          - returns: Bool
          */
-        private static func needUpdateToken() -> Bool {
+    private static func needUpdateToken() -> Bool {
+        
+        if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
+            let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
+            String(data: receivedData, encoding: .utf8) != nil {
 
-            if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date {
-                if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey) {
-                    if String(data: receivedData, encoding: .utf8) != nil {
-
-                        let twoDays = 172800
-                        if Int(Date().timeIntervalSince(tokenExpirationDate)) < twoDays {
-                            return false
-                        }
-                    }
-                }
+            let twoDays = 172800
+            if Int(Date().timeIntervalSince(tokenExpirationDate)) < twoDays {
+                return false
             }
-
-            return true
         }
+
+        return true
+    }
 
         /**
          Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
