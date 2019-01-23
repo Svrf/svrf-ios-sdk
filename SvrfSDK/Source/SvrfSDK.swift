@@ -274,7 +274,9 @@ public class SvrfSDK: NSObject {
 
             for (blendShape, weight) in blendShapes {
                 let targetName = blendShape.rawValue
-                childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
+                DispatchQueue.main.async {
+                    childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
+                }
             }
         }
     }
