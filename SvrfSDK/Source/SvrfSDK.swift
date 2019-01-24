@@ -270,8 +270,8 @@ public class SvrfSDK: NSObject {
      */
     public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for node: SCNNode) {
 
-        node.enumerateHierarchy { (childNode, _) in
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            node.enumerateHierarchy { (childNode, _) in
                 for (blendShape, weight) in blendShapes {
                     let targetName = blendShape.rawValue
                     childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
