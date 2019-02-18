@@ -127,7 +127,7 @@ public class SvrfSDK: NSObject {
      */
     public static func search(query: String,
                               options: SearchOptions,
-                              onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
+                              onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
                               onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
 
         dispatchGroup.notify(queue: .main) {
@@ -146,7 +146,7 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
-                        success(mediaArray)
+                        success(mediaArray, searchMediaResponse?.nextPageNum)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
                     }
@@ -169,7 +169,8 @@ public class SvrfSDK: NSObject {
      - error: A *SvrfError*.
      */
     public static func getTrending(options: TrendingOptions?,
-                                   onSuccess success: @escaping (_ mediaArray: [Media]) -> Void,
+                                   onSuccess success: @escaping (_ mediaArray: [Media],
+        _ nextPageCursor: String?) -> Void,
                                    onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
 
         dispatchGroup.notify(queue: .main) {
@@ -188,7 +189,7 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
-                        success(mediaArray)
+                        success(mediaArray, trendingResponse?.nextPageCursor)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
                     }
