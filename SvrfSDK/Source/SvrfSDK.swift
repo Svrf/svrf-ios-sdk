@@ -34,10 +34,10 @@ public class SvrfSDK: NSObject {
     /**
      Authenticate your API Key with the Svrf API.
      
-     - parameters:
-     - onSuccess: Success closure.
-     - onFailure: Failure closure.
-     - error: A *SvrfError*.
+     - Parameters:
+        - success: Success closure.
+        - failure: Failure closure.
+        - error: A *SvrfError*.
      */
     public static func authenticate(onSuccess success: (() -> Void)? = nil,
                                     onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
@@ -117,13 +117,14 @@ public class SvrfSDK: NSObject {
      Content is sorted by the Svrf rating system, ensuring that the highest quality content and most
      prevalent search results are returned.
 
-     - parameters:
-     - query: Url-encoded search query.
-     - options: Structure with parameters of search
-     - onSuccess: Success closure.
-     - mediaArray: An array of *Media* from the Svrf API.
-     - onFailure: Error closure.
-     - error: A *SvrfError*.
+     - Parameters:
+        - query: Url-encoded search query.
+        - options: Structure with parameters of search
+        - success: Success closure.
+        - mediaArray: An array of *Media* from the Svrf API.
+        - nextPageNum: Number of the next page.
+        - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func search(query: String,
                               options: SearchOptions,
@@ -161,12 +162,13 @@ public class SvrfSDK: NSObject {
      to trending pop-culture references.
      The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
      
-     - parameters:
-     - options: Structure with parameters of trending
-     - onSuccess: Success closure.
-     - mediaArray: An array of *Media* from the Svrf API.
-     - onFailure: Error closure.
-     - error: A *SvrfError*.
+     - Parameters:
+        - options: Structure with parameters of trending
+        - success: Success closure.
+        - mediaArray: An array of *Media* from the Svrf API.
+        - nextPageCursor: Cursor of the next page.
+        - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
@@ -201,12 +203,12 @@ public class SvrfSDK: NSObject {
     /**
      Fetch SVRF media by its ID.
      
-     - parameters:
-     - id: ID of *Media* to fetch.
-     - onSuccess: Success closure.
-     - media: *Media* from the Svrf API.
-     - onFailure: Error closure.
-     - error: A *SvrfError*.
+     - Parameters:
+        - identifier: ID of *Media* to fetch.
+        - success: Success closure.
+        - media: *Media* from the Svrf API.
+        - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getMedia(identifier: String,
                                 onSuccess success: @escaping (_ media: Media) -> Void,
@@ -236,10 +238,12 @@ public class SvrfSDK: NSObject {
      Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
      the whole 3D model, but is not recommended for face filters.
      
-     - attention: Face filters should be retrieved using the `getFaceFilter` method.
-     - parameters:
-     - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
-     - returns: SCNNode?
+     - Attention: Face filters should be retrieved using the `getFaceFilter` method.
+     - Parameters:
+        - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
+        - success: Success closure.
+        - node: *SCNNode*
+        - failure: Error closure.
      */
     public static func getNodeFromMedia(media: Media,
                                         onSuccess success: @escaping (_ node: SCNNode) -> Void,
@@ -262,12 +266,11 @@ public class SvrfSDK: NSObject {
      
      - Attention: This method enumerates through the node's hierarchy.
      Any children nodes with morpher targets that follow the
-     [ARKit blend shape naming conventions]:
-     (https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
+     [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
      - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
-     - parameters:
-     - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
-     - for: The node with morpher targets.
+     - Parameters:
+        - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
+        - node: The node with morpher targets.
      */
     public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for node: SCNNode) {
 
@@ -285,9 +288,11 @@ public class SvrfSDK: NSObject {
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
      Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
-     - parameters:
-     - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
-     - returns: SCNNode
+     - Parameters:
+        - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
+        - success: Success closure.
+        - faceFilter: The node that contains face filter content
+        - failure: Error closure.
      */
     public static func getFaceFilter(with media: Media,
                                      onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void,
@@ -328,9 +333,9 @@ public class SvrfSDK: NSObject {
         /**
          Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
          
-         - parameters:
-         - media: The *Media* to return a *SCNScene* from.
-         - returns: SCNScene?
+         - Parameters:
+            - media: The *Media* to return a *SCNScene* from.
+         - Returns: SCNScene?
          */
         private static func getSceneFromMedia(media: Media) -> SCNScene? {
 
@@ -358,7 +363,7 @@ public class SvrfSDK: NSObject {
         /**
          Checks if the Svrf authentication token has expired.
          
-         - returns: Bool
+         - Returns: Bool
          */
     private static func needUpdateToken() -> Bool {
         
@@ -378,9 +383,9 @@ public class SvrfSDK: NSObject {
         /**
          Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
          
-         - parameters:
-         - expireIn: The time until token expiration in seconds.
-         - returns: Date
+         - Parameters:
+            - expireIn: The time until token expiration in seconds.
+         - Returns: Date
          */
         private static func getTokenExpireDate(expireIn: Int) -> Date {
 
@@ -415,8 +420,8 @@ public class SvrfSDK: NSObject {
 
         /**
          Sets a node to have all of its children set as an occluder.
-         - parameters:
-         - node: A *SCNNode* likely named *Occluder*.
+         - Parameters:
+            - node: A *SCNNode* likely named *Occluder*.
          */
         private static func setOccluderNode(node: SCNNode) {
             // Any child of this node should be occluded
