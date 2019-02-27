@@ -37,7 +37,6 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - success: Success closure.
         - failure: Failure closure.
-        - error: A *SvrfError*.
      */
     public static func authenticate(onSuccess success: (() -> Void)? = nil,
                                     onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
@@ -124,7 +123,6 @@ public class SvrfSDK: NSObject {
         - mediaArray: An array of *Media* from the Svrf API.
         - nextPageNum: Number of the next page.
         - failure: Error closure.
-        - error: A *SvrfError*.
      */
     public static func search(query: String,
                               options: SearchOptions,
@@ -168,7 +166,6 @@ public class SvrfSDK: NSObject {
         - mediaArray: An array of *Media* from the Svrf API.
         - nextPageCursor: Cursor of the next page.
         - failure: Error closure.
-        - error: A *SvrfError*.
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
@@ -208,7 +205,6 @@ public class SvrfSDK: NSObject {
         - success: Success closure.
         - media: *Media* from the Svrf API.
         - failure: Error closure.
-        - error: A *SvrfError*.
      */
     public static func getMedia(identifier: String,
                                 onSuccess success: @escaping (_ media: Media) -> Void,
