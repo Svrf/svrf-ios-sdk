@@ -40,7 +40,7 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func authenticate(onSuccess success: (() -> Void)? = nil,
-                                    onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.enter()
 
@@ -129,7 +129,7 @@ public class SvrfSDK: NSObject {
     public static func search(query: String,
                               options: SearchOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
-                              onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -173,7 +173,7 @@ public class SvrfSDK: NSObject {
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
         _ nextPageCursor: String?) -> Void,
-                                   onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                                   onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -212,7 +212,7 @@ public class SvrfSDK: NSObject {
      */
     public static func getMedia(identifier: String,
                                 onSuccess success: @escaping (_ media: Media) -> Void,
-                                onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                                onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -247,7 +247,7 @@ public class SvrfSDK: NSObject {
      */
     public static func getNodeFromMedia(media: Media,
                                         onSuccess success: @escaping (_ node: SCNNode) -> Void,
-                                        onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                                        onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         if media.type == ._3d {
             if let scene = getSceneFromMedia(media: media) {
@@ -296,7 +296,7 @@ public class SvrfSDK: NSObject {
      */
     public static func getFaceFilter(with media: Media,
                                      onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void,
-                                     onFailure failure: ((_ error: SvrfError) -> Void)? = nil) {
+                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
                 let modelSource = GLTFSceneSource(url: glbUrl)
