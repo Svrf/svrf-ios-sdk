@@ -238,7 +238,7 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
-        - node: *SCNNode*
+        - node: The node that was gotten from the media
         - failure: Error closure.
      */
     public static func getNodeFromMedia(media: Media,
