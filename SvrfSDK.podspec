@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.platform = :ios, "11.0"
   s.source = { :git => "https://github.com/SVRF/svrf-ios-sdk.git", :tag => "1.0.3" }
   s.source_files = "SvrfSDK/Source/*"
-  s.dependency 'SVRFClient'
-  s.dependency 'SvrfGLTFSceneKit'
+  s.dependency 'SVRFClient', '~> 1.4'
+  s.dependency 'SvrfGLTFSceneKit', '~> 1.0'
   s.dependency 'Analytics', '~> 3.0'
   s.swift_version = "4.0"
 end
