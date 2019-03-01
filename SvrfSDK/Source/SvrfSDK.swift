@@ -135,8 +135,8 @@ public class SvrfSDK: NSObject {
 
             MediaAPI.search(q: query,
                             type: options.type,
-                            stereoscopicType: options.stereoscopicType?.rawValue,
-                            category: options.category?.rawValue,
+                            stereoscopicType: options.stereoscopicType,
+                            category: options.category,
                             size: options.size,
                             pageNum: options.pageNum) { (searchMediaResponse, error) in
 
@@ -166,22 +166,23 @@ public class SvrfSDK: NSObject {
         - options: Structure with parameters of trending
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
-        - nextPageCursor: Cursor of the next page.
+        - nextPageNum: Number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
-        _ nextPageCursor: String?) -> Void,
+        _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
             MediaAPI.getTrending(type: options?.type,
-                                 stereoscopicType: options?.stereoscopicType?.rawValue,
-                                 category: options?.category?.rawValue,
+                                 stereoscopicType: options?.stereoscopicType,
+                                 category: options?.category,
                                  size: options?.size,
-                                 nextPageCursor: options?.nextPageCursor,
+                                 minimumWidth: options?.minimumWidth,
+                                 pageNum: options?.pageNum,
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
@@ -191,7 +192,7 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
-                        success(mediaArray, trendingResponse?.nextPageCursor)
+                        success(mediaArray, trendingResponse?.nextPageNum)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
                     }
@@ -366,7 +367,7 @@ public class SvrfSDK: NSObject {
          - Returns: Bool
          */
     private static func needUpdateToken() -> Bool {
-        
+
         if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
             let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
             String(data: receivedData, encoding: .utf8) != nil {
