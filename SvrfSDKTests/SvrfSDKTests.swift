@@ -45,8 +45,8 @@ class SvrfSDKTests: XCTestCase {
 
     private func searh(query: String,
                        type: [MediaType]? = nil,
-                       stereoscopicType: String? = nil,
-                       category: String? = nil,
+                       stereoscopicType: MediaAPI.StereoscopicType_search? = nil,
+                       category: MediaAPI.Category_search? = nil,
                        size: Int? = nil,
                        pageNum: Int? = nil,
                        success: @escaping (_ response: SearchMediaResponse) -> Void,
@@ -69,25 +69,28 @@ class SvrfSDKTests: XCTestCase {
     }
 
     private func getTrending(type: [MediaType]? = nil,
-                             stereoscopicType: String? = nil,
-                             category: String? = nil,
+                             stereoscopicType: MediaAPI.StereoscopicType_getTrending? = nil,
+                             category: MediaAPI.Category_getTrending? = nil,
                              size: Int? = nil,
-                             nextPageCursor: String? = nil,
+                             minimumWidth: Int? = nil,
+                             pageNum: Int? = nil,
                              success: @escaping (_ response: TrendingResponse) -> Void,
                              failure: @escaping (_ error: Error) -> Void) {
         if token != nil {
             SVRFClientAPI.customHeaders = ["x-app-token": token!]
         }
+
         MediaAPI.getTrending(type: type,
                              stereoscopicType: stereoscopicType,
                              category: category,
                              size: size,
-                             nextPageCursor: nextPageCursor) { (trendingResponse, error) in
-            if error != nil {
-                failure(error!)
-            } else {
-                success(trendingResponse!)
-            }
+                             minimumWidth: minimumWidth,
+                             pageNum: pageNum) { (trendingResponse, error) in
+                                if error != nil {
+                                    failure(error!)
+                                } else {
+                                    success(trendingResponse!)
+                                }
         }
     }
 
@@ -166,9 +169,6 @@ class SvrfSDKTests: XCTestCase {
     func testSearchMethodWithNotEmptyQuery() {
         let promise = expectation(description: "Search request with not empty query")
         searh(query: singleSearchQuery, success: { (searchMediaResponse) in
-            if searchMediaResponse.success == nil {
-                XCTFail("Status(success field) in Search method response is nill.")
-            }
             if searchMediaResponse.media == nil {
                 XCTFail("Media array in Search method response is nill.")
             }
@@ -656,15 +656,14 @@ class SvrfSDKTests: XCTestCase {
 
     func testGetTrendingWithNextPageCursor() {
         let promise = expectation(description: "Get trending request with next page cursor")
-        var cursor: String!
         getTrending(success: { [unowned self] (trendingResponse) in
-            cursor = trendingResponse.nextPageCursor
-            self.getTrending(nextPageCursor: cursor, success: { _ in
+            let nextPageNum = trendingResponse.nextPageNum
+            self.getTrending(pageNum: nextPageNum, success: { _ in
                 promise.fulfill()
             }, failure: { _ in
                 XCTFail("""
                         Get trending method with next page cursor finished with error.
-                        Please check get trending method in client API with nextPageCursor = \(cursor ?? "").
+                        Please check get trending method in client API with nextPageCursor.
                         """)
                 promise.fulfill()
             })
