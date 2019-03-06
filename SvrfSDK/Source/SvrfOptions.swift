@@ -23,12 +23,14 @@ public struct SearchOptions {
                 stereoscopicType: MediaAPI.StereoscopicType_search? = nil,
                 category: MediaAPI.Category_search? = nil,
                 size: Int? = nil,
-                pageNum: Int? = nil) {
+                pageNum: Int? = nil,
+                pageCursor: String? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
         self.size = size
         self.pageNum = pageNum
+        self.pageCursor = pageCursor
     }
 
     let type: [MediaType]?
@@ -36,6 +38,7 @@ public struct SearchOptions {
     let category: MediaAPI.Category_search?
     let size: Int?
     let pageNum: Int?
+    let pageCursor: String?
 }
 
 /**
@@ -53,13 +56,15 @@ public struct TrendingOptions {
                 category: MediaAPI.Category_getTrending? = nil,
                 size: Int? = nil,
                 minimumWidth: Int? = nil,
-                pageNum: Int? = nil) {
+                pageNum: Int? = nil,
+                pageCursor: String? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
         self.size = size
         self.minimumWidth = minimumWidth
         self.pageNum = pageNum
+        self.pageCursor = pageCursor
     }
     let type: [MediaType]?
     let stereoscopicType: MediaAPI.StereoscopicType_getTrending?
@@ -67,4 +72,5 @@ public struct TrendingOptions {
     let size: Int?
     let minimumWidth: Int?
     let pageNum: Int?
+    let pageCursor: String?
 }

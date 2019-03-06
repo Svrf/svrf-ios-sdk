@@ -30,6 +30,7 @@
 		EC6F42F621F1D2CA00F7FD17 /* SvrfKeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */; };
 		EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CC219AAD23003C1108 /* SvrfError.swift */; };
 		EC87A0EE21C1250B00FED9BE /* SvrfOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */; };
+		ECAB5393222FE4D10018EEB9 /* SvrfOptional+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAB5392222FE4D10018EEB9 /* SvrfOptional+String.swift */; };
 		ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfKeyChain.swift; sourceTree = "<group>"; };
 		EC75A3CC219AAD23003C1108 /* SvrfError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfError.swift; sourceTree = "<group>"; };
 		EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfOptions.swift; sourceTree = "<group>"; };
+		ECAB5392222FE4D10018EEB9 /* SvrfOptional+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SvrfOptional+String.swift"; sourceTree = "<group>"; };
 		ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfJWTDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
 				EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */,
+				ECAB5392222FE4D10018EEB9 /* SvrfOptional+String.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				EC87A0EE21C1250B00FED9BE /* SvrfOptions.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
 				ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */,
+				ECAB5393222FE4D10018EEB9 /* SvrfOptional+String.swift in Sources */,
 				EC6F42F621F1D2CA00F7FD17 /* SvrfKeyChain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

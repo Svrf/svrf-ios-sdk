@@ -127,18 +127,29 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func search(query: String,
-                              options: SearchOptions,
-                              onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
+                              options: SearchOptions?,
+                              onSuccess success: @escaping (_ mediaArray: [Media],
+                              _ nextPageNum: Int?,
+                              _ nextPageCursor: String?) -> Void,
                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
+            var nextPage: Int?
+            if let options = options {
+                if let nextPageCursor = options.pageCursor {
+                    nextPage = nextPageCursor.isNumeric ? Int(nextPageCursor) : nil
+                } else {
+                    nextPage = options.pageNum
+                }
+            }
+
             MediaAPI.search(q: query,
-                            type: options.type,
-                            stereoscopicType: options.stereoscopicType,
-                            category: options.category,
-                            size: options.size,
-                            pageNum: options.pageNum) { (searchMediaResponse, error) in
+                            type: options?.type,
+                            stereoscopicType: options?.stereoscopicType,
+                            category: options?.category,
+                            size: options?.size,
+                            pageNum: nextPage) { (searchMediaResponse, error) in
 
                 if let error = error {
                     if let failure = failure {
@@ -147,7 +158,16 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
-                        success(mediaArray, searchMediaResponse?.nextPageNum)
+
+                        var nextPageNumString: String?
+                        if let responseNextPageNum = searchMediaResponse?.nextPageNum {
+                            nextPageNumString = String(responseNextPageNum)
+                            nextPageNumString = nextPageNumString.isNumeric ? nextPageNumString : nil
+                        }
+
+                        success(mediaArray,
+                                searchMediaResponse?.nextPageNum,
+                                nextPageNumString)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
                     }
@@ -172,17 +192,27 @@ public class SvrfSDK: NSObject {
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
-        _ nextPageNum: Int?) -> Void,
+                                                                 _ nextPageNum: Int?,
+                                                                 _ nextPageCursor: String?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
+
+            var nextPage: Int?
+            if let options = options {
+                if let nextPageCursor = options.pageCursor {
+                    nextPage = nextPageCursor.isNumeric ? Int(nextPageCursor) : nil
+                } else {
+                    nextPage = options.pageNum
+                }
+            }
 
             MediaAPI.getTrending(type: options?.type,
                                  stereoscopicType: options?.stereoscopicType,
                                  category: options?.category,
                                  size: options?.size,
                                  minimumWidth: options?.minimumWidth,
-                                 pageNum: options?.pageNum,
+                                 pageNum: nextPage,
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
@@ -192,7 +222,15 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
-                        success(mediaArray, trendingResponse?.nextPageNum)
+                        var nextPageNumString: String?
+                        if let responseNextPageNum = trendingResponse?.nextPageNum {
+                            nextPageNumString = String(responseNextPageNum)
+                            nextPageNumString = nextPageNumString.isNumeric ? nextPageNumString : nil
+                        }
+
+                        success(mediaArray,
+                                trendingResponse?.nextPageNum,
+                                nextPageNumString)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
                     }
