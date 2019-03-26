@@ -39,7 +39,7 @@ public class SvrfSDK: NSObject {
         - failure: Failure closure.
         - error: A *SvrfError*.
      */
-    public static func authenticate(onSuccess success: (() -> Void)? = nil,
+    public static func authenticate(apiKey: String? = nil, onSuccess success: (() -> Void)? = nil,
                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.enter()
@@ -47,9 +47,7 @@ public class SvrfSDK: NSObject {
         setupAnalytics()
 
         if !needUpdateToken() {
-
             let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
-
             SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
             if let success = success {
@@ -59,54 +57,63 @@ public class SvrfSDK: NSObject {
             dispatchGroup.leave()
 
             return
-        } else if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
-            let dict = NSDictionary(contentsOfFile: path),
-            let apiKey = dict[svrfApiKeyKey] as? String {
-
-            let body = Body(apiKey: apiKey)
-            AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
-
-                if error != nil {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error?.localizedDescription))
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                }
-
-                if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
-
-                    _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
-                    UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
-                                              forKey: svrfAuthTokenExpireDateKey)
-                    SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
-
-                    if let success = success {
-                        success()
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                } else {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.Auth.responseNoToken.rawValue, description: nil))
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                }
-            }
         } else {
-            if let failure = failure {
-                failure(SvrfError(title: SvrfErrorTitle.Auth.apiKey.rawValue, description: nil))
+
+            var key: String?
+            key = apiKey
+
+            if key == nil {
+                if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+                    let dict = NSDictionary(contentsOfFile: path) {
+                    key = dict[svrfApiKeyKey] as? String
+                }
             }
 
-            dispatchGroup.leave()
+            if let key = key {
+                let body = Body(apiKey: key)
+                AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
+
+                    if error != nil {
+                        if let failure = failure {
+                            failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
+                                              description: error?.localizedDescription))
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    }
+
+                    if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
+                        _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
+                        UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
+                                                  forKey: svrfAuthTokenExpireDateKey)
+                        SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
+
+                        if let success = success {
+                            success()
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    } else {
+                        if let failure = failure {
+                            failure(SvrfError(title: SvrfErrorTitle.Auth.responseNoToken.rawValue, description: nil))
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    }
+                }
+            } else {
+                if let failure = failure {
+                    failure(SvrfError(title: SvrfErrorTitle.Auth.apiKey.rawValue, description: nil))
+                }
+
+                dispatchGroup.leave()
+            }
         }
     }
 
