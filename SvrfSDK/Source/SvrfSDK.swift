@@ -62,11 +62,11 @@ public class SvrfSDK: NSObject {
             var key: String?
             key = apiKey
 
-            if key == nil {
-                if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
-                    let dict = NSDictionary(contentsOfFile: path) {
-                    key = dict[svrfApiKeyKey] as? String
-                }
+            if key == nil,
+                let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+                let dict = NSDictionary(contentsOfFile: path) {
+
+                key = dict[svrfApiKeyKey] as? String
             }
 
             if let key = key {
