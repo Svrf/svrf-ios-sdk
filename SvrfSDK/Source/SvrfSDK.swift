@@ -35,6 +35,7 @@ public class SvrfSDK: NSObject {
      Authenticate your API Key with the Svrf API.
      
      - Parameters:
+        - apiKey: Svrf API key
         - success: Success closure.
         - failure: Failure closure.
         - error: A *SvrfError*.
@@ -59,8 +60,7 @@ public class SvrfSDK: NSObject {
             return
         } else {
 
-            var key: String?
-            key = apiKey
+            var key = apiKey
 
             if key == nil,
                 let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
