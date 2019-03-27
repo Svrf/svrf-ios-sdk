@@ -22,13 +22,13 @@ private enum ChildNode: String {
 
 public class SvrfSDK: NSObject {
 
-    private static let svrfApiKeyKey = "SVRF_API_KEY"
-    private static let svrfXAppTokenKey = "x-app-token"
-    private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
-    private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
-    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
-
     private static let dispatchGroup = DispatchGroup()
+
+    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
+    private static let svrfApiKeyKey = "SVRF_API_KEY"
+    private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
+    private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
+    private static let svrfXAppTokenKey = "x-app-token"
 
     // MARK: public functions
     /**
