@@ -137,28 +137,28 @@ public class SvrfSDK: NSObject {
                               options: SearchOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
-
+        
         dispatchGroup.notify(queue: .main) {
-
+            
             MediaAPI.search(q: query,
                             type: options.type,
-                            stereoscopicType: options.stereoscopicType?.rawValue,
-                            category: options.category?.rawValue,
+                            stereoscopicType: options.stereoscopicType,
+                            category: options.category,
                             size: options.size,
                             pageNum: options.pageNum) { (searchMediaResponse, error) in
-
-                if let error = error {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error.localizedDescription))
-                    }
-                } else {
-                    if let mediaArray = searchMediaResponse?.media {
-                        success(mediaArray, searchMediaResponse?.nextPageNum)
-                    } else if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
-                    }
-                }
+                                
+                                if let error = error {
+                                    if let failure = failure {
+                                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
+                                                          description: error.localizedDescription))
+                                    }
+                                } else {
+                                    if let mediaArray = searchMediaResponse?.media {
+                                        success(mediaArray, searchMediaResponse?.nextPageNum)
+                                    } else if let failure = failure {
+                                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
+                                    }
+                                }
             }
         }
     }
