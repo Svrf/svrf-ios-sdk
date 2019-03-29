@@ -76,7 +76,7 @@ If you prefer not to use dependency manager, you can integrate the **SvrfSDK** i
 
 ## Authentication
 
-Configure your `plist` with your **SVRF_API_KEY** or pass **SVRF_API_KEY** in the authenticate function. 
+Configure your `plist` with your **SVRF_API_KEY** 
 
 ```plist
 <plist version="1.0">
@@ -86,16 +86,16 @@ Configure your `plist` with your **SVRF_API_KEY** or pass **SVRF_API_KEY** in th
   </dict>
 </plist>
 ```
+or pass **SVRF_API_KEY** in the authenticate function.
+ 
+```swift
+SvrfSDK.authenticate(apiKey: **SVRF_API_KEY**)
+```
 
 To authenticate the SvrfSDK, add the following to your `didFinishLaunchingWithOptions` function in *AppDelegate*:
 
 ```swift
 SvrfSDK.authenticate()
-```
-or
-
-```swift
-SvrfSDK.authenticate(apiKey:**SVRF_API_KEY**)
 ```
 
 ## Endpoints
