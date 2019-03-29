@@ -179,30 +179,31 @@ public class SvrfSDK: NSObject {
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
-        _ nextPageCursor: String?) -> Void,
+        _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
-
+        
         dispatchGroup.notify(queue: .main) {
-
+            
             MediaAPI.getTrending(type: options?.type,
-                                 stereoscopicType: options?.stereoscopicType?.rawValue,
-                                 category: options?.category?.rawValue,
+                                 stereoscopicType: options?.stereoscopicType,
+                                 category: options?.category,
                                  size: options?.size,
-                                 nextPageCursor: options?.nextPageCursor,
+                                 minimumWidth: options?.minimumWidth,
+                                 pageNum: options?.pageNum,
                                  completion: { (trendingResponse, error) in
-
-                if let error = error {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error.localizedDescription))
-                    }
-                } else {
-                    if let mediaArray = trendingResponse?.media {
-                        success(mediaArray, trendingResponse?.nextPageCursor)
-                    } else if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
-                    }
-                }
+                                    
+                                    if let error = error {
+                                        if let failure = failure {
+                                            failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
+                                                              description: error.localizedDescription))
+                                        }
+                                    } else {
+                                        if let mediaArray = trendingResponse?.media {
+                                            success(mediaArray, trendingResponse?.nextPageNum)
+                                        } else if let failure = failure {
+                                            failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
+                                        }
+                                    }
             })
         }
     }
