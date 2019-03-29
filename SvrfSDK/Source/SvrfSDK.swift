@@ -40,7 +40,8 @@ public class SvrfSDK: NSObject {
         - failure: Failure closure.
         - error: A *SvrfError*.
      */
-    public static func authenticate(apiKey: String? = nil, onSuccess success: (() -> Void)? = nil,
+    public static func authenticate(apiKey: String? = nil,
+                                    onSuccess success: (() -> Void)? = nil,
                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.enter()
@@ -137,16 +138,16 @@ public class SvrfSDK: NSObject {
                               options: SearchOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
-        
+
         dispatchGroup.notify(queue: .main) {
-            
+
             MediaAPI.search(q: query,
                             type: options.type,
                             stereoscopicType: options.stereoscopicType,
                             category: options.category,
                             size: options.size,
                             pageNum: options.pageNum) { (searchMediaResponse, error) in
-                                
+
                                 if let error = error {
                                     if let failure = failure {
                                         failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
@@ -156,7 +157,8 @@ public class SvrfSDK: NSObject {
                                     if let mediaArray = searchMediaResponse?.media {
                                         success(mediaArray, searchMediaResponse?.nextPageNum)
                                     } else if let failure = failure {
-                                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
+                                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue,
+                                                          description: nil))
                                     }
                                 }
             }
@@ -181,9 +183,9 @@ public class SvrfSDK: NSObject {
                                    onSuccess success: @escaping (_ mediaArray: [Media],
         _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
-        
+
         dispatchGroup.notify(queue: .main) {
-            
+
             MediaAPI.getTrending(type: options?.type,
                                  stereoscopicType: options?.stereoscopicType,
                                  category: options?.category,
@@ -191,7 +193,7 @@ public class SvrfSDK: NSObject {
                                  minimumWidth: options?.minimumWidth,
                                  pageNum: options?.pageNum,
                                  completion: { (trendingResponse, error) in
-                                    
+
                                     if let error = error {
                                         if let failure = failure {
                                             failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
@@ -201,7 +203,8 @@ public class SvrfSDK: NSObject {
                                         if let mediaArray = trendingResponse?.media {
                                             success(mediaArray, trendingResponse?.nextPageNum)
                                         } else if let failure = failure {
-                                            failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
+                                            failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue,
+                                                              description: ""))
                                         }
                                     }
             })
