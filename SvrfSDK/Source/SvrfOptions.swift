@@ -9,6 +9,16 @@
 import Foundation
 import SVRFClient
 
+public enum Category: String {
+    case faceFilters = "Face Filters"
+}
+
+public enum StereoscopicType: String {
+    case none = "none"
+    case topBottom = "top-bottom"
+    case leftRight = "left-right"
+}
+
 /**
  Search endpoint parameters.
  - parameters:
@@ -20,8 +30,8 @@ import SVRFClient
  */
 public struct SearchOptions {
     public init(type: [MediaType]? = nil,
-                stereoscopicType: MediaAPI.StereoscopicType_search? = nil,
-                category: MediaAPI.Category_search? = nil,
+                stereoscopicType: StereoscopicType? = nil,
+                category: Category? = nil,
                 size: Int? = nil,
                 pageNum: Int? = nil) {
         self.type = type
@@ -30,10 +40,10 @@ public struct SearchOptions {
         self.size = size
         self.pageNum = pageNum
     }
-    
+
     let type: [MediaType]?
-    let stereoscopicType: MediaAPI.StereoscopicType_search?
-    let category: MediaAPI.Category_search?
+    let stereoscopicType: StereoscopicType?
+    let category: Category?
     let size: Int?
     let pageNum: Int?
 }
@@ -49,22 +59,19 @@ public struct SearchOptions {
  */
 public struct TrendingOptions {
     public init(type: [MediaType]? = nil,
-                stereoscopicType: MediaAPI.StereoscopicType_getTrending? = nil,
-                category: MediaAPI.Category_getTrending? = nil,
+                stereoscopicType: StereoscopicType? = nil,
+                category: Category? = nil,
                 size: Int? = nil,
-                minimumWidth: Int? = nil,
-                pageNum: Int? = nil) {
+                nextPageCursor: String? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
         self.size = size
-        self.minimumWidth = minimumWidth
-        self.pageNum = pageNum
+        self.nextPageCursor = nextPageCursor
     }
     let type: [MediaType]?
-    let stereoscopicType: MediaAPI.StereoscopicType_getTrending?
-    let category: MediaAPI.Category_getTrending?
+    let stereoscopicType: StereoscopicType?
+    let category: Category?
     let size: Int?
-    let minimumWidth: Int?
-    let pageNum: Int?
+    let nextPageCursor: String?
 }
