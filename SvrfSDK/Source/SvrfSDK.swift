@@ -206,7 +206,7 @@ public class SvrfSDK: NSObject {
 
                         var nextPageCursor: String?
                         if let nextPageNum = trendingResponse?.nextPageNum {
-                            nextPageCursor = String(intValue: nextPageNum)
+                            nextPageCursor = String(nextPageNum)
                         }
                         success(mediaArray, nextPageCursor)
                     } else if let failure = failure {
