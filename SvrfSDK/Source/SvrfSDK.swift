@@ -142,8 +142,8 @@ public class SvrfSDK: NSObject {
 
             MediaAPI.search(q: query,
                             type: options.type,
-                            stereoscopicType: options.stereoscopicType?.rawValue,
-                            category: options.category?.rawValue,
+                            stereoscopicType: options.stereoscopicType,
+                            category: options.category,
                             size: options.size,
                             pageNum: options.pageNum) { (searchMediaResponse, error) in
 
@@ -184,11 +184,16 @@ public class SvrfSDK: NSObject {
 
         dispatchGroup.notify(queue: .main) {
 
+            var pageNum: Int?
+            if let nextPageCursor = options?.nextPageCursor {
+                pageNum = Int(nextPageCursor)
+            }
+
             MediaAPI.getTrending(type: options?.type,
-                                 stereoscopicType: options?.stereoscopicType?.rawValue,
-                                 category: options?.category?.rawValue,
+                                 stereoscopicType: options?.stereoscopicType,
+                                 category: options?.category,
                                  size: options?.size,
-                                 nextPageCursor: options?.nextPageCursor,
+                                 pageNum: pageNum,
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
@@ -198,7 +203,12 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
-                        success(mediaArray, trendingResponse?.nextPageCursor)
+
+                        var nextPageCursor: String?
+                        if let nextPageNum = trendingResponse?.nextPageNum {
+                            nextPageCursor = String(intValue: nextPageNum)
+                        }
+                        success(mediaArray, nextPageCursor)
                     } else if let failure = failure {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
                     }
