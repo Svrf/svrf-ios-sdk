@@ -23,18 +23,30 @@ public struct SearchOptions {
                 stereoscopicType: MediaAPI.StereoscopicType_search? = nil,
                 category: MediaAPI.Category_search? = nil,
                 size: Int? = nil,
+                minimumWidth: Int? = nil,
+                isFaceFilter: Bool? = nil,
+                hasBlendShapes: Bool? = nil,
+                requiresBlendShapes: Bool? = nil,
                 pageNum: Int? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
         self.size = size
+        self.minimumWidth = minimumWidth
+        self.isFaceFilter = isFaceFilter
+        self.hasBlendShapes = hasBlendShapes
+        self.requiresBlendShapes = requiresBlendShapes
         self.pageNum = pageNum
     }
-    
+
     let type: [MediaType]?
     let stereoscopicType: MediaAPI.StereoscopicType_search?
     let category: MediaAPI.Category_search?
     let size: Int?
+    let minimumWidth: Int?
+    let isFaceFilter: Bool?
+    let hasBlendShapes: Bool?
+    let requiresBlendShapes: Bool?
     let pageNum: Int?
 }
 
@@ -52,16 +64,28 @@ public struct TrendingOptions {
                 stereoscopicType: MediaAPI.StereoscopicType_getTrending? = nil,
                 category: MediaAPI.Category_getTrending? = nil,
                 size: Int? = nil,
+                minimumWidth: Int? = nil,
+                isFaceFilter: Bool? = nil,
+                hasBlendShapes: Bool? = nil,
+                requiresBlendShapes: Bool? = nil,
                 nextPageCursor: String? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
         self.size = size
+        self.minimumWidth = minimumWidth
+        self.isFaceFilter = isFaceFilter
+        self.hasBlendShapes = hasBlendShapes
+        self.requiresBlendShapes = requiresBlendShapes
         self.nextPageCursor = nextPageCursor
     }
     let type: [MediaType]?
     let stereoscopicType: MediaAPI.StereoscopicType_getTrending?
     let category: MediaAPI.Category_getTrending?
     let size: Int?
+    let minimumWidth: Int?
+    let isFaceFilter: Bool?
+    let hasBlendShapes: Bool?
+    let requiresBlendShapes: Bool?
     let nextPageCursor: String?
 }

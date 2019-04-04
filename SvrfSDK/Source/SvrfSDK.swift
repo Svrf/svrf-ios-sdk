@@ -145,7 +145,12 @@ public class SvrfSDK: NSObject {
                             stereoscopicType: options.stereoscopicType,
                             category: options.category,
                             size: options.size,
-                            pageNum: options.pageNum) { (searchMediaResponse, error) in
+                            minimumWidth: options.minimumWidth,
+                            pageNum: options.pageNum,
+                            isFaceFilter: options.isFaceFilter,
+                            hasBlendShapes: options.hasBlendShapes,
+                            requiresBlendShapes: options.requiresBlendShapes,
+                            completion: { (searchMediaResponse, error) in
 
                 if let error = error {
                     if let failure = failure {
@@ -159,7 +164,7 @@ public class SvrfSDK: NSObject {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
                     }
                 }
-            }
+            })
         }
     }
 
@@ -193,7 +198,11 @@ public class SvrfSDK: NSObject {
                                  stereoscopicType: options?.stereoscopicType,
                                  category: options?.category,
                                  size: options?.size,
+                                 minimumWidth: options?.minimumWidth,
                                  pageNum: pageNum,
+                                 isFaceFilter: options?.isFaceFilter,
+                                 hasBlendShapes: options?.hasBlendShapes,
+                                 requiresBlendShapes: options?.requiresBlendShapes,
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
@@ -383,7 +392,7 @@ public class SvrfSDK: NSObject {
          - Returns: Bool
          */
     private static func needUpdateToken() -> Bool {
-        
+
         if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
             let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
             String(data: receivedData, encoding: .utf8) != nil {
