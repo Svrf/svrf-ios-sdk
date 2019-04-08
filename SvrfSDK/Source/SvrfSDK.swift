@@ -35,9 +35,9 @@ public class SvrfSDK: NSObject {
      Authenticate your API Key with the Svrf API.
      
      - Parameters:
-        - apiKey: Svrf API key
+        - apiKey: Svrf API Key.
         - success: Success closure.
-        - failure: Failure closure.
+        - failure: Error closure.
         - error: A *SvrfError*.
      */
     public static func authenticate(apiKey: String? = nil, onSuccess success: (() -> Void)? = nil,
@@ -126,10 +126,10 @@ public class SvrfSDK: NSObject {
 
      - Parameters:
         - query: Url-encoded search query.
-        - options: Structure with parameters of search
+        - options: Search query options.
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
-        - nextPageNum: Number of the next page.
+        - nextPageNum: The page number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
@@ -175,7 +175,7 @@ public class SvrfSDK: NSObject {
      The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
      
      - Parameters:
-        - options: Structure with parameters of trending
+        - options: Trending request options.
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
         - nextPageCursor: Cursor of the next page.
@@ -227,10 +227,10 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Fetch SVRF media by its ID.
+     Fetch Svrf media by its ID.
      
      - Parameters:
-        - identifier: ID of *Media* to fetch.
+        - identifier: The ID of *Media* to fetch.
         - success: Success closure.
         - media: *Media* from the Svrf API.
         - failure: Error closure.
@@ -268,8 +268,9 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
-        - node: The node that was gotten from the media
+        - node: The *SCNNode* generated from the *Media*.
         - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getNodeFromMedia(media: Media,
                                         onSuccess success: @escaping (_ node: SCNNode) -> Void,
@@ -287,16 +288,16 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that
+     Blend shape mapping allows Svrf's ARKit compatible face filters to have animations that
      are activated by your user's facial expressions.
      
      - Attention: This method enumerates through the node's hierarchy.
-     Any children nodes with morpher targets that follow the
+     Any children nodes with morph targets that follow the
      [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
-     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
+     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangeably.
      - Parameters:
         - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
-        - node: The node with morpher targets.
+        - node: The node with morph targets.
      */
     public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for node: SCNNode) {
 
@@ -317,8 +318,9 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
         - success: Success closure.
-        - faceFilter: The node that contains face filter content
+        - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getFaceFilter(with media: Media,
                                      onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void,
