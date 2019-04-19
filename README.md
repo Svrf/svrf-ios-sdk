@@ -271,12 +271,9 @@ class FaceFilter: SCNNode, VirtualFaceContent {
 
     var blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber] = [:] {
         didSet {
-            // Enumerate through all child nodes to find all morpher targets
-            self.enumerateHierarchy({ (node, _) in
-                if (node.morpher?.targets != nil) {
-                    SvrfSDK.setBlendShapes(blendShapes: blendShapes, for: node)
-                }
-            })
+            if let faceFilter = faceFilter {
+                SvrfSDK.setBlendShapes(blendShapes: blendShapes, for: faceFilter)
+            }
         }
     }
 
