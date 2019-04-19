@@ -300,10 +300,10 @@ public class SvrfSDK: NSObject {
         - faceFilter: The node with morph targets.
      */
 
-    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for faceFilter: SCNNode) {
+    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for node: SCNNode) {
 
         DispatchQueue.main.async {
-            faceFilter.enumerateHierarchy({ (node, _) in
+            node.enumerateHierarchy({ (node, _) in
                 if node.morpher?.targets != nil {
                     node.enumerateHierarchy { (childNode, _) in
                         for (blendShape, weight) in blendShapes {
@@ -315,7 +315,7 @@ public class SvrfSDK: NSObject {
             })
         }
     }
-    
+
     /**
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
      Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
