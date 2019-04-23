@@ -264,7 +264,7 @@ public class SvrfSDK: NSObject {
      Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
      the whole 3D model, but is not recommended for face filters.
      
-     - Attention: Face filters should be retrieved using the `getFaceFilter` method.
+     - Attention: Face filters should be retrieved using the `getNode` method.
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
@@ -272,9 +272,9 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func getNodeFromMedia(media: Media,
-                                        onSuccess success: @escaping (_ node: SCNNode) -> Void,
-                                        onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+    public static func generateNode(for media: Media,
+                                    onSuccess success: @escaping (_ node: SCNNode) -> Void,
+                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         if media.type == ._3d {
             if let scene = getSceneFromMedia(media: media) {
@@ -315,43 +315,43 @@ public class SvrfSDK: NSObject {
             })
         }
     }
-    
+
     /**
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
      Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
      - Parameters:
-        - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
+        - media: The *Media* to generate the node from. The *type* must be `_3d`.
         - success: Success closure.
         - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func getFaceFilter(with media: Media,
-                                     onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void,
+    public static func getNode(with media: Media,
+                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
                                      onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
                 let modelSource = GLTFSceneSource(url: glbUrl)
 
                 do {
-                    let faceFilter = SCNNode()
-                    let node = try modelSource.scene().rootNode
+                    let node = SCNNode()
+                    let sceneNode = try modelSource.scene().rootNode
 
-                    if let occluderNode = node.childNode(withName: ChildNode.occluder.rawValue, recursively: true) {
-                        faceFilter.addChildNode(occluderNode)
+                    if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue, recursively: true) {
+                        node.addChildNode(occluderNode)
                         setOccluderNode(node: occluderNode)
                     }
 
-                    if let headNode = node.childNode(withName: ChildNode.head.rawValue, recursively: true) {
-                        faceFilter.addChildNode(headNode)
+                    if let headNode = sceneNode.childNode(withName: ChildNode.head.rawValue, recursively: true) {
+                        node.addChildNode(headNode)
                     }
 
-                    faceFilter.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+                    node.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
-                    success(faceFilter)
+                    success(node)
 
-                    SEGAnalytics.shared().track("Face Filter Node Requested",
+                    SEGAnalytics.shared().track("Node Requested",
                                                 properties: ["media_id": media.id ?? "unknown"])
                 } catch {
                     if let failure = failure {
