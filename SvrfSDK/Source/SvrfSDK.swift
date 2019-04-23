@@ -75,8 +75,7 @@ public class SvrfSDK: NSObject {
 
                     if error != nil {
                         if let failure = failure {
-                            failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                              description: error?.localizedDescription))
+                            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
                         }
 
                         dispatchGroup.leave()
@@ -99,7 +98,7 @@ public class SvrfSDK: NSObject {
                         return
                     } else {
                         if let failure = failure {
-                            failure(SvrfError(title: SvrfErrorTitle.Auth.responseNoToken.rawValue, description: nil))
+                            failure(SvrfError(svrfDescription: SvrfErrorDescription.Auth.responseNoToken.rawValue))
                         }
 
                         dispatchGroup.leave()
@@ -109,7 +108,7 @@ public class SvrfSDK: NSObject {
                 }
             } else {
                 if let failure = failure {
-                    failure(SvrfError(title: SvrfErrorTitle.Auth.apiKey.rawValue, description: nil))
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.Auth.apiKey.rawValue))
                 }
 
                 dispatchGroup.leave()
@@ -153,15 +152,15 @@ public class SvrfSDK: NSObject {
                             completion: { (searchMediaResponse, error) in
 
                 if let error = error {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error.localizedDescription))
+                    if let failure = failure, var svrfError = error as? SvrfError {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                        failure(svrfError)
                     }
                 } else {
                     if let mediaArray = searchMediaResponse?.media {
                         success(mediaArray, searchMediaResponse?.nextPageNum)
                     } else if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
+                        failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                     }
                 }
             })
@@ -206,9 +205,9 @@ public class SvrfSDK: NSObject {
                                  completion: { (trendingResponse, error) in
 
                 if let error = error {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error.localizedDescription))
+                    if let failure = failure, var svrfError = error as? SvrfError {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                        failure(svrfError)
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
@@ -219,7 +218,7 @@ public class SvrfSDK: NSObject {
                         }
                         success(mediaArray, nextPageCursor)
                     } else if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: ""))
+                        failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                     }
                 }
             })
@@ -245,15 +244,15 @@ public class SvrfSDK: NSObject {
             MediaAPI.getById(id: identifier, completion: { (singleMediaResponse, error) in
 
                 if let error = error {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error.localizedDescription))
+                    if let failure = failure, var svrfError = error as? SvrfError {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                        failure(svrfError)
                     }
                 } else {
                     if let media = singleMediaResponse?.media {
                         success(media)
                     } else if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue, description: nil))
+                        failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
                     }
                 }
             })
@@ -280,10 +279,10 @@ public class SvrfSDK: NSObject {
             if let scene = getSceneFromMedia(media: media) {
                 success(scene.rootNode)
             } else if let failure = failure {
-                failure(SvrfError(title: SvrfErrorTitle.getScene.rawValue, description: nil))
+                failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
             }
         } else if let failure = failure {
-            failure(SvrfError(title: SvrfErrorTitle.incorrectMediaType.rawValue, description: nil))
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.incorrectMediaType.rawValue))
         }
     }
 
@@ -315,7 +314,7 @@ public class SvrfSDK: NSObject {
             })
         }
     }
-    
+
     /**
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
      Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
@@ -355,8 +354,7 @@ public class SvrfSDK: NSObject {
                                                 properties: ["media_id": media.id ?? "unknown"])
                 } catch {
                     if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.getScene.rawValue,
-                                          description: error.localizedDescription))
+                        failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
                     }
                 }
             }
