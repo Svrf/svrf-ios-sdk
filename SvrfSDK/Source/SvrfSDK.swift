@@ -177,28 +177,23 @@ public class SvrfSDK: NSObject {
         - options: Trending request options.
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
-        - nextPageCursor: Cursor of the next page.
+        - nextPageNum: Number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
     public static func getTrending(options: TrendingOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
-        _ nextPageCursor: String?) -> Void,
+        _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
-
-            var pageNum: Int?
-            if let nextPageCursor = options?.nextPageCursor {
-                pageNum = Int(nextPageCursor)
-            }
 
             MediaAPI.getTrending(type: options?.type,
                                  stereoscopicType: options?.stereoscopicType,
                                  category: options?.category,
                                  size: options?.size,
                                  minimumWidth: options?.minimumWidth,
-                                 pageNum: pageNum,
+                                 pageNum: options?.pageNum,
                                  isFaceFilter: options?.isFaceFilter,
                                  hasBlendShapes: options?.hasBlendShapes,
                                  requiresBlendShapes: options?.requiresBlendShapes,
@@ -211,12 +206,7 @@ public class SvrfSDK: NSObject {
                     }
                 } else {
                     if let mediaArray = trendingResponse?.media {
-
-                        var nextPageCursor: String?
-                        if let nextPageNum = trendingResponse?.nextPageNum {
-                            nextPageCursor = String(nextPageNum)
-                        }
-                        success(mediaArray, nextPageCursor)
+                        success(mediaArray, trendingResponse?.nextPageNum)
                     } else if let failure = failure {
                         failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                     }

@@ -76,7 +76,7 @@ public struct TrendingOptions {
                 isFaceFilter: Bool? = nil,
                 hasBlendShapes: Bool? = nil,
                 requiresBlendShapes: Bool? = nil,
-                nextPageCursor: String? = nil) {
+                pageNum: Int? = nil) {
         self.type = type
         self.stereoscopicType = stereoscopicType
         self.category = category
@@ -85,7 +85,7 @@ public struct TrendingOptions {
         self.isFaceFilter = isFaceFilter
         self.hasBlendShapes = hasBlendShapes
         self.requiresBlendShapes = requiresBlendShapes
-        self.nextPageCursor = nextPageCursor
+        self.pageNum = pageNum
     }
     let type: [MediaType]?
     let stereoscopicType: MediaAPI.StereoscopicType_getTrending?
@@ -95,5 +95,5 @@ public struct TrendingOptions {
     let isFaceFilter: Bool?
     let hasBlendShapes: Bool?
     let requiresBlendShapes: Bool?
-    let nextPageCursor: String?
+    let pageNum: Int?
 }
