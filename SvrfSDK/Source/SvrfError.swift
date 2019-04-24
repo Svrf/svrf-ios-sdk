@@ -8,12 +8,11 @@
 
 import Foundation
 
-public struct SvrfError {
-    public let title: String
-    public let description: String?
+public struct SvrfError: Error {
+    public var svrfDescription: String?
 }
 
-public enum SvrfErrorTitle: String {
+public enum SvrfErrorDescription: String {
 
     enum Auth: String {
         case responseNoToken = "There is no token in the server response."
