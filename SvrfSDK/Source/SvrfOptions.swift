@@ -92,8 +92,9 @@ public struct TrendingOptions {
     let category: MediaAPI.Category_getTrending?
     let size: Int?
     let minimumWidth: Int?
+    let pageNum: Int?
     let isFaceFilter: Bool?
     let hasBlendShapes: Bool?
-    let requiresBlendShapes: Bool?
+    let requiresBlendShapes: Bool?otocol
     let pageNum: Int?
 }
