@@ -22,24 +22,25 @@ private enum ChildNode: String {
 
 public class SvrfSDK: NSObject {
 
-    private static let svrfApiKeyKey = "SVRF_API_KEY"
-    private static let svrfXAppTokenKey = "x-app-token"
-    private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
-    private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
-    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
-
     private static let dispatchGroup = DispatchGroup()
+
+    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
+    private static let svrfApiKeyKey = "SVRF_API_KEY"
+    private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
+    private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
+    private static let svrfXAppTokenKey = "x-app-token"
 
     // MARK: public functions
     /**
      Authenticate your API Key with the Svrf API.
      
      - Parameters:
+        - apiKey: Svrf API Key.
         - success: Success closure.
-        - failure: Failure closure.
+        - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func authenticate(onSuccess success: (() -> Void)? = nil,
+    public static func authenticate(apiKey: String? = nil, onSuccess success: (() -> Void)? = nil,
                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.enter()
@@ -47,9 +48,7 @@ public class SvrfSDK: NSObject {
         setupAnalytics()
 
         if !needUpdateToken() {
-
             let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
-
             SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
             if let success = success {
@@ -59,54 +58,62 @@ public class SvrfSDK: NSObject {
             dispatchGroup.leave()
 
             return
-        } else if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
-            let dict = NSDictionary(contentsOfFile: path),
-            let apiKey = dict[svrfApiKeyKey] as? String {
-
-            let body = Body(apiKey: apiKey)
-            AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
-
-                if error != nil {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
-                                          description: error?.localizedDescription))
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                }
-
-                if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
-
-                    _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
-                    UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
-                                              forKey: svrfAuthTokenExpireDateKey)
-                    SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
-
-                    if let success = success {
-                        success()
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                } else {
-                    if let failure = failure {
-                        failure(SvrfError(title: SvrfErrorTitle.Auth.responseNoToken.rawValue, description: nil))
-                    }
-
-                    dispatchGroup.leave()
-
-                    return
-                }
-            }
         } else {
-            if let failure = failure {
-                failure(SvrfError(title: SvrfErrorTitle.Auth.apiKey.rawValue, description: nil))
+
+            var key = apiKey
+
+            if key == nil,
+                let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+                let dict = NSDictionary(contentsOfFile: path) {
+
+                key = dict[svrfApiKeyKey] as? String
             }
 
-            dispatchGroup.leave()
+            if let key = key {
+                let body = Body(apiKey: key)
+                AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
+
+                    if error != nil {
+                        if let failure = failure {
+                            failure(SvrfError(title: SvrfErrorTitle.response.rawValue,
+                                              description: error?.localizedDescription))
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    }
+
+                    if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
+                        _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
+                        UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
+                                                  forKey: svrfAuthTokenExpireDateKey)
+                        SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
+
+                        if let success = success {
+                            success()
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    } else {
+                        if let failure = failure {
+                            failure(SvrfError(title: SvrfErrorTitle.Auth.responseNoToken.rawValue, description: nil))
+                        }
+
+                        dispatchGroup.leave()
+
+                        return
+                    }
+                }
+            } else {
+                if let failure = failure {
+                    failure(SvrfError(title: SvrfErrorTitle.Auth.apiKey.rawValue, description: nil))
+                }
+
+                dispatchGroup.leave()
+            }
         }
     }
 
@@ -119,10 +126,10 @@ public class SvrfSDK: NSObject {
 
      - Parameters:
         - query: Url-encoded search query.
-        - options: Structure with parameters of search
+        - options: Search query options.
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
-        - nextPageNum: Number of the next page.
+        - nextPageNum: The page number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
@@ -138,7 +145,12 @@ public class SvrfSDK: NSObject {
                             stereoscopicType: options.stereoscopicType,
                             category: options.category,
                             size: options.size,
-                            pageNum: options.pageNum) { (searchMediaResponse, error) in
+                            minimumWidth: options.minimumWidth,
+                            pageNum: options.pageNum,
+                            isFaceFilter: options.isFaceFilter,
+                            hasBlendShapes: options.hasBlendShapes,
+                            requiresBlendShapes: options.requiresBlendShapes,
+                            completion: { (searchMediaResponse, error) in
 
                 if let error = error {
                     if let failure = failure {
@@ -152,7 +164,7 @@ public class SvrfSDK: NSObject {
                         failure(SvrfError(title: SvrfErrorTitle.responseNoMediaArray.rawValue, description: nil))
                     }
                 }
-            }
+            })
         }
     }
 
@@ -163,7 +175,7 @@ public class SvrfSDK: NSObject {
      The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
      
      - Parameters:
-        - options: Structure with parameters of trending
+        - options: Trending request options.
         - success: Success closure.
         - mediaArray: An array of *Media* from the Svrf API.
         - nextPageNum: Number of the next page.
@@ -202,10 +214,10 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Fetch SVRF media by its ID.
+     Fetch Svrf media by its ID.
      
      - Parameters:
-        - identifier: ID of *Media* to fetch.
+        - identifier: The ID of *Media* to fetch.
         - success: Success closure.
         - media: *Media* from the Svrf API.
         - failure: Error closure.
@@ -243,8 +255,9 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
-        - node: The node that was gotten from the media
+        - node: The *SCNNode* generated from the *Media*.
         - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getNodeFromMedia(media: Media,
                                         onSuccess success: @escaping (_ node: SCNNode) -> Void,
@@ -262,29 +275,34 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that
+     Blend shape mapping allows Svrf's ARKit compatible face filters to have animations that
      are activated by your user's facial expressions.
      
      - Attention: This method enumerates through the node's hierarchy.
-     Any children nodes with morpher targets that follow the
+     Any children nodes with morph targets that follow the
      [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
-     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
+     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangeably.
      - Parameters:
         - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
-        - node: The node with morpher targets.
+        - faceFilter: The node with morph targets.
      */
-    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for node: SCNNode) {
+
+    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for faceFilter: SCNNode) {
 
         DispatchQueue.main.async {
-            node.enumerateHierarchy { (childNode, _) in
-                for (blendShape, weight) in blendShapes {
-                    let targetName = blendShape.rawValue
-                    childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
+            faceFilter.enumerateHierarchy({ (node, _) in
+                if node.morpher?.targets != nil {
+                    node.enumerateHierarchy { (childNode, _) in
+                        for (blendShape, weight) in blendShapes {
+                            let targetName = blendShape.rawValue
+                            childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
+                        }
+                    }
                 }
-            }
+            })
         }
     }
-
+    
     /**
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
      Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
@@ -292,8 +310,9 @@ public class SvrfSDK: NSObject {
      - Parameters:
         - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
         - success: Success closure.
-        - faceFilter: The node that contains face filter content
+        - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
+        - error: A *SvrfError*.
      */
     public static func getFaceFilter(with media: Media,
                                      onSuccess success: @escaping (_ faceFilter: SCNNode) -> Void,
