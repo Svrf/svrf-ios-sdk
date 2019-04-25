@@ -286,11 +286,11 @@ class FaceFilter: SCNNode, VirtualFaceContent {
 
 ## Errors
 
-Errors are returned in a custom `SvrfError`. It includes a `title` and `description` to provide you with detailed information for the error you are encountering.
+Errors are returned in a custom `SvrfError`. It includes a  `svrfDescription`  and conforms with default `Error` protocol to provide you with detailed information for the error you are encountering.
 
 ```swift
-print(svrfError.title)
-print(svrfError.description)
+print(svrfError.svrfDescription)
+print(svrfError.localizedDescription)
 ```
 
 [CocoaPods]: https://www.cocoapods.org/
