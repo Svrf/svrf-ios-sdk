@@ -317,7 +317,7 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func getNode(with media: Media,
+    public static func generateFaceFilterNode(with media: Media,
                                      onSuccess success: @escaping (_ node: SCNNode) -> Void,
                                      onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
