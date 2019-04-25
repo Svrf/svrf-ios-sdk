@@ -197,9 +197,9 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
 
 ## Utilities
 
-### getNodeFromMedia
+### generateNode
 
-Generates a *SCNNode* for a *Media* with a *type* "3d". This method can used to generate the whole 3D model, but is not recommended for face filters. **Face filters should be retrieved using the [`getFaceFilter`](#getFaceFilter) method.**
+Generates a *SCNNode* for a *Media* with a *type* "3d". This method can used to generate the whole 3D model, but is not recommended for face filters. **Face filters should be retrieved using the [`generateFaceFilterNode`](#generateFaceFilterNode) method.**
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
@@ -215,7 +215,7 @@ Get *SCNNode* from *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    SvrfSDK.getNodeFromMedia(media: media, onSuccess: { node in
+    SvrfSDK.generateNode(for: media, onSuccess: { node in
         // Do what you want with the SCNNode
     }, onFailure: { error in
         print("\(error.title). \(error.description ?? "")")
@@ -225,9 +225,9 @@ SvrfSDK.getMedia(id: "547963", onSuccess: { media in
 }
 ```
 
-### getFaceFilter
+### generateFaceFilterNode
 
-The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime. You can then attach the face filter to a *SCNScene*
+The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `generateFaceFilterNode` method to stream a face filter to your app and convert it into a *SCNNode* in runtime. You can then attach the face filter to a *SCNScene*
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
@@ -243,7 +243,7 @@ Get a face filter *SCNNode* for *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    SvrfSDK.getFaceFilter(with: media, onSuccess: { faceFilter in
+    SvrfSDK.generateFaceFilterNode(with: media, onSuccess: { faceFilter in
         // Do what you want with the face filter
     }, onFailure: { error in
         print("\(error.title). \(error.description ?? "")")
