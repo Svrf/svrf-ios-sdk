@@ -308,7 +308,7 @@ public class SvrfSDK: NSObject {
 
     /**
      The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
-     Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
+     Use the `generateFaceFilterNode` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
      - Parameters:
         - media: The *Media* to generate the node from. The *type* must be `_3d`.
