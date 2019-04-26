@@ -254,7 +254,7 @@ public class SvrfSDK: NSObject {
      Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
      the whole 3D model, but is not recommended for face filters.
      
-     - Attention: Face filters should be retrieved using the `getNode` method.
+     - Attention: Face filters should be retrieved using the `getFaceFilterNode` method.
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
@@ -317,8 +317,8 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func generateFaceFilterNode(with media: Media,
-                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
+    public static func generateFaceFilterNode(for media: Media,
+                                     onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
                                      onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
@@ -341,7 +341,7 @@ public class SvrfSDK: NSObject {
 
                     success(node)
 
-                    SEGAnalytics.shared().track("Node Requested",
+                    SEGAnalytics.shared().track("Face Filter Node Requested",
                                                 properties: ["media_id": media.id ?? "unknown"])
                 } catch {
                     if let failure = failure {
