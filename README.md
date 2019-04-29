@@ -243,7 +243,7 @@ Get a face filter *SCNNode* for *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    SvrfSDK.generateFaceFilterNode(with: media, onSuccess: { faceFilter in
+    SvrfSDK.generateFaceFilterNode(for: media, onSuccess: { faceFilterNode in
         // Do what you want with the face filter
     }, onFailure: { error in
         print("\(error.title). \(error.description ?? "")")
