@@ -325,21 +325,21 @@ public class SvrfSDK: NSObject {
                 let modelSource = GLTFSceneSource(url: glbUrl)
 
                 do {
-                    let node = SCNNode()
+                    let faceFilterNode = SCNNode()
                     let sceneNode = try modelSource.scene().rootNode
 
                     if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue, recursively: true) {
-                        node.addChildNode(occluderNode)
+                        faceFilterNode.addChildNode(occluderNode)
                         setOccluderNode(node: occluderNode)
                     }
 
                     if let headNode = sceneNode.childNode(withName: ChildNode.head.rawValue, recursively: true) {
-                        node.addChildNode(headNode)
+                        faceFilterNode.addChildNode(headNode)
                     }
 
-                    node.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+                    faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
-                    success(node)
+                    success(faceFilterNode)
 
                     SEGAnalytics.shared().track("Face Filter Node Requested",
                                                 properties: ["media_id": media.id ?? "unknown"])
