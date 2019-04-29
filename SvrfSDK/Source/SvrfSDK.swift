@@ -311,7 +311,7 @@ public class SvrfSDK: NSObject {
      Use the `generateFaceFilterNode` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
      
      - Parameters:
-        - media: The *Media* to generate the node from. The *type* must be `_3d`.
+        - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
         - success: Success closure.
         - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
