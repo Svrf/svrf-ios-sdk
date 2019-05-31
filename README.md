@@ -232,6 +232,7 @@ The SVRF API allows you to access all of SVRF's ARKit compatible face filters an
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | media                         | *Media*                                         |
+| useOccluder                         | *Bool*                                         |
 | onSuccess                     | *(_ faceFilter: SCNNode) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
@@ -243,7 +244,7 @@ Get a face filter *SCNNode* for *Media* with ID "547963".
 
 ```swift
 SvrfSDK.getMedia(id: "547963", onSuccess: { media in
-    SvrfSDK.generateFaceFilterNode(for: media, onSuccess: { faceFilterNode in
+    SvrfSDK.generateFaceFilterNode(for: media, useOccluder: true, onSuccess: { faceFilterNode in
         // Do what you want with the face filter
     }, onFailure: { error in
         print("\(error.title). \(error.description ?? "")")
