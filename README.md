@@ -232,7 +232,7 @@ The SVRF API allows you to access all of SVRF's ARKit compatible face filters an
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | media                         | *Media*                                         |
-| useOccluder                         | *Bool*                                         |
+| useOccluder                   | *Bool*                                         |
 | onSuccess                     | *(_ faceFilter: SCNNode) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
