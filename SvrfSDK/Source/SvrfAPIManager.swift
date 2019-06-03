@@ -47,14 +47,14 @@ class SvrfAPIManager {
         }
     }
 
-    static func getMedia(by identifier: String,
+    static func getMedia(by id: String,
                          onSuccess success: @escaping (_ mediaResponse: SvrfMediaResponse) -> Void,
-                         onFailure failure: @escaping (_ error: Error?) -> Void) {
+                         onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
 
-        let path = "/vr/\(identifier)"
+        let path = "/vr/\(id)"
 
         if let request = getRequest(with: path, parameters: nil) {
-            request.responseJSON { response in
+            return request.responseJSON { response in
 
                 if let jsonData = response.data {
 
@@ -69,13 +69,15 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
+
+        return nil
     }
 
     static func getTrending(options: SvrfOptions?,
                             onSuccess success: @escaping (_ trendingResponse: SvrfTrendingResponse) -> Void,
-                            onFailure failure: @escaping (_ error: Error?) -> Void) {
+                            onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
 
         let path = "/vr/trending"
         let parameters: [String: Any?] = ["type": options?.type?.map { $0.rawValue }.joined(),
@@ -89,7 +91,7 @@ class SvrfAPIManager {
                           "requiresBlendShapes": options?.requiresBlendShapes]
 
         if let request = getRequest(with: path, parameters: parameters) {
-            request.responseJSON { response in
+            return request.responseJSON { response in
 
                 if let jsonData = response.data {
 
@@ -104,14 +106,16 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
+
+        return nil
     }
 
     static func search(query: String,
                        options: SvrfOptions?,
                        onSuccess success: @escaping (_ searchResponse: SvrfSearchResponse) -> Void,
-                       onFailure failure: @escaping (_ error: Error?) -> Void) {
+                       onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
 
         let path = "/vr/search"
         let parameters: [String: Any?] = ["type": options?.type?.map { $0.rawValue }.joined(),
@@ -126,7 +130,7 @@ class SvrfAPIManager {
                                           "q": query]
 
         if let request = getRequest(with: path, parameters: parameters) {
-            request.responseJSON { response in
+            return request.responseJSON { response in
 
                 if let jsonData = response.data {
 
@@ -141,13 +145,15 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
+
+        return nil
     }
 
     // MARK: private functions
     static private func getRequest(with endPoint: String,
-                                       parameters: [String: Any?]?) -> DataRequest? {
+                                   parameters: [String: Any?]?) -> DataRequest? {
 
         guard let xAppToken = self.xAppToken else {
             return nil
@@ -171,7 +177,6 @@ class SvrfAPIManager {
                                  parameters: nil,
                                  encoding: JSONEncoding.default,
                                  headers: header)
-
     }
 
     static private func mapValuesToQueryItems(values: [String: Any?]) -> [URLQueryItem]? {

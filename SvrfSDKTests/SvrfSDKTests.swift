@@ -46,7 +46,7 @@ class SvrfSDKTests: XCTestCase {
                         success: @escaping (_ response: SvrfSearchResponse) -> Void,
                         failure: @escaping (_ error: Error?) -> Void) {
 
-        SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
+        _ = SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
             success(searchResponse)
         }, onFailure: { error in
             failure(error)
@@ -57,18 +57,18 @@ class SvrfSDKTests: XCTestCase {
                              success: @escaping (_ response: SvrfTrendingResponse) -> Void,
                              failure: @escaping (_ error: Error?) -> Void) {
 
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             success(trendingResponse)
         }, onFailure: { error in
             failure(error)
         })
     }
 
-    private func getById(identifier: String,
+    private func getById(id: String,
                          success: @escaping (_ response: SvrfMediaResponse) -> Void,
                          failure: @escaping (_ error: Error?) -> Void) {
 
-        SvrfAPIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
+        _ = SvrfAPIManager.getMedia(by: id, onSuccess: { mediaResponse in
             success(mediaResponse)
         }, onFailure: { error in
             failure(error)
@@ -413,7 +413,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Search request with page = 3")
 
         let options = SvrfOptions(pageNum: 3)
-        SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
+        _ = SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
             XCTAssertTrue(searchResponse.pageNum == 3,
                           """
                           Search method response contain wrong count of elements. \
@@ -436,7 +436,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Search request with page = 15")
 
         let options = SvrfOptions(pageNum: 15)
-        SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
+        _ = SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
             XCTAssertTrue(searchResponse.pageNum == 15,
                           """
                           Search method response contain wrong count of elements. \
@@ -459,7 +459,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Search request with page = 40")
 
         let options = SvrfOptions(pageNum: 40)
-        SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
+        _ = SvrfAPIManager.search(query: singleSearchQuery, options: options, onSuccess: { searchResponse in
             XCTAssertTrue(searchResponse.pageNum == 3,
                           """
                           Search method response contain wrong count of elements. \
@@ -482,7 +482,7 @@ class SvrfSDKTests: XCTestCase {
 
         let promise = expectation(description: "Get trending method without parameters")
 
-        SvrfAPIManager.getTrending(options: nil, onSuccess: { _ in
+        _ = SvrfAPIManager.getTrending(options: nil, onSuccess: { _ in
             promise.fulfill()
         }, onFailure: { _ in
             XCTFail("Get trending method finished with error. Please check get trending method in client API library.")
@@ -497,7 +497,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trendinng with photo type")
 
         let options = SvrfOptions(type: [.photo])
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             var isOnlySearchedType = true
             for mediaObject in trendingResponse.media! where mediaObject.type != SvrfMediaType.photo {
                 isOnlySearchedType = false
@@ -525,7 +525,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending with video type")
 
         let options = SvrfOptions(type: [.video])
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             var isOnlySearchedType = true
             for mediaObject in trendingResponse.media! where mediaObject.type != SvrfMediaType.video {
                 isOnlySearchedType = false
@@ -552,7 +552,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending with 3d type")
 
         let options = SvrfOptions(type: [.video])
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             var isOnlySearchedType = true
             for mediaObject in trendingResponse.media! where mediaObject.type != SvrfMediaType._3d {
                 isOnlySearchedType = false
@@ -578,7 +578,7 @@ class SvrfSDKTests: XCTestCase {
 
         let promise = expectation(description: "Get trending request with multiple types")
         let options = SvrfOptions(type: [.video, .photo])
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             var isOnlySearchedTypes = true
             for mediaObject in trendingResponse.media! where mediaObject.type == SvrfMediaType._3d {
                 isOnlySearchedTypes = false
@@ -602,7 +602,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending request with size = 5")
 
         let options = SvrfOptions(size: 5)
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             XCTAssertTrue(trendingResponse.media!.count == 5,
                           """
                           Get trending method response contains wrong count of elements. \
@@ -625,7 +625,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending request with size = 20")
 
         let options = SvrfOptions(size: 20)
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             XCTAssertTrue(trendingResponse.media!.count == 20,
                           """
                           Get trending method response contains wrong count of elements. \
@@ -648,7 +648,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending request with size = 50")
 
         let options = SvrfOptions(size: 50)
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             XCTAssertTrue(trendingResponse.media!.count == 50,
                           """
                           Get trending method response contains wrong count of elements. \
@@ -671,7 +671,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending request with size = 70")
 
         let options = SvrfOptions(size: 70)
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             XCTAssertTrue(trendingResponse.media!.count == 70,
                           """
                           Get trending method response contains wrong count of elements. \
@@ -694,7 +694,7 @@ class SvrfSDKTests: XCTestCase {
         let promise = expectation(description: "Get trending request with size = 100")
 
         let options = SvrfOptions(size: 100)
-        SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
             XCTAssertTrue(trendingResponse.media!.count == 100,
                           """
                           Get trending method response contains wrong count of elements. \
@@ -715,10 +715,10 @@ class SvrfSDKTests: XCTestCase {
     func testGetTrendingWithPageNum() {
         let promise = expectation(description: "Get trending request with next page cursor")
 
-        SvrfAPIManager.getTrending(options: nil, onSuccess: { trendingResponse in
+        _ = SvrfAPIManager.getTrending(options: nil, onSuccess: { trendingResponse in
 
             let options = SvrfOptions(pageNum: trendingResponse.pageNum)
-            SvrfAPIManager.getTrending(options: options, onSuccess: { _ in
+            _ = SvrfAPIManager.getTrending(options: options, onSuccess: { _ in
                 promise.fulfill()
             }, onFailure: { _ in
                 XCTFail("""
@@ -741,14 +741,14 @@ class SvrfSDKTests: XCTestCase {
     func testGetMediaById() {
         let promise = expectation(description: "Get media by id")
 
-        SvrfAPIManager.getTrending(options: nil, onSuccess: { trendingResponse in
-            let identifier = trendingResponse.media?.first?.id!
-            SvrfAPIManager.getMedia(by: identifier!, onSuccess: { _ in
+        _ = SvrfAPIManager.getTrending(options: nil, onSuccess: { trendingResponse in
+            let id = trendingResponse.media?.first?.id!
+            _ = SvrfAPIManager.getMedia(by: id!, onSuccess: { _ in
                 promise.fulfill()
             }, onFailure: { _ in
                 XCTFail("""
                     Get media by id method finished with error.
-                    Please check get media by id method in client API with id = \(identifier!).
+                    Please check get media by id method in client API with id = \(id!).
                     """)
             })
         }, onFailure: { _ in

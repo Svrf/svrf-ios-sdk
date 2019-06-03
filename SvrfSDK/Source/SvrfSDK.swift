@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SvrfGLTFSceneKit
 import Analytics
 import SceneKit
@@ -118,15 +119,16 @@ public class SvrfSDK: NSObject {
         - nextPageNum: The page number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
+     - Returns: DataRequest? for the in-flight request
      */
     public static func search(query: String,
                               options: SvrfOptions,
                               onSuccess success: @escaping (_ mediaArray: [SvrfMedia], _ nextPageNum: Int?) -> Void,
-                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
-            SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
+            return _ = SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
@@ -139,8 +141,9 @@ public class SvrfSDK: NSObject {
                 }
 
             })
-
         }
+
+        return nil
     }
 
     /**
@@ -156,15 +159,16 @@ public class SvrfSDK: NSObject {
         - nextPageNum: Number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
+     - Returns: DataRequest? for the in-flight request
      */
     public static func getTrending(options: SvrfOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [SvrfMedia],
         _ nextPageNum: Int?) -> Void,
-                                   onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                   onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
-            SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+            return _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
                 if let mediaArray = trendingResponse.media {
                     success(mediaArray, trendingResponse.nextPageNum)
                 } else if let failure = failure {
@@ -179,25 +183,28 @@ public class SvrfSDK: NSObject {
 
             })
         }
+
+        return nil
     }
 
     /**
      Fetch Svrf media by its ID.
      
      - Parameters:
-        - identifier: The ID of *Media* to fetch.
+        - id: The ID of *Media* to fetch.
         - success: Success closure.
         - media: *Media* from the Svrf API.
         - failure: Error closure.
         - error: A *SvrfError*.
+     - Returns: DataRequest? for the in-flight request
      */
-    public static func getMedia(identifier: String,
+    public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
-                                onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
-            SvrfAPIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
+            return _ = SvrfAPIManager.getMedia(by: id, onSuccess: { mediaResponse in
                 if let media = mediaResponse.media {
                     success(media)
                 } else if let failure = failure {
@@ -211,6 +218,8 @@ public class SvrfSDK: NSObject {
 
             })
         }
+
+        return nil
     }
 
     /**

@@ -19,6 +19,7 @@ public enum SvrfErrorDescription: String {
         case apiKey = "Missing API key. Add your API key to Info.plist for the field SVRF_API_KEY."
     }
 
+    case noToken = "There is no access token."
     case response = "Server response error."
     case responseNoMediaArray = "There is no mediaArray in the server response."
     case getScene = "Can't get scene from the media."
