@@ -276,7 +276,7 @@ public class SvrfSDK: NSObject {
      
      - Parameters:
         - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
-        - useOccluder: allows a developer to optionally set the Occluder as an occlusion material.
+        - useOccluder: Use the occluder provided with the 3D model, otherwise it will be removed. 
         - success: Success closure.
         - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
