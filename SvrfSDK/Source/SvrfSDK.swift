@@ -243,17 +243,20 @@ public class SvrfSDK: NSObject {
     public static func generateNode(for media: SvrfMedia,
                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
                                     // swiftlint:disable:next syntactic_sugar
-                                    onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) {
+                                    onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
         if media.type == ._3d {
-            if let scene = getSceneFromMedia(media: media) {
+
+            return loadSceneFromMedia(media: media, onSuccess: { scene in
                 success(scene.rootNode)
-            } else if let failure = failure {
-                failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
-            }
+            }, onFailure: { error in
+                failure?(SvrfError(svrfDescription: error.localizedDescription))
+            })
         } else if let failure = failure {
             failure(SvrfError(svrfDescription: SvrfErrorDescription.incorrectMediaType.rawValue))
         }
+
+        return nil
     }
 // swiftlint:disable line_length
     /**
@@ -299,16 +302,20 @@ public class SvrfSDK: NSObject {
         - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
         - error: A *SvrfError*.
+     - Returns: URLSessionDataTask? for the in-flight request
      */
     public static func generateFaceFilterNode(for media: SvrfMedia,
                                               useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
                                               // swiftlint:disable:next syntactic_sugar
-                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) {
+                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
-        if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
-            let modelSource = GLTFSceneSource(url: glbUrl)
+        guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
+            failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilterNode: \(media)"))
+            return nil
+        }
 
+        return GLTFSceneSource.load(remoteURL: glbUrl, onSuccess: { modelSource in
             do {
                 let faceFilterNode = SCNNode()
                 let sceneNode = try modelSource.scene().rootNode
@@ -331,38 +338,44 @@ public class SvrfSDK: NSObject {
                 SEGAnalytics.shared().track("Face Filter Node Requested",
                                             properties: ["media_id": media.id ?? "unknown"])
             } catch {
-                if let failure = failure {
-                    failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
-                }
+                failure?(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
             }
-        }
+        }, onFailure: { error in
+            failure?(SvrfError(svrfDescription: error.localizedDescription))
+        })
     }
 
     // MARK: private functions
     /**
      Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
-
+     
      - Parameters:
-        - media: The *Media* to return a *SCNScene* from.
-     - Returns: SCNScene?
+     - media: The *Media* to return a *SCNScene* from.
+     - success: The success block that returns the *SCNScene*, if loaded.
+     - Returns: URLSessionDataTask? for the in-flight request
      */
-    private static func getSceneFromMedia(media: SvrfMedia) -> SCNScene? {
+    private static func loadSceneFromMedia(media: SvrfMedia,
+                                           onSuccess success: @escaping (_ scene: SCNScene) -> Void,
+                                           onFailure failure: Optional<(_ error: Error) -> Void> = nil) -> URLSessionDataTask? {
 
         if let glbUrlString = media.files?.glb {
             if let glbUrl = URL(string: glbUrlString) {
 
-                let modelSource = GLTFSceneSource(url: glbUrl)
+                return GLTFSceneSource.load(remoteURL: glbUrl, onSuccess: { modelSource in
 
-                do {
-                    let scene = try modelSource.scene()
+                    do {
+                        let scene = try modelSource.scene()
 
-                    SEGAnalytics.shared().track("3D Node Requested",
-                                                properties: ["media_id": media.id ?? "unknown"])
+                        SEGAnalytics.shared().track("3D Node Requested",
+                                                    properties: ["media_id": media.id ?? "unknown"])
 
-                    return scene
-                } catch {
+                        success(scene)
+                    } catch {
 
-                }
+                    }
+                }, onFailure: { error in
+                    failure?(error)
+                })
             }
         }
 
