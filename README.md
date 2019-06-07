@@ -26,3 +26,4 @@ We welcome contributions of any kind including new features, bug fixes, and docu
 [Search]: https://docs.svrf.com/reference/ios-endpoints#ios-search
 [Structs]: https://docs.svrf.com/reference/structs
 [Trending Media]: https://docs.svrf.com/reference/ios-endpoints#ios-gettrending
+
