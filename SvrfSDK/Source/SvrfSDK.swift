@@ -121,24 +121,27 @@ public class SvrfSDK: NSObject {
         - nextPageNum: The page number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
-     - Returns: DataRequest? for the in-flight request
+     - Returns: `SvrfRequest` for the in-flight request
      */
     public static func search(query: String,
                               options: SvrfOptions,
                               onSuccess success: @escaping (_ mediaArray: [SvrfMedia],
                                                             _ nextPageNum: Int?) -> Void,
                               // swiftlint:disable:next syntactic_sugar
-                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> DataRequest? {
+                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
 
-        dispatchGroup.notify(queue: .main) {
+        return queuedRequest { svrfRequest in
+            return SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
+                svrfRequest.state = .completed
 
-            return _ = SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
                     failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                 }
             }, onFailure: { error in
+                svrfRequest.state = .completed
+
                 if let failure = failure, var svrfError = error as? SvrfError {
                     svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
                     failure(svrfError)
@@ -146,8 +149,6 @@ public class SvrfSDK: NSObject {
 
             })
         }
-
-        return nil
     }
 
     /**
@@ -163,17 +164,19 @@ public class SvrfSDK: NSObject {
         - nextPageNum: Number of the next page.
         - failure: Error closure.
         - error: A *SvrfError*.
-     - Returns: DataRequest? for the in-flight request
+     - Returns: `SvrfRequest` for the in-flight request
      */
     public static func getTrending( options: SvrfOptions?,
                                     onSuccess success: @escaping (_ mediaArray: [SvrfMedia],
                                                                   _ nextPageNum: Int?) -> Void,
                                     // swiftlint:disable:next syntactic_sugar
-                                    onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> DataRequest? {
+                                    onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
 
-        dispatchGroup.notify(queue: .main) {
+        return queuedRequest { svrfRequest in
 
-            return _ = SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+            return SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
+                svrfRequest.state = .completed
+
                 if let mediaArray = trendingResponse.media {
                     success(mediaArray, trendingResponse.nextPageNum)
                 } else if let failure = failure {
@@ -181,15 +184,14 @@ public class SvrfSDK: NSObject {
                 }
 
             }, onFailure: { error in
+                svrfRequest.state = .completed
+
                 if let failure = failure, var svrfError = error as? SvrfError {
                     svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
                     failure(svrfError)
                 }
-
             })
         }
-
-        return nil
     }
 
     /**
@@ -206,17 +208,21 @@ public class SvrfSDK: NSObject {
     public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
                                 // swiftlint:disable:next syntactic_sugar
-                                onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> DataRequest? {
+                                onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
 
-        dispatchGroup.notify(queue: .main) {
+        return queuedRequest { svrfRequest in
 
-            return _ = SvrfAPIManager.getMedia(by: id, onSuccess: { mediaResponse in
+            return SvrfAPIManager.getMedia(by: id, onSuccess: { mediaResponse in
+                svrfRequest.state = .completed
+
                 if let media = mediaResponse.media {
                     success(media)
                 } else if let failure = failure {
                     failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
                 }
             }, onFailure: { error in
+                svrfRequest.state = .completed
+
                 if let failure = failure, var svrfError = error as? SvrfError {
                     svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
                     failure(svrfError)
@@ -224,8 +230,6 @@ public class SvrfSDK: NSObject {
 
             })
         }
-
-        return nil
     }
 
     /**
@@ -263,7 +267,7 @@ public class SvrfSDK: NSObject {
                                               useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
                                               // swiftlint:disable:next syntactic_sugar
-        onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
+                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
         guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
             failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilterNode: \(media)"))
@@ -308,6 +312,33 @@ public class SvrfSDK: NSObject {
     }
 
     // MARK: private functions
+
+    /**
+     Runs a request on the dispatchGroup.
+
+     - Note:  `requestBlock` is responsible for setting the `svrfRequest` to .completed once finished.
+     - Returns: a `SvrfRequest` most likely in `.queued` state.
+     */
+    private static func queuedRequest(_ requestBlock: @escaping (SvrfRequest) -> DataRequest?) -> SvrfRequest {
+        let request = SvrfRequest()
+        request.state = .queued
+
+        dispatchGroup.notify(queue: .main) {
+            // Kick off the request if we are in the queued state.
+            switch request.state {
+            case .queued:
+                let dataRequest = requestBlock(request)
+                request.state = .active(dataRequest)
+            case .canceled: break
+            case .completed: print("Error: Trying to run a completed request")
+            default: print("Unhandled state \(request.state)")
+            }
+        }
+
+        return request
+    }
+
+
     /**
      Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
      
