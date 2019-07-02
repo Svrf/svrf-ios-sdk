@@ -11,6 +11,8 @@ struct SvrfMediaResponse: Codable {
 
     /** If the request was successful */
     let success: Bool?
+    /** Message */
+    let message: String?
     /** SvrfMedia */
     let media: SvrfMedia?
 }

@@ -71,7 +71,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
         }
 
         return nil
@@ -108,7 +108,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
         }
 
         return nil
@@ -147,7 +147,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
         }
 
         return nil

@@ -6,7 +6,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.8.2)
   - Analytics (~> 3.6.1)
-  - SvrfGLTFSceneKit (~> 1.1)
+  - SvrfGLTFSceneKit (~> 1.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -19,6 +19,6 @@ SPEC CHECKSUMS:
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
   SvrfGLTFSceneKit: 131977ab2d2663b1c29f19e737af1d41d3ee3bbe
 
-PODFILE CHECKSUM: 44d78ea5e951c3b9bc3cb634ab1b1fa6808b3336
+PODFILE CHECKSUM: 3614282da0063aa9e3e0a2aa8e198606502ca4e1
 
 COCOAPODS: 1.7.2

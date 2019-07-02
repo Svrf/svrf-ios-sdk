@@ -10,6 +10,8 @@ struct SvrfTrendingResponse: Codable {
 
     /** If the request was successful */
     let success: Bool?
+    /** Message */
+    let message: String?
     /** The next page to query to see more results, whether or not the next page actually exists. */
     let nextPageNum: Int?
     /** The current page number */
