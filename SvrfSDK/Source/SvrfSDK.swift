@@ -106,10 +106,9 @@ public class SvrfSDK: NSObject {
 
     /**
      The Svrf Search Endpoint brings the power of immersive search found on [Svrf.com](https://www.svrf.com)
-     to your app or project.
-     Svrf's search engine enables your users to instantly find the immersive experience they're seeking.
-     Content is sorted by the Svrf rating system, ensuring that the highest quality content and most
-     prevalent search results are returned.
+     to your app or project. Svrf's search engine enables your users to instantly find the immersive experience they're
+     seeking. Content is sorted by the Svrf rating system, ensuring that the highest quality content and most prevalent
+     search results are returned.
 
      - Parameters:
         - query: Url-encoded search query.
@@ -151,9 +150,9 @@ public class SvrfSDK: NSObject {
 
     /**
      The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans.
-     The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content
-     to trending pop-culture references.
-     The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
+     The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content to trending
+     pop-culture references. The trending experiences are updated regularly to ensure users always get fresh updates of
+     immersive content.
      
      - Parameters:
         - options: Trending request options.
@@ -233,7 +232,7 @@ public class SvrfSDK: NSObject {
      Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
      the whole 3D model, but is not recommended for face filters.
      
-     - Attention: Face filters should be retrieved using the `getFaceFilterNode` method.
+     - Attention: Face filters should be generated using the `getFaceFilter` method.
      - Parameters:
         - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
         - success: Success closure.
@@ -260,6 +259,20 @@ public class SvrfSDK: NSObject {
         return nil
     }
 
+    /**
+     Using a *Media* from a Svrf API response, stream a face filter to your app and convert it into a *SCNNode* at
+     runtime. This function returns a class *SvrfFaceFilter* that contains the face filter *SCNNode*.
+     
+     - Parameters:
+        - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
+        - useOccluder: Use the occluder provided with the 3D model, otherwise it will be removed.
+        - success: Success closure.
+        - faceFilter: A *SvrfFaceFilter* class that contains the face filter *SCNNode*, ability to manage face filter
+        animations, and 2D scene overlays.
+        - failure: Error closure.
+        - error: A *SvrfError*.
+     - Returns: URLSessionDataTask? for the in-flight request
+     */
     public static func generateFaceFilter(for media: SvrfMedia,
                                               useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
@@ -267,7 +280,7 @@ public class SvrfSDK: NSObject {
                                               onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
         guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
-            failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilterNode: \(media)"))
+            failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilter: \(media)"))
             return nil
         }
 

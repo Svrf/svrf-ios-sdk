@@ -10,6 +10,9 @@ import Foundation
 import ARKit
 import SvrfGLTFSceneKit
 
+/**
+ Contains the face filter *SCNNode*, ability to manage face filter animations, and 2D scene overlays.
+*/
 public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
 
     /**
@@ -31,11 +34,14 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
     }
 
     /**
-     2D face filter overlay included with this `SvrfFaceFilter`.
-
-     Some filters provide a 2D component to be overlaid on the `SCNScene`.
-     Set this as your `scene`'s `overlaySKScene`:
-     ```
+     2D face filter overlay included with this *SvrfFaceFilter*. Some filters provide a 2D component to be overlaid on
+     the *SCNScene*.
+     
+     - Example:
+     
+     Set this as your scene's *overlaySKScene*:
+     
+     ```swift
      sceneView.overlaySKScene = faceFilter.sceneOverlay
      sceneView.overlaySKScene?.size = sceneView.bounds.size
      ```
@@ -49,19 +55,17 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
 
     private var animations: [(CAAnimation, SCNNode)] = []
 
-    // swiftlint:disable line_length
     /**
      Blend shape mapping allows Svrf's ARKit compatible face filters to have animations that
      are activated by your user's facial expressions.
 
-     - Attention: This method enumerates through the node's hierarchy.
-     Any children nodes with morph targets that follow the
-     [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
+     - Attention: This method enumerates through the node's hierarchy. Any children nodes with morph targets that follow
+     the [ARKit blend shape naming](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation)
+     will be affected.
      - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangeably.
      - Parameters:
-     - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
+        - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
      */
-    // swiftlint:enable line_length
     public func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber]) {
 
         DispatchQueue.main.async {
