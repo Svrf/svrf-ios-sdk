@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SvrfSDK"
-  s.version = "3.0.0"
+  s.version = "3.0.1"
   s.summary = "The SvrfSDK is a framework for easy integration of the SVRF API"
   s.homepage = "http://www.svrf.com"
   s.license = "MIT"
