@@ -13,6 +13,7 @@ class SvrfAnalyticsManager {
 
     private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
+    private static var segment: SEGAnalytics?
 
     // MARK: public functions
     /**
@@ -27,25 +28,25 @@ class SvrfAnalyticsManager {
         // Use middleware middleware blocks
         configuration.middlewares = getMiddlewareBlocks()
 
-        SEGAnalytics.setup(with: configuration)
+        segment = SEGAnalytics(configuration: configuration)
 
         if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
             let authToken = String(data: receivedData, encoding: .utf8) {
 
             let body = SvrfJWTDecoder.decode(jwtToken: authToken)
             if let appId = body["appId"] as? String {
-                SEGAnalytics.shared().identify(appId)
+                segment?.identify(appId)
             }
         }
     }
 
     public static func track3dNodeRequested(id: String?) {
-        SEGAnalytics.shared().track("3D Node Requested",
+        segment?.track("3D Node Requested",
                                     properties: ["media_id": id as Any])
     }
 
     public static func trackFaceFilterNodeRequested(id: String?) {
-        SEGAnalytics.shared().track("Face Filter Node Requested",
+        segment?.track("Face Filter Node Requested",
                                     properties: ["media_id": id as Any])
     }
 
