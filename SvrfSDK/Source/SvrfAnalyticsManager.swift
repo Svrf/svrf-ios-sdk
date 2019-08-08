@@ -42,12 +42,12 @@ class SvrfAnalyticsManager {
 
     public static func track3dNodeRequested(id: String?) {
         segment?.track("3D Node Requested",
-                                    properties: ["media_id": id as Any])
+                       properties: ["media_id": id as Any])
     }
 
     public static func trackFaceFilterNodeRequested(id: String?) {
         segment?.track("Face Filter Node Requested",
-                                    properties: ["media_id": id as Any])
+                       properties: ["media_id": id as Any])
     }
 
     // MARK: private functions
