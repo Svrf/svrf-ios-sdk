@@ -78,6 +78,7 @@ class SvrfAnalyticsManager {
                     // Property for tracking version of the SDK
                     var newProperties = track.properties ?? [:]
                     newProperties["sdk_version"] = getSDKVersion()
+                    newProperties["svrf_library"] = "iOS"
 
                     context.payload = SEGTrackPayload(
                         event: track.event,
