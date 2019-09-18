@@ -42,4 +42,39 @@ public struct SvrfMedia: Codable {
     public let url: String?
     /** The width, in pixels, of the Media&#39;s source */
     public let width: Double?
+
+    init(adult: Bool? = nil,
+         authors: [String]? = nil,
+         canonical: String? = nil,
+         description: String? = nil,
+         duration: Double? = nil,
+         embedHtml: String? = nil,
+         embedUrl: String? = nil,
+         files: SvrfMediaFiles? = nil,
+         height: Double? = nil,
+         id: String? = nil,
+         metadata: SvrfMediaMetadata? = nil,
+         site: String? = nil,
+         title: String? = nil,
+         type: SvrfMediaType? = nil,
+         url: String? = nil,
+         width: Double? = nil) {
+
+        self.adult = adult
+        self.authors = authors
+        self.canonical = canonical
+        self.description = description
+        self.duration = duration
+        self.embedHtml = embedHtml
+        self.embedUrl = embedUrl
+        self.files = files
+        self.height = height
+        self.id = id
+        self.metadata = metadata
+        self.site = site
+        self.title = title
+        self.type = type
+        self.url = url
+        self.width = width
+    }
 }
