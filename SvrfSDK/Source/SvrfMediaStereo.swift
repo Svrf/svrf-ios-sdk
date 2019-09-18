@@ -27,6 +27,21 @@ public struct SvrfMediaStereo: Codable {
     /** The Media in its largest available size (the original size). */
     public let max: String?
 
+    public init(_848: String?,
+                _1440: String?,
+                _2160: String?,
+                _4096: String?,
+                hls: String?,
+                max: String?) {
+
+        self._848 = _848
+        self._1440 = _1440
+        self._2160 = _2160
+        self._4096 = _4096
+        self.hls = hls
+        self.max = max
+    }
+
     private enum CodingKeys: String, CodingKey {
         case _848 = "848"
         case _1440 = "1440"

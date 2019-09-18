@@ -24,4 +24,19 @@ public struct SvrfMediaFiles: Codable {
     public let stereo: SvrfMediaStereo?
     /** SvrfMediaVideos */
     public let videos: SvrfMediaVideos?
+
+    public init(glb: String? = nil,
+                glbDraco: String? = nil,
+                gltf: [String: String]? = nil,
+                images: SvrfMediaImages? = nil,
+                stereo: SvrfMediaStereo? = nil,
+                videos: SvrfMediaVideos? = nil) {
+
+        self.glb = glb
+        self.glbDraco = glbDraco
+        self.gltf = gltf
+        self.images = images
+        self.stereo = stereo
+        self.videos = videos
+    }
 }

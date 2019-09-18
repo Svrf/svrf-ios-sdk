@@ -26,6 +26,23 @@ public struct SvrfMediaVideos: Codable {
      &#x60;width&#x60; pixels wide at unspecified video and audio rates. */
     public let max: String?
 
+    public init(_848: String?,
+                _1440: String?,
+                _2160: String?,
+                _4096: String?,
+                clip: String?,
+                hls: String?,
+                max: String?) {
+
+        self._848 = _848
+        self._1440 = _1440
+        self._2160 = _2160
+        self._4096 = _4096
+        self.clip = clip
+        self.hls = hls
+        self.max = max
+    }
+
     private enum CodingKeys: String, CodingKey {
         case _848 = "848"
         case _1440 = "1440"

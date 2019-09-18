@@ -34,6 +34,31 @@ public struct SvrfMediaImages: Codable {
      third-party applications for the best experience, except on mobile devices (see _4096). */
     public let max: String?
 
+    public init(_136: String? = nil,
+                _540: String? = nil,
+                _720: String? = nil,
+                _1080: String? = nil,
+                _4096: String? = nil,
+                _8192: String? = nil,
+                _1080Watermarked: String? = nil,
+                _720x405: String? = nil,
+                _720x540: String? = nil,
+                _720x720: String? = nil,
+                max: String? = nil) {
+
+        self._136 = _136
+        self._540 = _540
+        self._720 = _720
+        self._1080 = _1080
+        self._4096 = _4096
+        self._8192 = _8192
+        self._1080Watermarked = _1080Watermarked
+        self._720x405 = _720x405
+        self._720x540 = _720x540
+        self._720x720 = _720x720
+        self.max = max
+    }
+
     private enum CodingKeys: String, CodingKey {
         case _136 = "136"
         case _540 = "540"
