@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, "11.0"
   s.source = { :git => "https://github.com/SVRF/svrf-ios-sdk.git", :tag => "3.1.0" }
   s.source_files = "SvrfSDK/Source/*"
-  s.resources = "Resources/Occluder.glb"
+  s.resources = "SvrfSDK/Resources/Occluder.glb"
   s.dependency 'SvrfGLTFSceneKit', '~> 1.3'
   s.dependency 'Analytics', '~> 3.0'
   s.dependency 'Alamofire', '~> 4.8.2'
