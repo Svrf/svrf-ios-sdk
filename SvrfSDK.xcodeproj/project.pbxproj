@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		7646973942EFB87EA520150F /* Pods_SvrfSDK_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB17013FE34F4D97096AB226 /* Pods_SvrfSDK_SvrfSDKTests.framework */; };
+		880A8B26233561EF00C6C7B2 /* Occluder.glb in Resources */ = {isa = PBXBuildFile; fileRef = 880A8B25233561EF00C6C7B2 /* Occluder.glb */; };
 		883F191322BA89150036430A /* SvrfRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883F191222BA89150036430A /* SvrfRequest.swift */; };
 		883F191422BA89150036430A /* SvrfRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883F191222BA89150036430A /* SvrfRequest.swift */; };
 		887CE43B22AFFCAF007F8553 /* SvrfFaceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */; };
@@ -65,6 +66,7 @@
 		002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
 		553C4BE026B71D4586A81734 /* Pods-SvrfSDK-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK-SvrfSDKTests/Pods-SvrfSDK-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		880A8B25233561EF00C6C7B2 /* Occluder.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Occluder.glb; sourceTree = "<group>"; };
 		883F191222BA89150036430A /* SvrfRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfRequest.swift; sourceTree = "<group>"; };
 		887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfFaceFilter.swift; sourceTree = "<group>"; };
 		A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +135,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		880A8B24233561EF00C6C7B2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				880A8B25233561EF00C6C7B2 /* Occluder.glb */,
+			);
+			name = Resources;
+			path = SvrfSDK/Resources;
+			sourceTree = SOURCE_ROOT;
+		};
 		A01ADA0DC9745D33B7FBDF35 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +195,7 @@
 		EC75A3CF219AAEF6003C1108 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				880A8B24233561EF00C6C7B2 /* Resources */,
 				ECE2199C229D62940079EF93 /* SvrfModels */,
 				EC75C48B22BA62BF00251AB5 /* SvrfAnalyticsManager.swift */,
 				EC1AB98A229D24D3003FCA5D /* SvrfAPIManager.swift */,
@@ -326,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880A8B26233561EF00C6C7B2 /* Occluder.glb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
