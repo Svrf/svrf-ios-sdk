@@ -300,7 +300,6 @@ public class SvrfSDK: NSObject {
                 let sceneNode = try modelSource.scene().rootNode
 
                 if useOccluder {
-
                     if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
                                                            recursively: true) {
                         occluderNode.removeFromParentNode()
@@ -325,7 +324,6 @@ public class SvrfSDK: NSObject {
 
                 SvrfAnalyticsManager.trackFaceFilterNodeRequested(id: media.id)
             } catch {
-                print("Failed!! \(error)")
                 failure?(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
             }
         }, onFailure: { error in
