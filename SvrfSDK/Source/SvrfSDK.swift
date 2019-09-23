@@ -25,7 +25,7 @@ public class SvrfSDK: NSObject {
     private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
 
-    private static var occluder: SCNNode? = nil
+    private static var occluder: SCNNode?
 
     // MARK: public functions
     /**
