@@ -331,6 +331,21 @@ public class SvrfSDK: NSObject {
         })
     }
 
+    /**
+     Loads or returns the single instance of the Svrf occluder node for use with face filters loaded from the API.
+    - Returns: Svrf's Occluder *SCNNode*.
+     */
+    public static func occluderNode() throws -> SCNNode {
+        if occluder == nil {
+            let bundle = Bundle(for: self)
+            let path = bundle.path(forResource: "Occluder", ofType: "glb", inDirectory: "")
+            let modelSource = try GLTFSceneSource(path: path!)
+            occluder = try modelSource.scene().rootNode
+        }
+
+        return occluder!
+    }
+
     // MARK: private functions
 
     /**
@@ -356,17 +371,6 @@ public class SvrfSDK: NSObject {
         }
 
         return request
-    }
-
-    private static func occluderNode() throws -> SCNNode {
-        if occluder == nil {
-            let bundle = Bundle(for: self)
-            let path = bundle.path(forResource: "Occluder", ofType: "glb", inDirectory: "")
-            let modelSource = try GLTFSceneSource(path: path!)
-            occluder = try modelSource.scene().rootNode
-        }
-
-        return occluder!
     }
 
     /**
