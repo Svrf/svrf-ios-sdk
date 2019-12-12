@@ -153,6 +153,31 @@ class SvrfAPIManager {
         return nil
     }
 
+    static func getJSON(endPoint: String,
+                        parameters: [String: Any?],
+                        onSuccess success: @escaping (_ json: [String: Any]) -> Void,
+                        onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
+
+        if let request = getRequest(with: endPoint, parameters: parameters) {
+            return request.responseJSON { response in
+
+                if let jsonData = response.data {
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                            success(json)
+                        } else {
+                            failure(nil)
+                        }
+                    } catch let error {
+                        failure(error)
+                    }
+                }
+            }
+        }
+
+        return nil
+    }
+
     // MARK: private functions
     static private func getRequest(with endPoint: String,
                                    parameters: [String: Any?]?) -> DataRequest? {

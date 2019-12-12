@@ -230,6 +230,24 @@ public class SvrfSDK: NSObject {
         }
     }
 
+    public static func getJSON(endPoint: String,
+                               parameters: [String: Any?],
+                               onSuccess success: @escaping (_ json: [String: Any]) -> Void,
+                               onFailure failure: @escaping (_ error: Error?) -> Void) -> SvrfRequest {
+
+        return queuedRequest { svrfRequest in
+            return SvrfAPIManager.getJSON(endPoint: endPoint,
+                                          parameters: parameters,
+                                          onSuccess: { json in
+                                            svrfRequest.state = .completed
+                                            success(json)
+            }, onFailure: { error in
+                svrfRequest.state = .completed
+                failure(error)
+            })
+        }
+    }
+
     /**
      Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate
      the whole 3D model, but is not recommended for face filters.
