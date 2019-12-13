@@ -230,17 +230,17 @@ public class SvrfSDK: NSObject {
         }
     }
 
-    public static func getJSON(endPoint: String,
+    public static func request(endPoint: String,
                                parameters: [String: Any?],
-                               onSuccess success: @escaping (_ json: [String: Any]) -> Void,
+                               onSuccess success: @escaping (_ data: Data) -> Void,
                                onFailure failure: @escaping (_ error: Error?) -> Void) -> SvrfRequest {
 
         return queuedRequest { svrfRequest in
-            return SvrfAPIManager.getJSON(endPoint: endPoint,
+            return SvrfAPIManager.request(endPoint: endPoint,
                                           parameters: parameters,
-                                          onSuccess: { json in
+                                          onSuccess: { data in
                                             svrfRequest.state = .completed
-                                            success(json)
+                                            success(data)
             }, onFailure: { error in
                 svrfRequest.state = .completed
                 failure(error)
