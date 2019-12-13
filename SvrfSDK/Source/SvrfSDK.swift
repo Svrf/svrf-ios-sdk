@@ -94,7 +94,9 @@ public class SvrfSDK: NSObject {
                     }
                 }, onFailure: { error in
                     if let failure = failure, var error = error as? SvrfError {
-                        error.svrfDescription = SvrfErrorDescription.response.rawValue
+                        if error.svrfDescription == nil {
+                            error.svrfDescription = SvrfErrorDescription.response.rawValue
+                        }
                         failure(error)
                     }
 
@@ -142,7 +144,9 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
 
@@ -185,7 +189,9 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
             })
@@ -222,7 +228,9 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
 
