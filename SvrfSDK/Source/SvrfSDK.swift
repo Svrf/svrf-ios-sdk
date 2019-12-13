@@ -257,6 +257,7 @@ public class SvrfSDK: NSObject {
                                onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
 
         return queuedRequest { svrfRequest in
+
             return SvrfAPIManager.request(endPoint: endPoint,
                                           parameters: parameters,
                                           onSuccess: { data in
