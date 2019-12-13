@@ -154,7 +154,7 @@ class SvrfAPIManager {
     }
 
     static func request(endPoint: String,
-                        parameters: [String: Any?],
+                        parameters: [String: Any?]?,
                         onSuccess success: @escaping (_ data: Data) -> Void,
                         onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
 

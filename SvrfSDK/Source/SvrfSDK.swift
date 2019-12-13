@@ -231,7 +231,7 @@ public class SvrfSDK: NSObject {
     }
 
     public static func request(endPoint: String,
-                               parameters: [String: Any?],
+                               parameters: [String: Any?]?,
                                onSuccess success: @escaping (_ data: Data) -> Void,
                                // swiftlint:disable:next syntactic_sugar
                                onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
