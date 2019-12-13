@@ -233,7 +233,8 @@ public class SvrfSDK: NSObject {
     public static func request(endPoint: String,
                                parameters: [String: Any?],
                                onSuccess success: @escaping (_ data: Data) -> Void,
-                               onFailure failure: @escaping (_ error: Error?) -> Void) -> SvrfRequest {
+                               // swiftlint:disable:next syntactic_sugar
+                               onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
 
         return queuedRequest { svrfRequest in
             return SvrfAPIManager.request(endPoint: endPoint,
@@ -243,7 +244,9 @@ public class SvrfSDK: NSObject {
                                             success(data)
             }, onFailure: { error in
                 svrfRequest.state = .completed
-                failure(error)
+                if let failure = failure, let svrfError = error as? SvrfError {
+                    failure(svrfError)
+                }
             })
         }
     }

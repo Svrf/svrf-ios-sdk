@@ -17,4 +17,5 @@ public enum SvrfErrorDescription: String {
     case response = "Unable to make a request to the server. Check your internet connection"
     case getScene = "Can't get scene from the media."
     case incorrectMediaType = "Media type should equal _3d."
+    case data = "Response data is nil"
 }

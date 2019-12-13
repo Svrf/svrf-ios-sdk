@@ -164,9 +164,11 @@ class SvrfAPIManager {
                 if let data = response.data {
                     success(data)
                 } else {
-                    failure(nil)
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.data.rawValue))
                 }
             }
+        } else {
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
         }
 
         return nil
