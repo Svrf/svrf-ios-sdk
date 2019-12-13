@@ -207,7 +207,7 @@ public class SvrfSDK: NSObject {
         - media: *Media* from the Svrf API.
         - failure: Error closure.
         - error: A *SvrfError*.
-     - Returns: DataRequest? for the in-flight request
+     - Returns: `SvrfRequest` for the in-flight request
      */
     public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
@@ -238,6 +238,18 @@ public class SvrfSDK: NSObject {
         }
     }
 
+    /**
+    Requests data from the Svrf by endpoint.
+    
+    - Parameters:
+       - endPoint: Endpoint of the URL.
+       - parameters: Parameters of the request.
+       - success: Success closure.
+       - data: Requested data.
+       - failure: Error closure.
+       - error: A *SvrfError*.
+    - Returns: `SvrfRequest` for the in-flight request
+    */
     public static func request(endPoint: String,
                                parameters: [String: Any?]?,
                                onSuccess success: @escaping (_ data: Data) -> Void,
