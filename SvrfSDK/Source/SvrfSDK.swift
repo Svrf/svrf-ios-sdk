@@ -239,7 +239,7 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-    Requests data from the Svrf by endpoint.
+    Requests data from the Svrf by endpoint (f.e. "/vr/search")
     
     - Parameters:
        - endPoint: Endpoint of the URL.
@@ -263,11 +263,11 @@ public class SvrfSDK: NSObject {
                                           onSuccess: { data in
                                             svrfRequest.state = .completed
                                             success(data)
-            }, onFailure: { error in
-                svrfRequest.state = .completed
-                if let failure = failure, let svrfError = error as? SvrfError {
-                    failure(svrfError)
-                }
+                                       }, onFailure: { error in
+                                            svrfRequest.state = .completed
+                                            if let failure = failure, let svrfError = error as? SvrfError {
+                                                failure(svrfError)
+                                            }
             })
         }
     }
