@@ -239,7 +239,7 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-    Requests data from the Svrf by endpoint (f.e. "/vr/search")
+    Requests data from the Svrf by endpoint (e.g. `/vr/search`)
     
     - Parameters:
        - endPoint: Endpoint of the URL.
